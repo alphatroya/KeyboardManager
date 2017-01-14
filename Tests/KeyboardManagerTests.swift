@@ -6,35 +6,83 @@
 //  Copyright © 2017 Alexey Korolev. All rights reserved.
 //
 
-import XCTest
+import Quick
+import Nimble
 @testable import KeyboardManager
 
-class KeyboardManagerTests: XCTestCase {
-    
-    override func setUp() {
-        super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+class KeyboardManagerTests: QuickSpec {
+    var notificationCenter: NotificationCenter!
 
+    override func spec() {
+        var keyboardManager: KeyboardManagerProtocol!
+        let keyboardFrame = CGRect(x: 1, y: 3, width: 111, height: 222)
+        let animationDuration: Double = 444.0
 
+        beforeEach {
+            self.notificationCenter = NotificationCenter()
+            keyboardManager = KeyboardManager(notificationCenter: self.notificationCenter)
+        }
 
-    }
-    
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-        super.tearDown()
-    }
-    
-    func testExample() {
-        XCTAssertTrue(true, "ff")
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-    
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+        afterEach {
+            keyboardManager = nil
+            self.notificationCenter = nil
+        }
+
+        it("should call closure after keyboard will appear notification triggered") {
+            var isTriggered = false
+            keyboardManager.eventClosure = { event in
+                if case .willShow(let data) = event,
+                   keyboardFrame == data.keyboardEndFrame,
+                   animationDuration == data.animationDuration {
+                    isTriggered = true
+                }
+            }
+            self.postTestNotification(name: NSNotification.Name.UIKeyboardWillShow, endFrame: keyboardFrame, duration: animationDuration)
+            expect(isTriggered) == true
+        }
+
+        it("should call closure after keyboard did appear notification triggered") {
+            var isTriggered = false
+            keyboardManager.eventClosure = { event in
+                if case .didShow(let data) = event,
+                   keyboardFrame == data.keyboardEndFrame,
+                   animationDuration == data.animationDuration {
+                    isTriggered = true
+                }
+            }
+            self.postTestNotification(name: NSNotification.Name.UIKeyboardDidShow, endFrame: keyboardFrame, duration: animationDuration)
+            expect(isTriggered) == true
+        }
+        it("should call closure after keyboard will hide notification triggered") {
+            var isTriggered = false
+            keyboardManager.eventClosure = { event in
+                if case .willHide(let data) = event,
+                   keyboardFrame == data.keyboardEndFrame,
+                   animationDuration == data.animationDuration {
+                    isTriggered = true
+                }
+            }
+            self.postTestNotification(name: NSNotification.Name.UIKeyboardWillHide, endFrame: keyboardFrame, duration: animationDuration)
+            expect(isTriggered) == true
+        }
+        it("should call closure after keyboard did hide notification triggered") {
+            var isTriggered = false
+            keyboardManager.eventClosure = { event in
+                if case .didHide(let data) = event,
+                   keyboardFrame == data.keyboardEndFrame,
+                   animationDuration == data.animationDuration {
+                    isTriggered = true
+                }
+            }
+            self.postTestNotification(name: NSNotification.Name.UIKeyboardDidHide, endFrame: keyboardFrame, duration: animationDuration)
+            expect(isTriggered) == true
         }
     }
-    
+
+    private func postTestNotification(name: Notification.Name, endFrame: CGRect, duration: Double) {
+        notificationCenter.post(name: name, object: nil, userInfo: [
+                UIKeyboardFrameEndUserInfoKey: NSValue(cgRect: endFrame),
+                UIKeyboardAnimationDurationUserInfoKey: NSNumber(floatLiteral: duration)
+        ])
+    }
 }
