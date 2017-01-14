@@ -1,0 +1,30 @@
+excluded:
+    - Carthage
+
+opt_in_rules:
+    - closure_spacing
+    - conditional_returns_on_newline
+    - empty_count
+    - explicit_init
+    - force_unwrapping
+    - missing_docs
+    - overridden_super_call
+    - private_outlet
+    - redundant_nil_coalesing
+    - attributes
+    - number_separator
+    - operator_usage_whitespase
+    - prohibited_super_call
+    - switch_case_on_newline
+    - first_where
+
+line_length: 140
+variable_name:
+  min_length:
+    warning: 2
+    error: 1
+  max_length:
+    warning: 24
+    error: 32
+cyclomatic_complexity:
+  error: 30
