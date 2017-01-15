@@ -1,20 +1,28 @@
 {
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "1AA28AD73AB83212A8D8CE81556AE8E7F0EFC04F",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
 
   },
   "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
     "95438028B10BBB846574013D29F154A00556A9D1" : 9223372036854775807,
-    "D0725CAC6FF2D66F2C83C2C48DC12106D42DAA64" : 9223372036854775807
+    "D0725CAC6FF2D66F2C83C2C48DC12106D42DAA64" : 9223372036854775807,
+    "1AA28AD73AB83212A8D8CE81556AE8E7F0EFC04F" : 9223372036854775807
   },
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "91828658-0EB8-48E1-AA44-69F656F64748",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
     "95438028B10BBB846574013D29F154A00556A9D1" : "KeyboardManager\/Carthage\/Checkouts\/Quick\/Externals\/Nimble\/",
-    "D0725CAC6FF2D66F2C83C2C48DC12106D42DAA64" : "KeyboardManager\/Carthage\/Checkouts\/Quick\/"
+    "D0725CAC6FF2D66F2C83C2C48DC12106D42DAA64" : "KeyboardManager\/Carthage\/Checkouts\/Quick\/",
+    "1AA28AD73AB83212A8D8CE81556AE8E7F0EFC04F" : "KeyboardManager\/"
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "KeyboardManager",
   "DVTSourceControlWorkspaceBlueprintVersion" : 204,
   "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "KeyboardManager.xcworkspace",
   "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:alphatroya\/KeyboardManager.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "1AA28AD73AB83212A8D8CE81556AE8E7F0EFC04F"
+    },
     {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/Quick\/Nimble.git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
