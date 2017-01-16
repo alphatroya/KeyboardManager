@@ -5,15 +5,22 @@
 
 import UIKit
 
+public typealias KeyboardManagerEventClosure = (KeyboardManagerEvent, KeyboardManagerEventData) -> Void
+
 public enum KeyboardManagerEvent {
-    case willShow(data: KeyboardManagerData)
-    case didShow(data: KeyboardManagerData)
-    case willHide(data: KeyboardManagerData)
-    case didHide(data: KeyboardManagerData)
+    case willShow
+    case didShow
+    case willHide
+    case didHide
 }
 
-public typealias KeyboardManagerEventClosure = (KeyboardManagerEvent) -> Void
-public typealias KeyboardManagerData = (keyboardEndFrame: CGRect, animationDuration: Double)
+public struct KeyboardManagerEventData {
+    var beginFrame: CGRect
+    var endFrame: CGRect
+    var animationCurve: String
+    var animationDuration: Double
+    var isLocal: Bool
+}
 
 public protocol KeyboardManagerProtocol {
 
@@ -22,6 +29,9 @@ public protocol KeyboardManagerProtocol {
 }
 
 public final class KeyboardManager {
+
+    public var eventClosure: KeyboardManagerEventClosure?
+
     let notificationCenter: NotificationCenter
     init(notificationCenter: NotificationCenter) {
         self.notificationCenter = notificationCenter
@@ -54,33 +64,40 @@ public final class KeyboardManager {
 
     @objc
     private func keyboardWillShow(_ notification: Notification) {
-        eventClosure?(.willShow(data: data(for: notification)))
+        eventClosure?(.willShow, extractData(from: notification))
     }
 
     @objc
     private func keyboardDidShow(_ notification: Notification) {
-        eventClosure?(.didShow(data: data(for: notification)))
+        eventClosure?(.didShow, extractData(from: notification))
     }
 
     @objc
     private func keyboardWillHide(_ notification: Notification) {
-        eventClosure?(.willHide(data: data(for: notification)))
+        eventClosure?(.willHide, extractData(from: notification))
     }
 
     @objc
     private func keyboardDidHide(_ notification: Notification) {
-        eventClosure?(.didHide(data: data(for: notification)))
+        eventClosure?(.didHide, extractData(from: notification))
     }
 
-    private func data(for notification: Notification) -> KeyboardManagerData {
-        guard let frameValue = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue,
+    private func extractData(from notification: Notification) -> KeyboardManagerEventData {
+        guard let endFrame = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue,
+              let beginFrame = notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue,
+              let curve = notification.userInfo?[UIKeyboardAnimationCurveUserInfoKey] as? String,
+              let isLocal = notification.userInfo?[UIKeyboardIsLocalUserInfoKey] as? NSNumber,
               let duration = notification.userInfo?[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber else {
             fatalError("wrong notification was passed")
         }
-        return (keyboardEndFrame: frameValue.cgRectValue, animationDuration: duration.doubleValue)
+        return KeyboardManagerEventData(
+                beginFrame: beginFrame.cgRectValue,
+                endFrame: endFrame.cgRectValue,
+                animationCurve: curve,
+                animationDuration: duration.doubleValue,
+                isLocal: isLocal.boolValue
+        )
     }
-
-    public var eventClosure: KeyboardManagerEventClosure?
 
 }
 
