@@ -18,7 +18,6 @@ platform :ios do
         scan(
             workspace: "KeyboardManager.xcworkspace",
             scheme: "KeyboardManager",
-            device: "iPhone 6",
             clean: true
         )  
     end
