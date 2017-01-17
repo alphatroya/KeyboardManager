@@ -4,3 +4,5 @@ xcode_sdk: iphoneos10.2
 script:
     - bundle install
     - bundle exec fastlane test
+after_success:
+    - bash <(curl -s https://codecov.io/bash)
