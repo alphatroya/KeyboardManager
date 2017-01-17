@@ -18,8 +18,8 @@ platform :ios do
         scan(
             workspace: "KeyboardManager.xcworkspace",
             scheme: "KeyboardManager",
-            device: 'iPhone 6',
             sdk: "iphonesimulator",
+            destination: "platform=iOS Simulator,name=iPhone 6s,OS=10.1"
             clean: true
         )  
     end
