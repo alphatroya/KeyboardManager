@@ -20,7 +20,8 @@ platform :ios do
             scheme: "KeyboardManager",
             sdk: "iphonesimulator",
             device: "iPhone 5s (10.2)",
-            clean: true
+            clean: true,
+            code_coverage: true
         )  
     end
 end
