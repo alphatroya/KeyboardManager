@@ -1,0 +1,25 @@
+fastlane_version "2.0"
+
+default_platform :ios
+
+platform :ios do
+    before_all do
+        ENV["FASTLANE_XCODE_LIST_TIMEOUT"] = "120"
+    end
+
+    desc "Run tests"
+    lane :test do 
+        carthage(
+            platform: "iOS",
+            command: "bootstrap",
+            use_submodules: true,
+            use_binaries: true
+        )
+        scan(
+            workspace: "KeyboardManager.xcworkspace",
+            scheme: "KeyboardManager",
+            device: "iPhone 6",
+            clean: true
+        )  
+    end
+end
