@@ -19,7 +19,7 @@ platform :ios do
             workspace: "KeyboardManager.xcworkspace",
             scheme: "KeyboardManager",
             sdk: "iphonesimulator",
-            destination: "platform=iOS Simulator,name=iPhone 6s,OS=10.1"
+            destination: "platform=iOS Simulator,name=iPhone 6s,OS=10.1",
             clean: true
         )  
     end
