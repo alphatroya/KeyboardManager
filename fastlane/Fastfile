@@ -18,6 +18,7 @@ platform :ios do
         scan(
             workspace: "KeyboardManager.xcworkspace",
             scheme: "KeyboardManager",
+            sdk: "iphonesimulator",
             clean: true
         )  
     end
