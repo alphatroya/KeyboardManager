@@ -92,8 +92,9 @@ class KeyboardManagerTests: QuickSpec {
     }
 
     private func compareWithTestData(another data: KeyboardManagerEventData) -> Bool {
-        return data.beginFrame == beginFrame &&
-                data.endFrame == endFrame &&
+        let isFrameEqual = data.frame.begin == beginFrame &&
+                data.frame.end == endFrame
+        return isFrameEqual &&
                 data.animationDuration == animationDuration &&
                 data.animationCurve == curve &&
                 data.isLocal == isLocal

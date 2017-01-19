@@ -15,8 +15,11 @@ public enum KeyboardManagerEvent {
 }
 
 public struct KeyboardManagerEventData {
-    var beginFrame: CGRect
-    var endFrame: CGRect
+    public struct Frame {
+        var begin: CGRect
+        var end: CGRect
+    }
+    var frame: Frame
     var animationCurve: String
     var animationDuration: Double
     var isLocal: Bool
@@ -90,9 +93,9 @@ public final class KeyboardManager {
               let duration = notification.userInfo?[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber else {
             fatalError("wrong notification was passed")
         }
+        let frame = KeyboardManagerEventData.Frame(begin: beginFrame.cgRectValue, end: endFrame.cgRectValue)
         return KeyboardManagerEventData(
-                beginFrame: beginFrame.cgRectValue,
-                endFrame: endFrame.cgRectValue,
+                frame: frame,
                 animationCurve: curve,
                 animationDuration: duration.doubleValue,
                 isLocal: isLocal.boolValue
