@@ -79,6 +79,20 @@ class KeyboardManagerTests: QuickSpec {
             self.postTestNotification(name: Notification.Name.UIKeyboardDidHide)
             expect(isTriggered) == true
         }
+
+        it("return null object after wrong notification posted") {
+            var dataObject: KeyboardManagerEventData!
+            keyboardManager.eventClosure = { (_, data) in
+                dataObject = data
+            }
+            self.postWrongTestNotification()
+            let nullObject = KeyboardManagerEventData.null()
+            expect(dataObject.animationCurve).toEventually(equal(nullObject.animationCurve))
+            expect(dataObject.animationDuration).toEventually(equal(nullObject.animationDuration))
+            expect(dataObject.isLocal).toEventually(equal(nullObject.isLocal))
+            expect(dataObject.frame.begin).toEventually(equal(nullObject.frame.begin))
+            expect(dataObject.frame.end).toEventually(equal(nullObject.frame.end))
+        }
     }
 
     private func postTestNotification(name: Notification.Name) {
@@ -88,6 +102,13 @@ class KeyboardManagerTests: QuickSpec {
                 UIKeyboardAnimationDurationUserInfoKey: NSNumber(floatLiteral: animationDuration),
                 UIKeyboardIsLocalUserInfoKey: NSNumber(booleanLiteral: isLocal),
                 UIKeyboardAnimationCurveUserInfoKey: curve
+        ])
+    }
+
+    private func postWrongTestNotification() {
+        notificationCenter.post(name: Notification.Name.UIKeyboardDidShow, object: nil, userInfo: [
+                UIKeyboardFrameEndUserInfoKey: NSValue(cgRect: endFrame),
+                UIKeyboardAnimationCurveUserInfoKey: 10
         ])
     }
 

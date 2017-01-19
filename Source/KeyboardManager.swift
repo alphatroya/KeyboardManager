@@ -23,6 +23,11 @@ public struct KeyboardManagerEventData {
     var animationCurve: String
     var animationDuration: Double
     var isLocal: Bool
+
+    static func null() -> KeyboardManagerEventData {
+        let frame = Frame(begin: CGRect.zero, end: CGRect.zero)
+        return KeyboardManagerEventData(frame: frame, animationCurve: "", animationDuration: 0.0, isLocal: false)
+    }
 }
 
 public protocol KeyboardManagerProtocol {
@@ -91,7 +96,7 @@ public final class KeyboardManager {
               let curve = notification.userInfo?[UIKeyboardAnimationCurveUserInfoKey] as? String,
               let isLocal = notification.userInfo?[UIKeyboardIsLocalUserInfoKey] as? NSNumber,
               let duration = notification.userInfo?[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber else {
-            fatalError("wrong notification was passed")
+            return KeyboardManagerEventData.null()
         }
         let frame = KeyboardManagerEventData.Frame(begin: beginFrame.cgRectValue, end: endFrame.cgRectValue)
         return KeyboardManagerEventData(
