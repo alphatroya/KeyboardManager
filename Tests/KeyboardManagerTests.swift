@@ -93,6 +93,20 @@ class KeyboardManagerTests: QuickSpec {
             expect(dataObject.frame.begin).toEventually(equal(nullObject.frame.begin))
             expect(dataObject.frame.end).toEventually(equal(nullObject.frame.end))
         }
+
+        it("return null object after notification posted without user dictionary") {
+            var dataObject: KeyboardManagerEventData!
+            keyboardManager.eventClosure = { (_, data) in
+                dataObject = data
+            }
+            self.notificationCenter.post(name: Notification.Name.UIKeyboardDidShow, object: nil)
+            let nullObject = KeyboardManagerEventData.null()
+            expect(dataObject.animationCurve).toEventually(equal(nullObject.animationCurve))
+            expect(dataObject.animationDuration).toEventually(equal(nullObject.animationDuration))
+            expect(dataObject.isLocal).toEventually(equal(nullObject.isLocal))
+            expect(dataObject.frame.begin).toEventually(equal(nullObject.frame.begin))
+            expect(dataObject.frame.end).toEventually(equal(nullObject.frame.end))
+        }
     }
 
     private func postTestNotification(name: Notification.Name) {
