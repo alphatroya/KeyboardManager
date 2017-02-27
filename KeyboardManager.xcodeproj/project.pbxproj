@@ -7,11 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B8DCA022FF01CFEFC913B5A5 /* KeyboardManagerRx.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8DCAC9D0A734C506851A3D2 /* KeyboardManagerRx.swift */; };
 		B8DCA3C4CC9777CEC7031A53 /* KeyboardManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8DCACC2F4652B1090940597 /* KeyboardManagerTests.swift */; };
 		B8DCA5D0C80BDF5980131D23 /* KeyboardManager.h in Headers */ = {isa = PBXBuildFile; fileRef = B8DCA28E65D024633CCBA5F3 /* KeyboardManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D41CA42D1E2A5D8F00410ECF /* KeyboardManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D41CA4231E2A5D8F00410ECF /* KeyboardManager.framework */; };
 		D43148041E2A6673005BE2A6 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D43147FA1E2A6207005BE2A6 /* Nimble.framework */; };
 		D43148051E2A6673005BE2A6 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D43147DD1E2A61FC005BE2A6 /* Quick.framework */; };
+		D48DC82B1E6450A200EFCC2D /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D48DC7D71E644D7200EFCC2D /* RxSwift.framework */; };
+		D48DC82C1E6450E100EFCC2D /* KeyboardManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D41CA4231E2A5D8F00410ECF /* KeyboardManager.framework */; };
+		D4AE26731E644762004A0AAF /* KeyboardManager-Rx.h in Headers */ = {isa = PBXBuildFile; fileRef = D4AE26711E644762004A0AAF /* KeyboardManager-Rx.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D4DD029F1E2B937E006963D9 /* KeyboardManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4DD029E1E2B937E006963D9 /* KeyboardManager.swift */; };
 /* End PBXBuildFile section */
 
@@ -149,17 +153,169 @@
 			remoteGlobalIDString = 1F5DF15E1BDCA0CE00C3A531;
 			remoteInfo = "Nimble-tvOSTests";
 		};
+		D48DC7D61E644D7200EFCC2D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D48DC7AC1E644D7100EFCC2D /* Rx.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C8A56AD71AD7424700B4673B;
+			remoteInfo = "RxSwift-iOS";
+		};
+		D48DC7D81E644D7200EFCC2D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D48DC7AC1E644D7100EFCC2D /* Rx.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C88BB8711B07E5ED0064D411;
+			remoteInfo = "RxSwift-macOS";
+		};
+		D48DC7DA1E644D7200EFCC2D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D48DC7AC1E644D7100EFCC2D /* Rx.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D2EA280C1BB9B5A200880ED3;
+			remoteInfo = "RxSwift-tvOS";
+		};
+		D48DC7DC1E644D7200EFCC2D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D48DC7AC1E644D7100EFCC2D /* Rx.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C8F0C0021BBBFB8B001B112F;
+			remoteInfo = "RxSwift-watchOS";
+		};
+		D48DC7DE1E644D7200EFCC2D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D48DC7AC1E644D7100EFCC2D /* Rx.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C809396D1B8A71760088E94D;
+			remoteInfo = "RxCocoa-iOS";
+		};
+		D48DC7E01E644D7200EFCC2D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D48DC7AC1E644D7100EFCC2D /* Rx.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C80939E71B8A71840088E94D;
+			remoteInfo = "RxCocoa-macOS";
+		};
+		D48DC7E21E644D7200EFCC2D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D48DC7AC1E644D7100EFCC2D /* Rx.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D2138C751BB9BE9800339B5C;
+			remoteInfo = "RxCocoa-tvOS";
+		};
+		D48DC7E41E644D7200EFCC2D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D48DC7AC1E644D7100EFCC2D /* Rx.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C8F0C04B1BBBFBB9001B112F;
+			remoteInfo = "RxCocoa-watchOS";
+		};
+		D48DC7E61E644D7200EFCC2D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D48DC7AC1E644D7100EFCC2D /* Rx.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C8093BC71B8A71F00088E94D;
+			remoteInfo = "RxBlocking-iOS";
+		};
+		D48DC7E81E644D7200EFCC2D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D48DC7AC1E644D7100EFCC2D /* Rx.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C8093C451B8A71FC0088E94D;
+			remoteInfo = "RxBlocking-macOS";
+		};
+		D48DC7EA1E644D7200EFCC2D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D48DC7AC1E644D7100EFCC2D /* Rx.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D2EBEB811BB9B99D003A27DC;
+			remoteInfo = "RxBlocking-tvOS";
+		};
+		D48DC7EC1E644D7200EFCC2D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D48DC7AC1E644D7100EFCC2D /* Rx.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C8F0C0581BBBFBCE001B112F;
+			remoteInfo = "RxBlocking-watchOS";
+		};
+		D48DC7EE1E644D7200EFCC2D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D48DC7AC1E644D7100EFCC2D /* Rx.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C88FA50C1C25C44800CCFEA4;
+			remoteInfo = "RxTest-iOS";
+		};
+		D48DC7F01E644D7200EFCC2D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D48DC7AC1E644D7100EFCC2D /* Rx.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C88FA51D1C25C4B500CCFEA4;
+			remoteInfo = "RxTest-macOS";
+		};
+		D48DC7F21E644D7200EFCC2D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D48DC7AC1E644D7100EFCC2D /* Rx.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C88FA52E1C25C4C000CCFEA4;
+			remoteInfo = "RxTest-tvOS";
+		};
+		D48DC7F41E644D7200EFCC2D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D48DC7AC1E644D7100EFCC2D /* Rx.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C88FA53F1C25C4CC00CCFEA4;
+			remoteInfo = "RxTest-watchOS";
+		};
+		D48DC7F61E644D7200EFCC2D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D48DC7AC1E644D7100EFCC2D /* Rx.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C83508C31C386F6F0027C24C;
+			remoteInfo = "AllTests-iOS";
+		};
+		D48DC7F81E644D7200EFCC2D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D48DC7AC1E644D7100EFCC2D /* Rx.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C83509841C38740E0027C24C;
+			remoteInfo = "AllTests-tvOS";
+		};
+		D48DC7FA1E644D7200EFCC2D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D48DC7AC1E644D7100EFCC2D /* Rx.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C83509941C38742C0027C24C;
+			remoteInfo = "AllTests-macOS";
+		};
+		D48DC7FC1E644D7200EFCC2D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D48DC7AC1E644D7100EFCC2D /* Rx.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C85BA04B1C3878740075D68E;
+			remoteInfo = Microoptimizations;
+		};
+		D48DC7FE1E644D7200EFCC2D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D48DC7AC1E644D7100EFCC2D /* Rx.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C8E8BA551E2C181A00A4AC2C;
+			remoteInfo = Benchmarks;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		B8DCA28E65D024633CCBA5F3 /* KeyboardManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KeyboardManager.h; path = Source/KeyboardManager.h; sourceTree = SOURCE_ROOT; };
 		B8DCA2B15A3AE93D79F87038 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.info; name = Info.plist; path = Tests/Info.plist; sourceTree = SOURCE_ROOT; };
 		B8DCA74C3D17DA9B49829E11 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.info; name = Info.plist; path = Source/Info.plist; sourceTree = SOURCE_ROOT; };
+		B8DCAC9D0A734C506851A3D2 /* KeyboardManagerRx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyboardManagerRx.swift; path = Source/KeyboardManagerRx.swift; sourceTree = SOURCE_ROOT; };
 		B8DCACC2F4652B1090940597 /* KeyboardManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyboardManagerTests.swift; path = Tests/KeyboardManagerTests.swift; sourceTree = SOURCE_ROOT; };
 		D41CA4231E2A5D8F00410ECF /* KeyboardManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = KeyboardManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D41CA42C1E2A5D8F00410ECF /* KeyboardManagerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KeyboardManagerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D43147C51E2A61FC005BE2A6 /* Quick.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Quick.xcodeproj; path = Carthage/Checkouts/Quick/Quick.xcodeproj; sourceTree = "<group>"; };
 		D43147EC1E2A6207005BE2A6 /* Nimble.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Nimble.xcodeproj; path = Carthage/Checkouts/Nimble/Nimble.xcodeproj; sourceTree = "<group>"; };
+		D48DC7AC1E644D7100EFCC2D /* Rx.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Rx.xcodeproj; path = Carthage/Checkouts/RxSwift/Rx.xcodeproj; sourceTree = "<group>"; };
+		D4AE266F1E644762004A0AAF /* KeyboardManagerRx.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = KeyboardManagerRx.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D4AE26711E644762004A0AAF /* KeyboardManager-Rx.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "KeyboardManager-Rx.h"; sourceTree = "<group>"; };
+		D4AE26721E644762004A0AAF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D4DD029E1E2B937E006963D9 /* KeyboardManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyboardManager.swift; path = Source/KeyboardManager.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
@@ -181,12 +337,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D4AE266B1E644762004A0AAF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D48DC82C1E6450E100EFCC2D /* KeyboardManager.framework in Frameworks */,
+				D48DC82B1E6450A200EFCC2D /* RxSwift.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		D41CA4191E2A5D8F00410ECF = {
 			isa = PBXGroup;
 			children = (
+				D4AE26701E644762004A0AAF /* KeyboardManager-Rx */,
 				D43148011E2A6210005BE2A6 /* Frameworks */,
 				D41CA4251E2A5D8F00410ECF /* Source */,
 				D41CA4301E2A5D8F00410ECF /* Tests */,
@@ -199,6 +365,7 @@
 			children = (
 				D41CA4231E2A5D8F00410ECF /* KeyboardManager.framework */,
 				D41CA42C1E2A5D8F00410ECF /* KeyboardManagerTests.xctest */,
+				D4AE266F1E644762004A0AAF /* KeyboardManagerRx.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -209,6 +376,7 @@
 				B8DCA74C3D17DA9B49829E11 /* Info.plist */,
 				D4DD029E1E2B937E006963D9 /* KeyboardManager.swift */,
 				B8DCA28E65D024633CCBA5F3 /* KeyboardManager.h */,
+				B8DCAC9D0A734C506851A3D2 /* KeyboardManagerRx.swift */,
 			);
 			name = Source;
 			path = KeyboardManager;
@@ -228,17 +396,17 @@
 			isa = PBXGroup;
 			children = (
 				D43147D51E2A61FC005BE2A6 /* Quick.framework */,
-				D43147D71E2A61FC005BE2A6 /* Quick-macOSTests.xctest */,
-				D43147D91E2A61FC005BE2A6 /* QuickFocused-macOSTests.xctest */,
-				D43147DB1E2A61FC005BE2A6 /* QuickAfterSuite-macOSTests.xctest */,
+				D43147D71E2A61FC005BE2A6 /* Quick - macOSTests.xctest */,
+				D43147D91E2A61FC005BE2A6 /* QuickFocused - macOSTests.xctest */,
+				D43147DB1E2A61FC005BE2A6 /* QuickAfterSuite - macOSTests.xctest */,
 				D43147DD1E2A61FC005BE2A6 /* Quick.framework */,
-				D43147DF1E2A61FC005BE2A6 /* Quick-iOSTests.xctest */,
-				D43147E11E2A61FC005BE2A6 /* QuickFocused-iOSTests.xctest */,
-				D43147E31E2A61FC005BE2A6 /* QuickAfterSuite-iOSTests.xctest */,
+				D43147DF1E2A61FC005BE2A6 /* Quick - iOSTests.xctest */,
+				D43147E11E2A61FC005BE2A6 /* QuickFocused - iOSTests.xctest */,
+				D43147E31E2A61FC005BE2A6 /* QuickAfterSuite - iOSTests.xctest */,
 				D43147E51E2A61FC005BE2A6 /* Quick.framework */,
-				D43147E71E2A61FC005BE2A6 /* Quick-tvOSTests.xctest */,
-				D43147E91E2A61FC005BE2A6 /* QuickFocused-tvOSTests.xctest */,
-				D43147EB1E2A61FC005BE2A6 /* QuickAfterSuite-tvOSTests.xctest */,
+				D43147E71E2A61FC005BE2A6 /* Quick - tvOSTests.xctest */,
+				D43147E91E2A61FC005BE2A6 /* QuickFocused - tvOSTests.xctest */,
+				D43147EB1E2A61FC005BE2A6 /* QuickAfterSuite - tvOSTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -259,10 +427,48 @@
 		D43148011E2A6210005BE2A6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D48DC7AC1E644D7100EFCC2D /* Rx.xcodeproj */,
 				D43147EC1E2A6207005BE2A6 /* Nimble.xcodeproj */,
 				D43147C51E2A61FC005BE2A6 /* Quick.xcodeproj */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D48DC7AD1E644D7100EFCC2D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D48DC7D71E644D7200EFCC2D /* RxSwift.framework */,
+				D48DC7D91E644D7200EFCC2D /* RxSwift.framework */,
+				D48DC7DB1E644D7200EFCC2D /* RxSwift.framework */,
+				D48DC7DD1E644D7200EFCC2D /* RxSwift.framework */,
+				D48DC7DF1E644D7200EFCC2D /* RxCocoa.framework */,
+				D48DC7E11E644D7200EFCC2D /* RxCocoa.framework */,
+				D48DC7E31E644D7200EFCC2D /* RxCocoa.framework */,
+				D48DC7E51E644D7200EFCC2D /* RxCocoa.framework */,
+				D48DC7E71E644D7200EFCC2D /* RxBlocking.framework */,
+				D48DC7E91E644D7200EFCC2D /* RxBlocking.framework */,
+				D48DC7EB1E644D7200EFCC2D /* RxBlocking.framework */,
+				D48DC7ED1E644D7200EFCC2D /* RxBlocking.framework */,
+				D48DC7EF1E644D7200EFCC2D /* RxTest.framework */,
+				D48DC7F11E644D7200EFCC2D /* RxTest.framework */,
+				D48DC7F31E644D7200EFCC2D /* RxTest.framework */,
+				D48DC7F51E644D7200EFCC2D /* RxTest.framework */,
+				D48DC7F71E644D7200EFCC2D /* AllTests-iOS.xctest */,
+				D48DC7F91E644D7200EFCC2D /* AllTests-tvOS.xctest */,
+				D48DC7FB1E644D7200EFCC2D /* AllTests-macOS.xctest */,
+				D48DC7FD1E644D7200EFCC2D /* PerformanceTests.app */,
+				D48DC7FF1E644D7200EFCC2D /* Benchmarks.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D4AE26701E644762004A0AAF /* KeyboardManager-Rx */ = {
+			isa = PBXGroup;
+			children = (
+				D4AE26711E644762004A0AAF /* KeyboardManager-Rx.h */,
+				D4AE26721E644762004A0AAF /* Info.plist */,
+			);
+			path = "KeyboardManager-Rx";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -273,6 +479,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				B8DCA5D0C80BDF5980131D23 /* KeyboardManager.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D4AE266C1E644762004A0AAF /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D4AE26731E644762004A0AAF /* KeyboardManager-Rx.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -315,6 +529,24 @@
 			productReference = D41CA42C1E2A5D8F00410ECF /* KeyboardManagerTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		D4AE266E1E644762004A0AAF /* KeyboardManagerRx */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D4AE26881E644762004A0AAF /* Build configuration list for PBXNativeTarget "KeyboardManagerRx" */;
+			buildPhases = (
+				D4AE266A1E644762004A0AAF /* Sources */,
+				D4AE266B1E644762004A0AAF /* Frameworks */,
+				D4AE266C1E644762004A0AAF /* Headers */,
+				D4AE266D1E644762004A0AAF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = KeyboardManagerRx;
+			productName = "KeyboardManager-Rx";
+			productReference = D4AE266F1E644762004A0AAF /* KeyboardManagerRx.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -332,6 +564,11 @@
 					};
 					D41CA42B1E2A5D8F00410ECF = {
 						CreatedOnToolsVersion = 8.2.1;
+						ProvisioningStyle = Automatic;
+					};
+					D4AE266E1E644762004A0AAF = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = NDN58N52VU;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -355,10 +592,15 @@
 					ProductGroup = D43147C61E2A61FC005BE2A6 /* Products */;
 					ProjectRef = D43147C51E2A61FC005BE2A6 /* Quick.xcodeproj */;
 				},
+				{
+					ProductGroup = D48DC7AD1E644D7100EFCC2D /* Products */;
+					ProjectRef = D48DC7AC1E644D7100EFCC2D /* Rx.xcodeproj */;
+				},
 			);
 			projectRoot = "";
 			targets = (
 				D41CA4221E2A5D8F00410ECF /* KeyboardManager */,
+				D4AE266E1E644762004A0AAF /* KeyboardManagerRx */,
 				D41CA42B1E2A5D8F00410ECF /* KeyboardManagerTests */,
 			);
 		};
@@ -372,24 +614,24 @@
 			remoteRef = D43147D41E2A61FC005BE2A6 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		D43147D71E2A61FC005BE2A6 /* Quick-macOSTests.xctest */ = {
+		D43147D71E2A61FC005BE2A6 /* Quick - macOSTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
-			path = "Quick-macOSTests.xctest";
+			path = "Quick - macOSTests.xctest";
 			remoteRef = D43147D61E2A61FC005BE2A6 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		D43147D91E2A61FC005BE2A6 /* QuickFocused-macOSTests.xctest */ = {
+		D43147D91E2A61FC005BE2A6 /* QuickFocused - macOSTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
-			path = "QuickFocused-macOSTests.xctest";
+			path = "QuickFocused - macOSTests.xctest";
 			remoteRef = D43147D81E2A61FC005BE2A6 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		D43147DB1E2A61FC005BE2A6 /* QuickAfterSuite-macOSTests.xctest */ = {
+		D43147DB1E2A61FC005BE2A6 /* QuickAfterSuite - macOSTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
-			path = "QuickAfterSuite-macOSTests.xctest";
+			path = "QuickAfterSuite - macOSTests.xctest";
 			remoteRef = D43147DA1E2A61FC005BE2A6 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -400,24 +642,24 @@
 			remoteRef = D43147DC1E2A61FC005BE2A6 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		D43147DF1E2A61FC005BE2A6 /* Quick-iOSTests.xctest */ = {
+		D43147DF1E2A61FC005BE2A6 /* Quick - iOSTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
-			path = "Quick-iOSTests.xctest";
+			path = "Quick - iOSTests.xctest";
 			remoteRef = D43147DE1E2A61FC005BE2A6 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		D43147E11E2A61FC005BE2A6 /* QuickFocused-iOSTests.xctest */ = {
+		D43147E11E2A61FC005BE2A6 /* QuickFocused - iOSTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
-			path = "QuickFocused-iOSTests.xctest";
+			path = "QuickFocused - iOSTests.xctest";
 			remoteRef = D43147E01E2A61FC005BE2A6 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		D43147E31E2A61FC005BE2A6 /* QuickAfterSuite-iOSTests.xctest */ = {
+		D43147E31E2A61FC005BE2A6 /* QuickAfterSuite - iOSTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
-			path = "QuickAfterSuite-iOSTests.xctest";
+			path = "QuickAfterSuite - iOSTests.xctest";
 			remoteRef = D43147E21E2A61FC005BE2A6 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -428,24 +670,24 @@
 			remoteRef = D43147E41E2A61FC005BE2A6 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		D43147E71E2A61FC005BE2A6 /* Quick-tvOSTests.xctest */ = {
+		D43147E71E2A61FC005BE2A6 /* Quick - tvOSTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
-			path = "Quick-tvOSTests.xctest";
+			path = "Quick - tvOSTests.xctest";
 			remoteRef = D43147E61E2A61FC005BE2A6 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		D43147E91E2A61FC005BE2A6 /* QuickFocused-tvOSTests.xctest */ = {
+		D43147E91E2A61FC005BE2A6 /* QuickFocused - tvOSTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
-			path = "QuickFocused-tvOSTests.xctest";
+			path = "QuickFocused - tvOSTests.xctest";
 			remoteRef = D43147E81E2A61FC005BE2A6 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		D43147EB1E2A61FC005BE2A6 /* QuickAfterSuite-tvOSTests.xctest */ = {
+		D43147EB1E2A61FC005BE2A6 /* QuickAfterSuite - tvOSTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
-			path = "QuickAfterSuite-tvOSTests.xctest";
+			path = "QuickAfterSuite - tvOSTests.xctest";
 			remoteRef = D43147EA1E2A61FC005BE2A6 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -491,6 +733,154 @@
 			remoteRef = D43147FF1E2A6207005BE2A6 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		D48DC7D71E644D7200EFCC2D /* RxSwift.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = RxSwift.framework;
+			remoteRef = D48DC7D61E644D7200EFCC2D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D48DC7D91E644D7200EFCC2D /* RxSwift.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = RxSwift.framework;
+			remoteRef = D48DC7D81E644D7200EFCC2D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D48DC7DB1E644D7200EFCC2D /* RxSwift.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = RxSwift.framework;
+			remoteRef = D48DC7DA1E644D7200EFCC2D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D48DC7DD1E644D7200EFCC2D /* RxSwift.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = RxSwift.framework;
+			remoteRef = D48DC7DC1E644D7200EFCC2D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D48DC7DF1E644D7200EFCC2D /* RxCocoa.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = RxCocoa.framework;
+			remoteRef = D48DC7DE1E644D7200EFCC2D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D48DC7E11E644D7200EFCC2D /* RxCocoa.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = RxCocoa.framework;
+			remoteRef = D48DC7E01E644D7200EFCC2D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D48DC7E31E644D7200EFCC2D /* RxCocoa.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = RxCocoa.framework;
+			remoteRef = D48DC7E21E644D7200EFCC2D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D48DC7E51E644D7200EFCC2D /* RxCocoa.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = RxCocoa.framework;
+			remoteRef = D48DC7E41E644D7200EFCC2D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D48DC7E71E644D7200EFCC2D /* RxBlocking.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = RxBlocking.framework;
+			remoteRef = D48DC7E61E644D7200EFCC2D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D48DC7E91E644D7200EFCC2D /* RxBlocking.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = RxBlocking.framework;
+			remoteRef = D48DC7E81E644D7200EFCC2D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D48DC7EB1E644D7200EFCC2D /* RxBlocking.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = RxBlocking.framework;
+			remoteRef = D48DC7EA1E644D7200EFCC2D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D48DC7ED1E644D7200EFCC2D /* RxBlocking.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = RxBlocking.framework;
+			remoteRef = D48DC7EC1E644D7200EFCC2D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D48DC7EF1E644D7200EFCC2D /* RxTest.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = RxTest.framework;
+			remoteRef = D48DC7EE1E644D7200EFCC2D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D48DC7F11E644D7200EFCC2D /* RxTest.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = RxTest.framework;
+			remoteRef = D48DC7F01E644D7200EFCC2D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D48DC7F31E644D7200EFCC2D /* RxTest.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = RxTest.framework;
+			remoteRef = D48DC7F21E644D7200EFCC2D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D48DC7F51E644D7200EFCC2D /* RxTest.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = RxTest.framework;
+			remoteRef = D48DC7F41E644D7200EFCC2D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D48DC7F71E644D7200EFCC2D /* AllTests-iOS.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "AllTests-iOS.xctest";
+			remoteRef = D48DC7F61E644D7200EFCC2D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D48DC7F91E644D7200EFCC2D /* AllTests-tvOS.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "AllTests-tvOS.xctest";
+			remoteRef = D48DC7F81E644D7200EFCC2D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D48DC7FB1E644D7200EFCC2D /* AllTests-macOS.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "AllTests-macOS.xctest";
+			remoteRef = D48DC7FA1E644D7200EFCC2D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D48DC7FD1E644D7200EFCC2D /* PerformanceTests.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			name = PerformanceTests.app;
+			path = Microoptimizations.app;
+			remoteRef = D48DC7FC1E644D7200EFCC2D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D48DC7FF1E644D7200EFCC2D /* Benchmarks.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = Benchmarks.xctest;
+			remoteRef = D48DC7FE1E644D7200EFCC2D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
@@ -502,6 +892,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		D41CA42A1E2A5D8F00410ECF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D4AE266D1E644762004A0AAF /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -524,6 +921,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				B8DCA3C4CC9777CEC7031A53 /* KeyboardManagerTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D4AE266A1E644762004A0AAF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B8DCA022FF01CFEFC913B5A5 /* KeyboardManagerRx.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -579,7 +984,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -626,7 +1031,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -700,6 +1105,44 @@
 			};
 			name = Release;
 		};
+		D4AE26741E644762004A0AAF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = NDN58N52VU;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "KeyboardManager-Rx/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "ru.alphatroya.KeyboardManager-Rx";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		D4AE26751E644762004A0AAF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = NDN58N52VU;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "KeyboardManager-Rx/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "ru.alphatroya.KeyboardManager-Rx";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -726,6 +1169,15 @@
 			buildConfigurations = (
 				D41CA43B1E2A5D8F00410ECF /* Debug */,
 				D41CA43C1E2A5D8F00410ECF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D4AE26881E644762004A0AAF /* Build configuration list for PBXNativeTarget "KeyboardManagerRx" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D4AE26741E644762004A0AAF /* Debug */,
+				D4AE26751E644762004A0AAF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
