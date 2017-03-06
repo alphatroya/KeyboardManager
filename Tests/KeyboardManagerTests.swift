@@ -7,7 +7,6 @@
 //
 
 import Quick
-import Nimble
 @testable import KeyboardManager
 
 class KeyboardManagerTests: QuickSpec {
@@ -41,7 +40,7 @@ class KeyboardManagerTests: QuickSpec {
                 }
             }
             self.postTestNotification(name: Notification.Name.UIKeyboardWillShow)
-            expect(isTriggered) == true
+            XCTAssertTrue(isTriggered)
         }
 
         it("should call closure after keyboard did appear notification triggered") {
@@ -53,7 +52,7 @@ class KeyboardManagerTests: QuickSpec {
                 }
             }
             self.postTestNotification(name: Notification.Name.UIKeyboardDidShow)
-            expect(isTriggered) == true
+            XCTAssertTrue(isTriggered)
         }
 
         it("should call closure after keyboard will hide notification triggered") {
@@ -65,7 +64,7 @@ class KeyboardManagerTests: QuickSpec {
                 }
             }
             self.postTestNotification(name: Notification.Name.UIKeyboardWillHide)
-            expect(isTriggered) == true
+            XCTAssertTrue(isTriggered)
         }
 
         it("should call closure after keyboard did hide notification triggered") {
@@ -77,35 +76,29 @@ class KeyboardManagerTests: QuickSpec {
                 }
             }
             self.postTestNotification(name: Notification.Name.UIKeyboardDidHide)
-            expect(isTriggered) == true
+            XCTAssertTrue(isTriggered)
         }
 
         it("return null object after wrong notification posted") {
-            var dataObject: KeyboardManagerEventData!
+            let expectation = self.expectation(description: "wrong notification expectation")
             keyboardManager.eventClosure = { (_, data) in
-                dataObject = data
+                let nullObject = KeyboardManagerEventData.null()
+                XCTAssertTrue(data == nullObject)
+                expectation.fulfill()
             }
             self.postWrongTestNotification()
-            let nullObject = KeyboardManagerEventData.null()
-            expect(dataObject.animationCurve).toEventually(equal(nullObject.animationCurve))
-            expect(dataObject.animationDuration).toEventually(equal(nullObject.animationDuration))
-            expect(dataObject.isLocal).toEventually(equal(nullObject.isLocal))
-            expect(dataObject.frame.begin).toEventually(equal(nullObject.frame.begin))
-            expect(dataObject.frame.end).toEventually(equal(nullObject.frame.end))
+            self.waitForExpectations(timeout: 5)
         }
 
         it("return null object after notification posted without user dictionary") {
-            var dataObject: KeyboardManagerEventData!
+            let expectation = self.expectation(description: "null object expectation")
             keyboardManager.eventClosure = { (_, data) in
-                dataObject = data
+                let nullObject = KeyboardManagerEventData.null()
+                XCTAssertTrue(data == nullObject)
+                expectation.fulfill()
             }
             self.notificationCenter.post(name: Notification.Name.UIKeyboardDidShow, object: nil)
-            let nullObject = KeyboardManagerEventData.null()
-            expect(dataObject.animationCurve).toEventually(equal(nullObject.animationCurve))
-            expect(dataObject.animationDuration).toEventually(equal(nullObject.animationDuration))
-            expect(dataObject.isLocal).toEventually(equal(nullObject.isLocal))
-            expect(dataObject.frame.begin).toEventually(equal(nullObject.frame.begin))
-            expect(dataObject.frame.end).toEventually(equal(nullObject.frame.end))
+            self.waitForExpectations(timeout: 5)
         }
     }
 
@@ -134,4 +127,17 @@ class KeyboardManagerTests: QuickSpec {
                 data.animationCurve == curve &&
                 data.isLocal == isLocal
     }
+}
+
+extension KeyboardManagerEventData: Equatable {
+
+}
+
+public func ==(lhs: KeyboardManagerEventData, rhs: KeyboardManagerEventData) -> Bool {
+    return lhs.animationCurve == rhs.animationCurve &&
+            lhs.animationDuration == rhs.animationDuration &&
+            lhs.isLocal == rhs.isLocal &&
+            lhs.frame.begin == rhs.frame.begin &&
+            lhs.frame.end == rhs.frame.end
+
 }
