@@ -6,38 +6,42 @@
 //  Copyright © 2017 Alexey Korolev. All rights reserved.
 //
 
-import Quick
+import XCTest
 import RxSwift
 @testable import KeyboardManager
 @testable import KeyboardManagerRx
 
-class KeyboardManagerRx: QuickSpec {
-    override func spec() {
-        let disposeBag = DisposeBag()
-        var keyboardManagerMock: KeyboardManagerProtocol!
-        var keyboardManagerRx: RxKeyboardManagerProtocol!
-        beforeEach {
-            keyboardManagerMock = KeyboardManagerMock()
-            keyboardManagerRx = RxKeyboardManager(keyboardManager: keyboardManagerMock)
-        }
-        afterEach {
-            keyboardManagerRx = nil
-            keyboardManagerMock = nil
-        }
-        it("receive data from observable after event closure was triggered") {
-            var received = false
-            keyboardManagerRx
-                    .newEventObserver
-                    .subscribe(onNext: { event, _ in
-                        if case .willShow = event {
-                            received = true
-                        }
-                    })
-                    .addDisposableTo(disposeBag)
+class RxKeyboardManagerTests: XCTestCase {
 
-            keyboardManagerMock.eventClosure!(.willShow, KeyboardManagerEventData.null())
-            XCTAssertTrue(received, "new value not received")
-        }
+    let disposeBag = DisposeBag()
+    var keyboardManagerMock: KeyboardManagerProtocol!
+    var keyboardManagerRx: RxKeyboardManagerProtocol!
+
+    override func setUp() {
+        super.setUp()
+        keyboardManagerMock = KeyboardManagerMock()
+        keyboardManagerRx = RxKeyboardManager(keyboardManager: keyboardManagerMock)
+    }
+
+    override func tearDown() {
+        super.tearDown()
+        keyboardManagerRx = nil
+        keyboardManagerMock = nil
+    }
+
+    func testReceiveDataFromObservableAfterTriggerClosureEvent() {
+        var received = false
+        keyboardManagerRx
+                .newEventObserver
+                .subscribe(onNext: { event, _ in
+                    if case .willShow = event {
+                        received = true
+                    }
+                })
+                .addDisposableTo(disposeBag)
+
+        keyboardManagerMock.eventClosure!(.willShow, KeyboardManagerEventData.null())
+        XCTAssertTrue(received, "new value not received")
     }
 }
 
