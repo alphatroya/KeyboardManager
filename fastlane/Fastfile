@@ -14,11 +14,10 @@ platform :ios do
         carthage(
             platform: "iOS",
             command: "bootstrap",
-            use_submodules: true,
             use_binaries: true
         )
         scan(
-            workspace: "KeyboardManager.xcworkspace",
+            project: "KeyboardManager.xcodeproj",
             scheme: "KeyboardManager",
             sdk: "iphonesimulator",
             device: "iPhone 5s (10.2)",
@@ -26,7 +25,7 @@ platform :ios do
             code_coverage: true
         )  
         scan(
-            workspace: "KeyboardManager.xcworkspace",
+            project: "KeyboardManager.xcodeproj",
             scheme: "KeyboardManagerRx",
             sdk: "iphonesimulator",
             device: "iPhone 5s (10.2)",
