@@ -11,11 +11,6 @@ platform :ios do
 
     desc "Run tests"
     lane :test do 
-        carthage(
-            platform: "iOS",
-            command: "bootstrap",
-            use_binaries: true
-        )
         scan(
             project: "KeyboardManager.xcodeproj",
             scheme: "KeyboardManager",
@@ -24,6 +19,14 @@ platform :ios do
             clean: true,
             code_coverage: true
         )  
+    end
+    
+    lane :testRx do 
+        carthage(
+            platform: "iOS",
+            command: "bootstrap",
+            use_binaries: true
+        )
         scan(
             project: "KeyboardManager.xcodeproj",
             scheme: "KeyboardManagerRx",
