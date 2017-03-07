@@ -6,12 +6,10 @@
 //  Copyright © 2017 Alexey Korolev. All rights reserved.
 //
 
-import Quick
-import Nimble
+import XCTest
 @testable import KeyboardManager
 
-class KeyboardManagerTests: QuickSpec {
-    var notificationCenter: NotificationCenter!
+class KeyboardManagerTests: XCTestCase {
 
     let beginFrame = CGRect(x: 2, y: 6, width: 111, height: 222)
     let endFrame = CGRect(x: 1, y: 3, width: 111, height: 222)
@@ -19,97 +17,97 @@ class KeyboardManagerTests: QuickSpec {
     let curve = "Curve"
     let isLocal = true
 
-    override func spec() {
-        var keyboardManager: KeyboardManagerProtocol!
+    var notificationCenter: NotificationCenter!
+    var keyboardManager: KeyboardManagerProtocol!
 
-        beforeEach {
-            self.notificationCenter = NotificationCenter()
-            keyboardManager = KeyboardManager(notificationCenter: self.notificationCenter)
-        }
-
-        afterEach {
-            keyboardManager = nil
-            self.notificationCenter = nil
-        }
-
-        it("should call closure after keyboard will appear notification triggered") {
-            var isTriggered = false
-            keyboardManager.eventClosure = { (event, data) in
-                if case .willShow = event,
-                   self.compareWithTestData(another: data) {
-                    isTriggered = true
-                }
-            }
-            self.postTestNotification(name: Notification.Name.UIKeyboardWillShow)
-            expect(isTriggered) == true
-        }
-
-        it("should call closure after keyboard did appear notification triggered") {
-            var isTriggered = false
-            keyboardManager.eventClosure = { (event, data) in
-                if case .didShow = event,
-                   self.compareWithTestData(another: data) {
-                    isTriggered = true
-                }
-            }
-            self.postTestNotification(name: Notification.Name.UIKeyboardDidShow)
-            expect(isTriggered) == true
-        }
-
-        it("should call closure after keyboard will hide notification triggered") {
-            var isTriggered = false
-            keyboardManager.eventClosure = { (event, data) in
-                if case .willHide = event,
-                   self.compareWithTestData(another: data) {
-                    isTriggered = true
-                }
-            }
-            self.postTestNotification(name: Notification.Name.UIKeyboardWillHide)
-            expect(isTriggered) == true
-        }
-
-        it("should call closure after keyboard did hide notification triggered") {
-            var isTriggered = false
-            keyboardManager.eventClosure = { (event, data) in
-                if case .didHide = event,
-                   self.compareWithTestData(another: data) {
-                    isTriggered = true
-                }
-            }
-            self.postTestNotification(name: Notification.Name.UIKeyboardDidHide)
-            expect(isTriggered) == true
-        }
-
-        it("return null object after wrong notification posted") {
-            var dataObject: KeyboardManagerEventData!
-            keyboardManager.eventClosure = { (_, data) in
-                dataObject = data
-            }
-            self.postWrongTestNotification()
-            let nullObject = KeyboardManagerEventData.null()
-            expect(dataObject.animationCurve).toEventually(equal(nullObject.animationCurve))
-            expect(dataObject.animationDuration).toEventually(equal(nullObject.animationDuration))
-            expect(dataObject.isLocal).toEventually(equal(nullObject.isLocal))
-            expect(dataObject.frame.begin).toEventually(equal(nullObject.frame.begin))
-            expect(dataObject.frame.end).toEventually(equal(nullObject.frame.end))
-        }
-
-        it("return null object after notification posted without user dictionary") {
-            var dataObject: KeyboardManagerEventData!
-            keyboardManager.eventClosure = { (_, data) in
-                dataObject = data
-            }
-            self.notificationCenter.post(name: Notification.Name.UIKeyboardDidShow, object: nil)
-            let nullObject = KeyboardManagerEventData.null()
-            expect(dataObject.animationCurve).toEventually(equal(nullObject.animationCurve))
-            expect(dataObject.animationDuration).toEventually(equal(nullObject.animationDuration))
-            expect(dataObject.isLocal).toEventually(equal(nullObject.isLocal))
-            expect(dataObject.frame.begin).toEventually(equal(nullObject.frame.begin))
-            expect(dataObject.frame.end).toEventually(equal(nullObject.frame.end))
-        }
+    override func setUp() {
+        super.setUp()
+        notificationCenter = NotificationCenter()
+        keyboardManager = KeyboardManager(notificationCenter: notificationCenter)
     }
 
-    private func postTestNotification(name: Notification.Name) {
+    override func tearDown() {
+        super.tearDown()
+        keyboardManager = nil
+        notificationCenter = nil
+    }
+
+    func testCallClosureAfterWillAppearNotification() {
+        var isTriggered = false
+        keyboardManager.eventClosure = { (event, data) in
+            if case .willShow = event,
+               self.compareWithTestData(another: data) {
+                isTriggered = true
+            }
+        }
+        postTestNotification(name: Notification.Name.UIKeyboardWillShow)
+        XCTAssertTrue(isTriggered)
+    }
+
+    func testCallClosureAfterDidAppearNotification() {
+        var isTriggered = false
+        keyboardManager.eventClosure = { (event, data) in
+            if case .didShow = event,
+               self.compareWithTestData(another: data) {
+                isTriggered = true
+            }
+        }
+        self.postTestNotification(name: Notification.Name.UIKeyboardDidShow)
+        XCTAssertTrue(isTriggered)
+    }
+
+    func testCallClosureAfterWillHideNotification() {
+        var isTriggered = false
+        keyboardManager.eventClosure = { (event, data) in
+            if case .willHide = event,
+               self.compareWithTestData(another: data) {
+                isTriggered = true
+            }
+        }
+        self.postTestNotification(name: Notification.Name.UIKeyboardWillHide)
+        XCTAssertTrue(isTriggered)
+    }
+
+    func testCallClosureAfterDidHideNotification() {
+        var isTriggered = false
+        keyboardManager.eventClosure = { (event, data) in
+            if case .didHide = event,
+               self.compareWithTestData(another: data) {
+                isTriggered = true
+            }
+        }
+        self.postTestNotification(name: Notification.Name.UIKeyboardDidHide)
+        XCTAssertTrue(isTriggered)
+    }
+
+    func testNullObjectAfterWrongFormatNotification() {
+        let expectation = self.expectation(description: "wrong notification expectation")
+        keyboardManager.eventClosure = { (_, data) in
+            let nullObject = KeyboardManagerEventData.null()
+            XCTAssertTrue(data == nullObject)
+            expectation.fulfill()
+        }
+        postWrongTestNotification()
+        waitForExpectations(timeout: 5)
+    }
+
+    func testNullObjectAfterNotificationWithoutUserDictionary() {
+        let expectation = self.expectation(description: "null object expectation")
+        keyboardManager.eventClosure = { (_, data) in
+            let nullObject = KeyboardManagerEventData.null()
+            XCTAssertTrue(data == nullObject)
+            expectation.fulfill()
+        }
+        notificationCenter.post(name: Notification.Name.UIKeyboardDidShow, object: nil)
+        waitForExpectations(timeout: 5)
+    }
+}
+
+// MARK: - Private methods
+
+fileprivate extension KeyboardManagerTests {
+
+    func postTestNotification(name: Notification.Name) {
         notificationCenter.post(name: name, object: nil, userInfo: [
                 UIKeyboardFrameEndUserInfoKey: NSValue(cgRect: endFrame),
                 UIKeyboardFrameBeginUserInfoKey: NSValue(cgRect: beginFrame),
@@ -119,14 +117,14 @@ class KeyboardManagerTests: QuickSpec {
         ])
     }
 
-    private func postWrongTestNotification() {
+    func postWrongTestNotification() {
         notificationCenter.post(name: Notification.Name.UIKeyboardDidShow, object: nil, userInfo: [
                 UIKeyboardFrameEndUserInfoKey: NSValue(cgRect: endFrame),
                 UIKeyboardAnimationCurveUserInfoKey: 10
         ])
     }
 
-    private func compareWithTestData(another data: KeyboardManagerEventData) -> Bool {
+    func compareWithTestData(another data: KeyboardManagerEventData) -> Bool {
         let isFrameEqual = data.frame.begin == beginFrame &&
                 data.frame.end == endFrame
         return isFrameEqual &&
@@ -134,4 +132,17 @@ class KeyboardManagerTests: QuickSpec {
                 data.animationCurve == curve &&
                 data.isLocal == isLocal
     }
+}
+
+extension KeyboardManagerEventData: Equatable {
+
+}
+
+public func ==(lhs: KeyboardManagerEventData, rhs: KeyboardManagerEventData) -> Bool {
+    return lhs.animationCurve == rhs.animationCurve &&
+            lhs.animationDuration == rhs.animationDuration &&
+            lhs.isLocal == rhs.isLocal &&
+            lhs.frame.begin == rhs.frame.begin &&
+            lhs.frame.end == rhs.frame.end
+
 }

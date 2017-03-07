@@ -1,3 +1,5 @@
+#!usr/bin/ruby
+
 fastlane_version "2.0"
 
 default_platform :ios
@@ -9,15 +11,25 @@ platform :ios do
 
     desc "Run tests"
     lane :test do 
+        scan(
+            project: "KeyboardManager.xcodeproj",
+            scheme: "KeyboardManager",
+            sdk: "iphonesimulator",
+            device: "iPhone 5s (10.2)",
+            clean: true,
+            code_coverage: true
+        )  
+    end
+    
+    lane :testRx do 
         carthage(
             platform: "iOS",
             command: "bootstrap",
-            use_submodules: true,
             use_binaries: true
         )
         scan(
-            workspace: "KeyboardManager.xcworkspace",
-            scheme: "KeyboardManager",
+            project: "KeyboardManager.xcodeproj",
+            scheme: "KeyboardManagerRx",
             sdk: "iphonesimulator",
             device: "iPhone 5s (10.2)",
             clean: true,
