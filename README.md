@@ -16,5 +16,9 @@ github "alphatroya/KeyboardManager"
 
 Run `carthage update` to build the framework and drag the built KeyboardManager.framework and CocoaLumberjackSwift.framework into your Xcode project.
 
+## TODO
+- [ ] Complete README.md description
+- [ ] Write documentation for public methods 
+
 ## Author
 Alexey Korolev, alphatroya@gmail.com
