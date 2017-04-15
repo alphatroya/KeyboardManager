@@ -5,5 +5,3 @@ script:
     - bundle install
     - bundle exec fastlane test
     - bash <(curl -s https://codecov.io/bash)
-    - bundle exec fastlane testRx
-    - bash <(curl -s https://codecov.io/bash)

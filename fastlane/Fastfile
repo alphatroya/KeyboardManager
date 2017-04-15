@@ -17,23 +17,10 @@ platform :ios do
             sdk: "iphonesimulator",
             device: "iPhone 5s (10.2)",
             clean: true,
-            code_coverage: true
+            code_coverage: true,
+            formatter: "xcpretty-json-formatter",
+            fail_build: false,
         )  
-    end
-    
-    lane :testRx do 
-        carthage(
-            platform: "iOS",
-            command: "bootstrap",
-            use_binaries: true
-        )
-        scan(
-            project: "KeyboardManager.xcodeproj",
-            scheme: "KeyboardManagerRx",
-            sdk: "iphonesimulator",
-            device: "iPhone 5s (10.2)",
-            clean: true,
-            code_coverage: true
-        )  
+        danger()
     end
 end
