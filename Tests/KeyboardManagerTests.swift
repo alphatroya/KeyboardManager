@@ -157,6 +157,30 @@ class KeyboardManagerTests: XCTestCase {
         XCTAssertEqual(scrollView.contentInset, initialInsets)
     }
 
+    func testScrollViewShouldNotChangeInsetsOnDidShowNotification() {
+        // GIVEN
+        let scrollView = UIScrollView()
+        let initialInsets = UIEdgeInsets(top: 10, left: 11, bottom: 12, right: 13)
+        scrollView.contentInset = initialInsets
+        // WHEN
+        keyboardManager.bindToKeyboardNotifications(scrollView: scrollView)
+        postTestNotification(name: Notification.Name.UIKeyboardDidShow)
+        // THEN
+        XCTAssertEqual(scrollView.contentInset, initialInsets)
+    }
+
+    func testScrollViewShouldNotChangeInsetsOnDidHideNotification() {
+        // GIVEN
+        let scrollView = UIScrollView()
+        let initialInsets = UIEdgeInsets(top: 10, left: 11, bottom: 12, right: 13)
+        scrollView.contentInset = initialInsets
+        // WHEN
+        keyboardManager.bindToKeyboardNotifications(scrollView: scrollView)
+        postTestNotification(name: Notification.Name.UIKeyboardWillHide)
+        // THEN
+        XCTAssertEqual(scrollView.contentInset, initialInsets)
+    }
+
     func testDataPropertyInEventModel() {
         // GIVEN
         let frame = KeyboardManagerEvent.Frame(begin: beginFrame, end: endFrame)
