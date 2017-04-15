@@ -113,8 +113,8 @@ fileprivate extension KeyboardManagerTests {
         notificationCenter.post(name: name, object: nil, userInfo: [
             UIKeyboardFrameEndUserInfoKey: NSValue(cgRect: endFrame),
             UIKeyboardFrameBeginUserInfoKey: NSValue(cgRect: beginFrame),
-            UIKeyboardAnimationDurationUserInfoKey: NSNumber(floatLiteral: animationDuration),
-            UIKeyboardIsLocalUserInfoKey: NSNumber(booleanLiteral: isLocal),
+            UIKeyboardAnimationDurationUserInfoKey: animationDuration,
+            UIKeyboardIsLocalUserInfoKey: isLocal,
             UIKeyboardAnimationCurveUserInfoKey: curve,
         ])
     }
@@ -139,7 +139,7 @@ fileprivate extension KeyboardManagerTests {
 extension KeyboardManagerEvent.Data: Equatable {
 }
 
-public func ==(lhs: KeyboardManagerEvent.Data, rhs: KeyboardManagerEvent.Data) -> Bool {
+public func == (lhs: KeyboardManagerEvent.Data, rhs: KeyboardManagerEvent.Data) -> Bool {
     return lhs.animationCurve == rhs.animationCurve &&
         lhs.animationDuration == rhs.animationDuration &&
         lhs.isLocal == rhs.isLocal &&
