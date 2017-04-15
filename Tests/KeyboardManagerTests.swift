@@ -14,8 +14,8 @@ class KeyboardManagerTests: XCTestCase {
 
     let beginFrame = CGRect(x: 2, y: 6, width: 111, height: 222)
     let endFrame = CGRect(x: 1, y: 3, width: 111, height: 222)
-    let animationDuration: Double = 444.0
-    let curve = "Curve"
+    let animationDuration: Double = 4.0
+    let curve = 7
     let isLocal = true
 
     var notificationCenter: NotificationCenter!
@@ -106,54 +106,54 @@ class KeyboardManagerTests: XCTestCase {
     }
 
     func testScrollViewInsetAdjustingAfterKeyboardAppear() {
-        // given
+        // GIVEN
         let scrollView = UIScrollView()
         let initialInsets = UIEdgeInsets(top: 10, left: 11, bottom: 12, right: 13)
         scrollView.contentInset = initialInsets
-        // when
+        // WHEN
         keyboardManager.bindToKeyboardNotifications(scrollView: scrollView)
         postTestNotification(name: Notification.Name.UIKeyboardWillShow)
-        // then
+        // THEN
         XCTAssertEqual(scrollView.contentInset.bottom, initialInsets.bottom + endFrame.height)
     }
 
     func testScrollViewInsetAdjustingAfterMultipleKeyboardAppearNotifications() {
-        // given
+        // GIVEN
         let scrollView = UIScrollView()
         let initialInsets = UIEdgeInsets(top: 10, left: 11, bottom: 12, right: 13)
         scrollView.contentInset = initialInsets
-        // when
+        // WHEN
         keyboardManager.bindToKeyboardNotifications(scrollView: scrollView)
         postTestNotification(name: Notification.Name.UIKeyboardWillShow)
         postTestNotification(name: Notification.Name.UIKeyboardWillShow)
-        // then
+        // THEN
         XCTAssertEqual(scrollView.contentInset.bottom, initialInsets.bottom + endFrame.height)
     }
 
     func testResetBottomInsetAfterKeyboardDisappear() {
-        // given
+        // GIVEN
         let scrollView = UIScrollView()
         let initialInsets = UIEdgeInsets(top: 10, left: 11, bottom: 12, right: 13)
         scrollView.contentInset = initialInsets
-        // when
+        // WHEN
         keyboardManager.bindToKeyboardNotifications(scrollView: scrollView)
         postTestNotification(name: Notification.Name.UIKeyboardWillShow)
-        postTestNotification(name: Notification.Name.UIKeyboardDidHide)
-        // then
+        postTestNotification(name: Notification.Name.UIKeyboardWillHide)
+        // THEN
         XCTAssertEqual(scrollView.contentInset, initialInsets)
     }
 
     func testResetBottomInsetAfterMultipleKeyboardDisappearNotifications() {
-        // given
+        // GIVEN
         let scrollView = UIScrollView()
         let initialInsets = UIEdgeInsets(top: 10, left: 11, bottom: 12, right: 13)
         scrollView.contentInset = initialInsets
-        // when
+        // WHEN
         keyboardManager.bindToKeyboardNotifications(scrollView: scrollView)
         postTestNotification(name: Notification.Name.UIKeyboardWillShow)
-        postTestNotification(name: Notification.Name.UIKeyboardDidHide)
-        postTestNotification(name: Notification.Name.UIKeyboardDidHide)
-        // then
+        postTestNotification(name: Notification.Name.UIKeyboardWillHide)
+        postTestNotification(name: Notification.Name.UIKeyboardWillHide)
+        // THEN
         XCTAssertEqual(scrollView.contentInset, initialInsets)
     }
 }

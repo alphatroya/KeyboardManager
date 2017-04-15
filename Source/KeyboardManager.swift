@@ -21,13 +21,13 @@ public enum KeyboardManagerEvent {
     public struct Data {
 
         var frame: Frame
-        var animationCurve: String
+        var animationCurve: Int
         var animationDuration: Double
         var isLocal: Bool
 
         static func null() -> Data {
             let frame = Frame(begin: CGRect.zero, end: CGRect.zero)
-            return Data(frame: frame, animationCurve: "", animationDuration: 0.0, isLocal: false)
+            return Data(frame: frame, animationCurve: 0, animationDuration: 0.0, isLocal: false)
         }
     }
 
@@ -57,7 +57,7 @@ public final class KeyboardManager {
     public var eventClosure: KeyboardManagerEventClosure?
 
     let notificationCenter: NotificationCenter
-    init(notificationCenter: NotificationCenter) {
+    public init(notificationCenter: NotificationCenter) {
         self.notificationCenter = notificationCenter
 
         notificationCenter.addObserver(self,
@@ -91,32 +91,36 @@ public final class KeyboardManager {
 
     @objc
     private func keyboardWillShow(_ notification: Notification) {
-        eventClosure?(.willShow(extractData(from: notification)))
-        innerEventClosure?(.willShow(extractData(from: notification)))
+        let data = extractData(from: notification)
+        eventClosure?(.willShow(data))
+        innerEventClosure?(.willShow(data))
     }
 
     @objc
     private func keyboardDidShow(_ notification: Notification) {
-        eventClosure?(.didShow(extractData(from: notification)))
-        innerEventClosure?(.didShow(extractData(from: notification)))
+        let data = extractData(from: notification)
+        eventClosure?(.didShow(data))
+        innerEventClosure?(.didShow(data))
     }
 
     @objc
     private func keyboardWillHide(_ notification: Notification) {
-        eventClosure?(.willHide(extractData(from: notification)))
-        innerEventClosure?(.willHide(extractData(from: notification)))
+        let data = extractData(from: notification)
+        eventClosure?(.willHide(data))
+        innerEventClosure?(.willHide(data))
     }
 
     @objc
     private func keyboardDidHide(_ notification: Notification) {
-        eventClosure?(.didHide(extractData(from: notification)))
-        innerEventClosure?(.didHide(extractData(from: notification)))
+        let data = extractData(from: notification)
+        eventClosure?(.didHide(data))
+        innerEventClosure?(.didHide(data))
     }
 
     private func extractData(from notification: Notification) -> KeyboardManagerEvent.Data {
         guard let endFrame = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue,
             let beginFrame = notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue,
-            let curve = notification.userInfo?[UIKeyboardAnimationCurveUserInfoKey] as? String,
+            let curve = notification.userInfo?[UIKeyboardAnimationCurveUserInfoKey] as? NSNumber,
             let isLocal = notification.userInfo?[UIKeyboardIsLocalUserInfoKey] as? NSNumber,
             let duration = notification.userInfo?[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber else {
             return KeyboardManagerEvent.Data.null()
@@ -124,7 +128,7 @@ public final class KeyboardManager {
         let frame = KeyboardManagerEvent.Frame(begin: beginFrame.cgRectValue, end: endFrame.cgRectValue)
         return KeyboardManagerEvent.Data(
             frame: frame,
-            animationCurve: curve,
+            animationCurve: curve.intValue,
             animationDuration: duration.doubleValue,
             isLocal: isLocal.boolValue
         )
@@ -134,12 +138,24 @@ public final class KeyboardManager {
 extension KeyboardManager: KeyboardManagerProtocol {
     public func bindToKeyboardNotifications(scrollView: UIScrollView) {
         initialScrollViewInsets = scrollView.contentInset
-        innerEventClosure = { event in
+        innerEventClosure = { [unowned self] event in
             switch event {
             case let .willShow(data):
-                scrollView.contentInset.bottom = self.initialScrollViewInsets.bottom + data.frame.end.size.height
-            case .didHide:
-                scrollView.contentInset.bottom = self.initialScrollViewInsets.bottom
+                UIView.animateKeyframes(
+                    withDuration: data.animationDuration,
+                    delay: 0,
+                    options: UIViewKeyframeAnimationOptions(rawValue: UInt(data.animationCurve)),
+                    animations: {
+                        scrollView.contentInset.bottom = self.initialScrollViewInsets.bottom + data.frame.end.size.height
+                })
+            case let .willHide(data):
+                UIView.animateKeyframes(
+                    withDuration: data.animationDuration,
+                    delay: 0,
+                    options: UIViewKeyframeAnimationOptions(rawValue: UInt(data.animationCurve)),
+                    animations: {
+                        scrollView.contentInset.bottom = self.initialScrollViewInsets.bottom
+                })
             default:
                 break
             }
