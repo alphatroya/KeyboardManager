@@ -156,6 +156,27 @@ class KeyboardManagerTests: XCTestCase {
         // THEN
         XCTAssertEqual(scrollView.contentInset, initialInsets)
     }
+
+    func testDataPropertyInEventModel() {
+        // GIVEN
+        let frame = KeyboardManagerEvent.Frame(begin: beginFrame, end: endFrame)
+        let data = KeyboardManagerEvent.Data(frame: frame, animationCurve: curve, animationDuration: animationDuration, isLocal: isLocal)
+        // WHEN
+        let didHideEvent = KeyboardManagerEvent.didHide(data)
+        let willHideEvent = KeyboardManagerEvent.willHide(data)
+        let willShowEvent = KeyboardManagerEvent.willShow(data)
+        let didShowEvent = KeyboardManagerEvent.didShow(data)
+
+        let didHideSuccess = compareWithTestData(another: didHideEvent.data)
+        let willHideSuccess = compareWithTestData(another: willHideEvent.data)
+        let willShowSuccess = compareWithTestData(another: willShowEvent.data)
+        let didShowSuccess = compareWithTestData(another: didShowEvent.data)
+        // THEN
+        XCTAssertTrue(didHideSuccess)
+        XCTAssertTrue(willHideSuccess)
+        XCTAssertTrue(willShowSuccess)
+        XCTAssertTrue(didShowSuccess)
+    }
 }
 
 // MARK: - Private methods
