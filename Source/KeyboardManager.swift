@@ -5,29 +5,43 @@
 
 import UIKit
 
-public typealias KeyboardManagerEventClosure = (KeyboardManagerEvent, KeyboardManagerEventData) -> Void
+public typealias KeyboardManagerEventClosure = (KeyboardManagerEvent) -> Void
 
 public enum KeyboardManagerEvent {
-    case willShow
-    case didShow
-    case willHide
-    case didHide
-}
+    case willShow(KeyboardManagerEvent.Data)
+    case didShow(KeyboardManagerEvent.Data)
+    case willHide(KeyboardManagerEvent.Data)
+    case didHide(KeyboardManagerEvent.Data)
 
-public struct KeyboardManagerEventData {
     public struct Frame {
         var begin: CGRect
         var end: CGRect
     }
 
-    var frame: Frame
-    var animationCurve: String
-    var animationDuration: Double
-    var isLocal: Bool
+    public struct Data {
 
-    static func null() -> KeyboardManagerEventData {
-        let frame = Frame(begin: CGRect.zero, end: CGRect.zero)
-        return KeyboardManagerEventData(frame: frame, animationCurve: "", animationDuration: 0.0, isLocal: false)
+        var frame: Frame
+        var animationCurve: String
+        var animationDuration: Double
+        var isLocal: Bool
+
+        static func null() -> Data {
+            let frame = Frame(begin: CGRect.zero, end: CGRect.zero)
+            return Data(frame: frame, animationCurve: "", animationDuration: 0.0, isLocal: false)
+        }
+    }
+
+    var data: KeyboardManagerEvent.Data {
+        switch self {
+        case let .willShow(data):
+            return data
+        case let .didShow(data):
+            return data
+        case let .willHide(data):
+            return data
+        case let .didHide(data):
+            return data
+        }
     }
 }
 
@@ -77,38 +91,38 @@ public final class KeyboardManager {
 
     @objc
     private func keyboardWillShow(_ notification: Notification) {
-        eventClosure?(.willShow, extractData(from: notification))
-        innerEventClosure?(.willShow, extractData(from: notification))
+        eventClosure?(.willShow(extractData(from: notification)))
+        innerEventClosure?(.willShow(extractData(from: notification)))
     }
 
     @objc
     private func keyboardDidShow(_ notification: Notification) {
-        eventClosure?(.didShow, extractData(from: notification))
-        innerEventClosure?(.didShow, extractData(from: notification))
+        eventClosure?(.didShow(extractData(from: notification)))
+        innerEventClosure?(.didShow(extractData(from: notification)))
     }
 
     @objc
     private func keyboardWillHide(_ notification: Notification) {
-        eventClosure?(.willHide, extractData(from: notification))
-        innerEventClosure?(.willHide, extractData(from: notification))
+        eventClosure?(.willHide(extractData(from: notification)))
+        innerEventClosure?(.willHide(extractData(from: notification)))
     }
 
     @objc
     private func keyboardDidHide(_ notification: Notification) {
-        eventClosure?(.didHide, extractData(from: notification))
-        innerEventClosure?(.didHide, extractData(from: notification))
+        eventClosure?(.didHide(extractData(from: notification)))
+        innerEventClosure?(.didHide(extractData(from: notification)))
     }
 
-    private func extractData(from notification: Notification) -> KeyboardManagerEventData {
+    private func extractData(from notification: Notification) -> KeyboardManagerEvent.Data {
         guard let endFrame = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue,
             let beginFrame = notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue,
             let curve = notification.userInfo?[UIKeyboardAnimationCurveUserInfoKey] as? String,
             let isLocal = notification.userInfo?[UIKeyboardIsLocalUserInfoKey] as? NSNumber,
             let duration = notification.userInfo?[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber else {
-            return KeyboardManagerEventData.null()
+            return KeyboardManagerEvent.Data.null()
         }
-        let frame = KeyboardManagerEventData.Frame(begin: beginFrame.cgRectValue, end: endFrame.cgRectValue)
-        return KeyboardManagerEventData(
+        let frame = KeyboardManagerEvent.Frame(begin: beginFrame.cgRectValue, end: endFrame.cgRectValue)
+        return KeyboardManagerEvent.Data(
             frame: frame,
             animationCurve: curve,
             animationDuration: duration.doubleValue,
@@ -120,9 +134,9 @@ public final class KeyboardManager {
 extension KeyboardManager: KeyboardManagerProtocol {
     public func bindToKeyboardNotifications(scrollView: UIScrollView) {
         initialScrollViewInsets = scrollView.contentInset
-        innerEventClosure = { event, data in
+        innerEventClosure = { event in
             switch event {
-            case .willShow:
+            case let .willShow(data):
                 scrollView.contentInset.bottom = self.initialScrollViewInsets.bottom + data.frame.end.size.height
             case .didHide:
                 scrollView.contentInset.bottom = self.initialScrollViewInsets.bottom
