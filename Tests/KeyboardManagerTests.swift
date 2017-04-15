@@ -86,7 +86,7 @@ class KeyboardManagerTests: XCTestCase {
         keyboardManager.eventClosure = { event in
             let data = event.data
             let nullObject = KeyboardManagerEvent.Data.null()
-            XCTAssertTrue(data == nullObject)
+            XCTAssertTrue(self.compare(lhs: data, rhs: nullObject))
             expectation.fulfill()
         }
         postWrongTestNotification()
@@ -98,7 +98,7 @@ class KeyboardManagerTests: XCTestCase {
         keyboardManager.eventClosure = { event in
             let data = event.data
             let nullObject = KeyboardManagerEvent.Data.null()
-            XCTAssertTrue(data == nullObject)
+            XCTAssertTrue(self.compare(lhs: data, rhs: nullObject))
             expectation.fulfill()
         }
         notificationCenter.post(name: Notification.Name.UIKeyboardDidShow, object: nil)
@@ -232,15 +232,12 @@ fileprivate extension KeyboardManagerTests {
             data.animationCurve == curve &&
             data.isLocal == isLocal
     }
-}
 
-extension KeyboardManagerEvent.Data: Equatable {
-}
-
-public func == (lhs: KeyboardManagerEvent.Data, rhs: KeyboardManagerEvent.Data) -> Bool {
-    return lhs.animationCurve == rhs.animationCurve &&
-        lhs.animationDuration == rhs.animationDuration &&
-        lhs.isLocal == rhs.isLocal &&
-        lhs.frame.begin == rhs.frame.begin &&
-        lhs.frame.end == rhs.frame.end
+    func compare(lhs: KeyboardManagerEvent.Data, rhs: KeyboardManagerEvent.Data) -> Bool {
+        return lhs.animationCurve == rhs.animationCurve &&
+            lhs.animationDuration == rhs.animationDuration &&
+            lhs.isLocal == rhs.isLocal &&
+            lhs.frame.begin == rhs.frame.begin &&
+            lhs.frame.end == rhs.frame.end
+    }
 }
