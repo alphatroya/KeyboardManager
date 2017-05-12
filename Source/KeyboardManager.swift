@@ -14,16 +14,16 @@ public enum KeyboardManagerEvent {
     case didHide(KeyboardManagerEvent.Data)
 
     public struct Frame {
-        var begin: CGRect
-        var end: CGRect
+        public var begin: CGRect
+        public var end: CGRect
     }
 
     public struct Data {
 
-        var frame: Frame
-        var animationCurve: Int
-        var animationDuration: Double
-        var isLocal: Bool
+        public var frame: Frame
+        public var animationCurve: Int
+        public var animationDuration: Double
+        public var isLocal: Bool
 
         static func null() -> Data {
             let frame = Frame(begin: CGRect.zero, end: CGRect.zero)
