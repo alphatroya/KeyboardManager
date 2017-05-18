@@ -30,7 +30,6 @@
 		B8DCACC2F4652B1090940597 /* KeyboardManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyboardManagerTests.swift; path = Tests/KeyboardManagerTests.swift; sourceTree = SOURCE_ROOT; };
 		D41CA4231E2A5D8F00410ECF /* KeyboardManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = KeyboardManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D41CA42C1E2A5D8F00410ECF /* KeyboardManagerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KeyboardManagerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		D4BF35401E6EA3F300257F9B /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/iOS/RxSwift.framework; sourceTree = SOURCE_ROOT; };
 		D4DD029E1E2B937E006963D9 /* KeyboardManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyboardManager.swift; path = Source/KeyboardManager.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
@@ -56,7 +55,6 @@
 		D41CA4191E2A5D8F00410ECF = {
 			isa = PBXGroup;
 			children = (
-				D43148011E2A6210005BE2A6 /* Frameworks */,
 				D41CA4251E2A5D8F00410ECF /* Source */,
 				D41CA4301E2A5D8F00410ECF /* Tests */,
 				D41CA4241E2A5D8F00410ECF /* Products */,
@@ -91,14 +89,6 @@
 			);
 			name = Tests;
 			path = KeyboardManagerTests;
-			sourceTree = "<group>";
-		};
-		D43148011E2A6210005BE2A6 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				D4BF35401E6EA3F300257F9B /* RxSwift.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
