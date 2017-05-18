@@ -91,30 +91,27 @@ public final class KeyboardManager {
 
     @objc
     private func keyboardWillShow(_ notification: Notification) {
-        let data = extractData(from: notification)
-        eventClosure?(.willShow(data))
-        innerEventClosure?(.willShow(data))
+        invokeClosures(.willShow(extractData(from: notification)))
     }
 
     @objc
     private func keyboardDidShow(_ notification: Notification) {
-        let data = extractData(from: notification)
-        eventClosure?(.didShow(data))
-        innerEventClosure?(.didShow(data))
+        invokeClosures(.didShow(extractData(from: notification)))
     }
 
     @objc
     private func keyboardWillHide(_ notification: Notification) {
-        let data = extractData(from: notification)
-        eventClosure?(.willHide(data))
-        innerEventClosure?(.willHide(data))
+        invokeClosures(.willHide(extractData(from: notification)))
     }
 
     @objc
     private func keyboardDidHide(_ notification: Notification) {
-        let data = extractData(from: notification)
-        eventClosure?(.didHide(data))
-        innerEventClosure?(.didHide(data))
+        invokeClosures(.didHide(extractData(from: notification)))
+    }
+
+    private func invokeClosures(_ event: KeyboardManagerEvent) {
+        eventClosure?(event)
+        innerEventClosure?(event)
     }
 
     private func extractData(from notification: Notification) -> KeyboardManagerEvent.Data {
@@ -139,26 +136,30 @@ extension KeyboardManager: KeyboardManagerProtocol {
     public func bindToKeyboardNotifications(scrollView: UIScrollView) {
         initialScrollViewInsets = scrollView.contentInset
         innerEventClosure = { [unowned self] event in
-            switch event {
-            case let .willShow(data):
-                UIView.animateKeyframes(
-                    withDuration: data.animationDuration,
-                    delay: 0,
-                    options: UIViewKeyframeAnimationOptions(rawValue: UInt(data.animationCurve)),
-                    animations: {
-                        scrollView.contentInset.bottom = self.initialScrollViewInsets.bottom + data.frame.end.size.height
+            self.handle(by: scrollView, event: event)
+        }
+    }
+
+    private func handle(by scrollView: UIScrollView, event: KeyboardManagerEvent) {
+        switch event {
+        case let .willShow(data):
+            UIView.animateKeyframes(
+                withDuration: data.animationDuration,
+                delay: 0,
+                options: UIViewKeyframeAnimationOptions(rawValue: UInt(data.animationCurve)),
+                animations: {
+                    scrollView.contentInset.bottom = self.initialScrollViewInsets.bottom + data.frame.end.size.height
                 })
-            case let .willHide(data):
-                UIView.animateKeyframes(
-                    withDuration: data.animationDuration,
-                    delay: 0,
-                    options: UIViewKeyframeAnimationOptions(rawValue: UInt(data.animationCurve)),
-                    animations: {
-                        scrollView.contentInset.bottom = self.initialScrollViewInsets.bottom
+        case let .willHide(data):
+            UIView.animateKeyframes(
+                withDuration: data.animationDuration,
+                delay: 0,
+                options: UIViewKeyframeAnimationOptions(rawValue: UInt(data.animationCurve)),
+                animations: {
+                    scrollView.contentInset.bottom = self.initialScrollViewInsets.bottom
                 })
-            default:
-                break
-            }
+        default:
+            break
         }
     }
 }
