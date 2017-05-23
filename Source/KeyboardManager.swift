@@ -63,13 +63,18 @@ public protocol KeyboardManagerProtocol {
 }
 
 /**
- Defines an implementation of KeyboardManagerProtocol
+ Keyboard manager class that implement KeyboardManagerProtocol
  */
 public final class KeyboardManager {
 
+    /// Notify a client for a new parsed keyboard events
     public var eventClosure: KeyboardManagerEventClosure?
 
     let notificationCenter: NotificationCenter
+    /**
+     Creates a new keyboard manager instance
+     - parameter notificationCenter: notification center needed to observe new keyboard events such a UIKeyboardWillShow and etc
+     */
     public init(notificationCenter: NotificationCenter) {
         self.notificationCenter = notificationCenter
 
@@ -146,6 +151,12 @@ public final class KeyboardManager {
 }
 
 extension KeyboardManager: KeyboardManagerProtocol {
+    /**
+     Helper method that automatically adjusts scrollView's contentInset property
+     with animation after receive keyboard will appear and will hide notifications.
+
+     - parameter scrollView: UIScrollView instance, that will be modified after notifications emerged
+     */
     public func bindToKeyboardNotifications(scrollView: UIScrollView) {
         initialScrollViewInsets = scrollView.contentInset
         innerEventClosure = { [unowned self] event in

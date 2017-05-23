@@ -14,7 +14,7 @@
     <a title="KeyboardManager Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html"> Docs</a> (33% documented)</p>
+        <p><a href="../index.html"> Docs</a> (38% documented)</p>
       </div>
     </header>
     <div class="content-wrapper">
@@ -69,7 +69,7 @@
 
                 </div>
               </div>
-            <p>Defines an implementation of KeyboardManagerProtocol</p>
+            <p>Keyboard manager class that implement KeyboardManagerProtocol</p>
 
           </section>
           <section class="section task-group-section">
@@ -78,9 +78,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:vP15KeyboardManager23KeyboardManagerProtocol12eventClosureGSqFOS_20KeyboardManagerEventT__"></a>
+                    <a name="/s:vC15KeyboardManager15KeyboardManager12eventClosureGSqFOS_20KeyboardManagerEventT__"></a>
                     <a name="//apple_ref/swift/Property/eventClosure" class="dashAnchor"></a>
-                    <a class="token" href="#/s:vP15KeyboardManager23KeyboardManagerProtocol12eventClosureGSqFOS_20KeyboardManagerEventT__">eventClosure</a>
+                    <a class="token" href="#/s:vC15KeyboardManager15KeyboardManager12eventClosureGSqFOS_20KeyboardManagerEventT__">eventClosure</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -88,7 +88,8 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        
+                        <p>Notify a client for a new parsed keyboard events</p>
+
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
@@ -114,16 +115,35 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Creates a new keyboard manager instance</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">KeyboardManager</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">notificationCenter</span><span class="p">:</span> <span class="kt">NotificationCenter</span><span class="p">)</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>notificationCenter</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>notification center needed to observe new keyboard events such a UIKeyboardWillShow and etc</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -135,9 +155,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FP15KeyboardManager23KeyboardManagerProtocol27bindToKeyboardNotificationsFT10scrollViewCSo12UIScrollView_T_"></a>
+                    <a name="/s:FC15KeyboardManager15KeyboardManager27bindToKeyboardNotificationsFT10scrollViewCSo12UIScrollView_T_"></a>
                     <a name="//apple_ref/swift/Method/bindToKeyboardNotifications(scrollView:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FP15KeyboardManager23KeyboardManagerProtocol27bindToKeyboardNotificationsFT10scrollViewCSo12UIScrollView_T_">bindToKeyboardNotifications(scrollView:)</a>
+                    <a class="token" href="#/s:FC15KeyboardManager15KeyboardManager27bindToKeyboardNotificationsFT10scrollViewCSo12UIScrollView_T_">bindToKeyboardNotifications(scrollView:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -145,7 +165,9 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        
+                        <p>Helper method that automatically adjusts scrollView&rsquo;s contentInset property
+with animation after receive keyboard will appear and will hide notifications.</p>
+
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
@@ -167,7 +189,7 @@
                               </td>
                               <td>
                                 <div>
-                                  
+                                  <p>UIScrollView instance, that will be modified after notifications emerged</p>
                                 </div>
                               </td>
                             </tr>

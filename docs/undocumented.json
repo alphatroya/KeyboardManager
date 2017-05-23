@@ -90,13 +90,6 @@
       "symbol": "KeyboardManagerEvent.Data.isLocal",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alphatroya/Projects/KeyboardManager/Source/KeyboardManager.swift",
-      "line": 73,
-      "symbol": "KeyboardManager.init(notificationCenter:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
     }
   ],
   "source_directory": "/Users/alphatroya/Projects/KeyboardManager"
