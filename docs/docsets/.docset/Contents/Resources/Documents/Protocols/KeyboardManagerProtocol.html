@@ -14,7 +14,7 @@
     <a title="KeyboardManagerProtocol Protocol Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html"> Docs</a> (9% documented)</p>
+        <p><a href="../index.html"> Docs</a> (33% documented)</p>
       </div>
     </header>
     <div class="content-wrapper">
@@ -63,7 +63,13 @@
         <section>
           <section class="section">
             <h1>KeyboardManagerProtocol</h1>
-            <p>Undocumented</p>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">KeyboardManagerProtocol</span></code></pre>
+
+                </div>
+              </div>
+            <p>Protocol defines an interface for keyboard manager</p>
 
           </section>
           <section class="section task-group-section">
@@ -82,8 +88,16 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>notify a client for a new parsed keyboard events</p>
 
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">var</span> <span class="nv">eventClosure</span><span class="p">:</span> <span class="kt">KeyboardManagerEventClosure</span><span class="p">?</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>
@@ -101,8 +115,36 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Helper method that automatically adjusts scrollView&rsquo;s contentInset property
+with animation after receive keyboard will appear and will hide notifications.</p>
 
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">bindToKeyboardNotifications</span><span class="p">(</span><span class="nv">scrollView</span><span class="p">:</span> <span class="kt">UIScrollView</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>scrollView</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>UIScrollView instance, that will be modified after notifications emerged</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>

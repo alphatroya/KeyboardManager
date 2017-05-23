@@ -45,10 +45,20 @@ public enum KeyboardManagerEvent {
     }
 }
 
+/**
+ Protocol defines an interface for keyboard manager
+ */
 public protocol KeyboardManagerProtocol {
 
+    /// Notify a client for a new parsed keyboard events
     var eventClosure: KeyboardManagerEventClosure? { get set }
 
+    /**
+     Helper method that automatically adjusts scrollView's contentInset property
+     with animation after receive keyboard will appear and will hide notifications.
+
+     - parameter scrollView: UIScrollView instance, that will be modified after notifications emerged
+     */
     func bindToKeyboardNotifications(scrollView: UIScrollView)
 }
 
