@@ -1,0 +1,138 @@
+{
+  "warnings": [
+    {
+      "file": "/Users/alphatroya/Projects/KeyboardManager/Source/KeyboardManager.swift",
+      "line": 10,
+      "symbol": "KeyboardManagerEvent",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/alphatroya/Projects/KeyboardManager/Source/KeyboardManager.swift",
+      "line": 11,
+      "symbol": "KeyboardManagerEvent.willShow",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/alphatroya/Projects/KeyboardManager/Source/KeyboardManager.swift",
+      "line": 12,
+      "symbol": "KeyboardManagerEvent.didShow",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/alphatroya/Projects/KeyboardManager/Source/KeyboardManager.swift",
+      "line": 13,
+      "symbol": "KeyboardManagerEvent.willHide",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/alphatroya/Projects/KeyboardManager/Source/KeyboardManager.swift",
+      "line": 14,
+      "symbol": "KeyboardManagerEvent.didHide",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/alphatroya/Projects/KeyboardManager/Source/KeyboardManager.swift",
+      "line": 16,
+      "symbol": "KeyboardManagerEvent.Frame",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/alphatroya/Projects/KeyboardManager/Source/KeyboardManager.swift",
+      "line": 17,
+      "symbol": "KeyboardManagerEvent.Frame.begin",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/alphatroya/Projects/KeyboardManager/Source/KeyboardManager.swift",
+      "line": 18,
+      "symbol": "KeyboardManagerEvent.Frame.end",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/alphatroya/Projects/KeyboardManager/Source/KeyboardManager.swift",
+      "line": 21,
+      "symbol": "KeyboardManagerEvent.Data",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/alphatroya/Projects/KeyboardManager/Source/KeyboardManager.swift",
+      "line": 23,
+      "symbol": "KeyboardManagerEvent.Data.frame",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/alphatroya/Projects/KeyboardManager/Source/KeyboardManager.swift",
+      "line": 24,
+      "symbol": "KeyboardManagerEvent.Data.animationCurve",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/alphatroya/Projects/KeyboardManager/Source/KeyboardManager.swift",
+      "line": 25,
+      "symbol": "KeyboardManagerEvent.Data.animationDuration",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/alphatroya/Projects/KeyboardManager/Source/KeyboardManager.swift",
+      "line": 26,
+      "symbol": "KeyboardManagerEvent.Data.isLocal",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/alphatroya/Projects/KeyboardManager/Source/KeyboardManager.swift",
+      "line": 48,
+      "symbol": "KeyboardManagerProtocol",
+      "symbol_kind": "source.lang.swift.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/alphatroya/Projects/KeyboardManager/Source/KeyboardManager.swift",
+      "line": 50,
+      "symbol": "KeyboardManagerProtocol.eventClosure",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/alphatroya/Projects/KeyboardManager/Source/KeyboardManager.swift",
+      "line": 52,
+      "symbol": "KeyboardManagerProtocol.bindToKeyboardNotifications(scrollView:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/alphatroya/Projects/KeyboardManager/Source/KeyboardManager.swift",
+      "line": 60,
+      "symbol": "KeyboardManager.eventClosure",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/alphatroya/Projects/KeyboardManager/Source/KeyboardManager.swift",
+      "line": 63,
+      "symbol": "KeyboardManager.init(notificationCenter:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/alphatroya/Projects/KeyboardManager/Source/KeyboardManager.swift",
+      "line": 139,
+      "symbol": "KeyboardManager.bindToKeyboardNotifications(scrollView:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    }
+  ],
+  "source_directory": "/Users/alphatroya/Projects/KeyboardManager"
+}

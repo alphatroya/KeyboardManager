@@ -52,6 +52,9 @@ public protocol KeyboardManagerProtocol {
     func bindToKeyboardNotifications(scrollView: UIScrollView)
 }
 
+/**
+ Defines an implementation of KeyboardManagerProtocol
+ */
 public final class KeyboardManager {
 
     public var eventClosure: KeyboardManagerEventClosure?
@@ -149,7 +152,7 @@ extension KeyboardManager: KeyboardManagerProtocol {
                 options: UIViewKeyframeAnimationOptions(rawValue: UInt(data.animationCurve)),
                 animations: {
                     scrollView.contentInset.bottom = self.initialScrollViewInsets.bottom + data.frame.end.size.height
-                })
+            })
         case let .willHide(data):
             UIView.animateKeyframes(
                 withDuration: data.animationDuration,
@@ -157,7 +160,7 @@ extension KeyboardManager: KeyboardManagerProtocol {
                 options: UIViewKeyframeAnimationOptions(rawValue: UInt(data.animationCurve)),
                 animations: {
                     scrollView.contentInset.bottom = self.initialScrollViewInsets.bottom
-                })
+            })
         default:
             break
         }
