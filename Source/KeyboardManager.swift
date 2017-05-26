@@ -7,22 +7,70 @@ import UIKit
 
 public typealias KeyboardManagerEventClosure = (KeyboardManagerEvent) -> Void
 
+/**
+ The object contains type of keyboard transition and parsed `userInfo` dictionary
+ data object
+ */
+
 public enum KeyboardManagerEvent {
+    /**
+     UIKeyboardWillShow notification case event
+     */
     case willShow(KeyboardManagerEvent.Data)
+
+    /**
+     UIKeyboardDidShow notification case event
+     */
     case didShow(KeyboardManagerEvent.Data)
+
+    /**
+     UIKeyboardWillHide notification case event
+     */
     case willHide(KeyboardManagerEvent.Data)
+
+    /**
+     UIKeyboardDidHide notification case event
+     */
     case didHide(KeyboardManagerEvent.Data)
 
+    /**
+     Object with `UIKeyboardFrameBeginUserInfoKey` and `UIKeyboardFrameEndUserInfoKey` notification's `userInfo` values
+     */
     public struct Frame {
+        /**
+         `UIKeyboardFrameBeginUserInfoKey` notification's value
+         */
         public var begin: CGRect
+
+        /**
+         `UIKeyboardFrameEndUserInfoKey` notification's value
+         */
         public var end: CGRect
     }
 
+    /**
+     Keyboard notification's `userInfo` parsed object
+     */
     public struct Data {
 
+        /**
+         `UIKeyboardFrameBeginUserInfoKey` and `UIKeyboardFrameEndUserInfoKey` notification's values
+         */
         public var frame: Frame
+
+        /**
+         `UIKeyboardAnimationCurveUserInfoKey` notification's value
+         */
         public var animationCurve: Int
+
+        /**
+         `UIKeyboardAnimationDurationUserInfoKey` notification's value
+         */
         public var animationDuration: Double
+
+        /**
+         `UIKeyboardIsLocalUserInfoKey` notification's value
+         */
         public var isLocal: Bool
 
         static func null() -> Data {
@@ -48,6 +96,7 @@ public enum KeyboardManagerEvent {
 /**
  Protocol defines an interface for keyboard manager
  */
+
 public protocol KeyboardManagerProtocol {
 
     /// Notify a client for a new parsed keyboard events
@@ -65,6 +114,7 @@ public protocol KeyboardManagerProtocol {
 /**
  Keyboard manager class that implement KeyboardManagerProtocol
  */
+
 public final class KeyboardManager {
 
     /// Notify a client for a new parsed keyboard events
