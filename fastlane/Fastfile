@@ -1,26 +1,25 @@
 #!usr/bin/ruby
 
-fastlane_version "2.0"
+fastlane_version '2.0'
 
 default_platform :ios
 
 platform :ios do
-    before_all do
-        ENV["FASTLANE_XCODE_LIST_TIMEOUT"] = "120"
-    end
+  before_all do
+    ENV['FASTLANE_XCODE_LIST_TIMEOUT'] = '120'
+  end
 
-    desc "Run tests"
-    lane :test do 
-        scan(
-            project: "KeyboardManager.xcodeproj",
-            scheme: "KeyboardManager",
-            sdk: "iphonesimulator",
-            device: "iPhone 5s (10.2)",
-            clean: true,
-            code_coverage: true,
-            formatter: "xcpretty-json-formatter",
-            fail_build: false,
-        )  
-        danger()
-    end
+  desc 'Run tests'
+  lane :test do
+    scan(
+      project: 'KeyboardManager.xcodeproj',
+      scheme: 'KeyboardManager',
+      sdk: 'iphonesimulator',
+      device: 'iPhone 5s (10.2)',
+      clean: true,
+      code_coverage: true,
+      formatter: 'xcpretty-json-formatter'
+    )
+    danger
+  end
 end
