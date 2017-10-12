@@ -97,7 +97,7 @@ public enum KeyboardManagerEvent {
  Protocol defines an interface for keyboard manager
  */
 
-public protocol KeyboardManagerProtocol {
+public protocol KeyboardManagerProtocol: class {
 
     /// Notify a client for a new parsed keyboard events
     var eventClosure: KeyboardManagerEventClosure? { get set }
@@ -109,6 +109,19 @@ public protocol KeyboardManagerProtocol {
      - parameter scrollView: UIScrollView instance, that will be modified after notifications emerged
      */
     func bindToKeyboardNotifications(scrollView: UIScrollView)
+
+    /**
+     Helper method that automatically adjusts view's bottom constraint after receiving keyboard appear notifications
+
+     - parameter view: UIView instance, that will be layout after contraint adjust
+     - parameter bottomConstraint: contraint instance that `constant` property will be adjusted
+     - parameter bottomOffset: minimal offset value that will be preserved after keyboard disappeared
+     */
+    func bindToKeyboardNotifications(
+        view: UIView,
+        bottomConstraint: NSLayoutConstraint,
+        bottomOffset: CGFloat
+    )
 }
 
 /**
@@ -121,6 +134,7 @@ public final class KeyboardManager {
     public var eventClosure: KeyboardManagerEventClosure?
 
     let notificationCenter: NotificationCenter
+
     /**
      Creates a new keyboard manager instance
      - parameter notificationCenter: notification center needed to observe new keyboard events such a UIKeyboardWillShow and etc
@@ -154,8 +168,7 @@ public final class KeyboardManager {
         notificationCenter.removeObserver(self)
     }
 
-    fileprivate var initialScrollViewInsets = UIEdgeInsets.zero
-    fileprivate var innerEventClosure: KeyboardManagerEventClosure?
+    fileprivate var innerEventClosures: [KeyboardManagerEventClosure] = []
 
     @objc
     private func keyboardWillShow(_ notification: Notification) {
@@ -179,7 +192,7 @@ public final class KeyboardManager {
 
     private func invokeClosures(_ event: KeyboardManagerEvent) {
         eventClosure?(event)
-        innerEventClosure?(event)
+        innerEventClosures.forEach { $0(event) }
     }
 
     private func extractData(from notification: Notification) -> KeyboardManagerEvent.Data {
@@ -202,19 +215,42 @@ public final class KeyboardManager {
 
 extension KeyboardManager: KeyboardManagerProtocol {
     /**
+     Helper method that automatically adjusts view's bottom constraint after receiving keyboard appear notifications
+
+     - parameter view: UIView instance, that will be layout after contraint adjust
+     - parameter bottomConstraint: contraint instance that `constant` property will be adjusted
+     - parameter bottomOffset: minimal offset value that will be preserved after keyboard disappeared
+     */
+    public func bindToKeyboardNotifications(view: UIView, bottomConstraint: NSLayoutConstraint, bottomOffset: CGFloat) {
+        let closure: KeyboardManagerEventClosure = {
+            switch $0 {
+            case let .willShow(data):
+                bottomConstraint.constant = -data.frame.end.size.height
+            case .willHide:
+                bottomConstraint.constant = bottomOffset
+            default:
+                break
+            }
+            view.layoutIfNeeded()
+        }
+        innerEventClosures += [closure]
+    }
+
+    /**
      Helper method that automatically adjusts scrollView's contentInset property
      with animation after receive keyboard will appear and will hide notifications.
 
      - parameter scrollView: UIScrollView instance, that will be modified after notifications emerged
      */
     public func bindToKeyboardNotifications(scrollView: UIScrollView) {
-        initialScrollViewInsets = scrollView.contentInset
-        innerEventClosure = { [unowned self] event in
-            self.handle(by: scrollView, event: event)
+        let initialScrollViewInsets = scrollView.contentInset
+        let closure = { [unowned self] event in
+            self.handle(by: scrollView, event: event, initialInset: initialScrollViewInsets)
         }
+        innerEventClosures += [closure]
     }
 
-    private func handle(by scrollView: UIScrollView, event: KeyboardManagerEvent) {
+    private func handle(by scrollView: UIScrollView, event: KeyboardManagerEvent, initialInset: UIEdgeInsets) {
         switch event {
         case let .willShow(data):
             UIView.animateKeyframes(
@@ -222,7 +258,7 @@ extension KeyboardManager: KeyboardManagerProtocol {
                 delay: 0,
                 options: UIViewKeyframeAnimationOptions(rawValue: UInt(data.animationCurve)),
                 animations: {
-                    scrollView.contentInset.bottom = self.initialScrollViewInsets.bottom + data.frame.end.size.height
+                    scrollView.contentInset.bottom = initialInset.bottom + data.frame.end.size.height
             })
         case let .willHide(data):
             UIView.animateKeyframes(
@@ -230,7 +266,7 @@ extension KeyboardManager: KeyboardManagerProtocol {
                 delay: 0,
                 options: UIViewKeyframeAnimationOptions(rawValue: UInt(data.animationCurve)),
                 animations: {
-                    scrollView.contentInset.bottom = self.initialScrollViewInsets.bottom
+                    scrollView.contentInset.bottom = initialInset.bottom
             })
         default:
             break
