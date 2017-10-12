@@ -2,7 +2,7 @@
 
 commit_lint.check warn: :all
 
-swiftlint.lint_files 
+swiftlint.lint_files
 
 xcode_summary.ignored_files = '**/Pods/**'
 xcode_summary.report 'build/reports/errors.json'

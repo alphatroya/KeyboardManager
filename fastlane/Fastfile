@@ -14,8 +14,6 @@ platform :ios do
     scan(
       project: 'KeyboardManager.xcodeproj',
       scheme: 'KeyboardManager',
-      sdk: 'iphonesimulator',
-      device: 'iPhone 5s (10.2)',
       clean: true,
       code_coverage: true,
       formatter: 'xcpretty-json-formatter'
