@@ -227,7 +227,7 @@ extension KeyboardManager: KeyboardManagerProtocol {
             case let .willShow(data):
                 bottomConstraint.constant = -data.frame.end.size.height
             case .willHide:
-                bottomConstraint.constant = bottomOffset
+                bottomConstraint.constant = -bottomOffset
             default:
                 break
             }
