@@ -181,6 +181,115 @@ class KeyboardManagerTests: XCTestCase {
         XCTAssertEqual(scrollView.contentInset, initialInsets)
     }
 
+    func testViewShouldChangeBottomInsetAfterKeyboardsWillAppear() {
+        // GIVEN
+        let view = UIView()
+        let parentView = UIView()
+        parentView.addSubview(view)
+        let bottomConstrain = parentView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        let bottomOffset: CGFloat = 20.0
+        // WHEN
+        keyboardManager.bindToKeyboardNotifications(view: view, bottomConstraint: bottomConstrain, bottomOffset: bottomOffset)
+        postTestNotification(name: Notification.Name.UIKeyboardWillShow)
+        // THEN
+        XCTAssertEqual(bottomConstrain.constant, -endFrame.height)
+    }
+
+    func testViewShouldChangeBottomInsetOnceAfterMultipleKeyboardsWillAppear() {
+        // GIVEN
+        let view = UIView()
+        let parentView = UIView()
+        parentView.addSubview(view)
+        let bottomConstrain = parentView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        let bottomOffset: CGFloat = 20.0
+        // WHEN
+        keyboardManager.bindToKeyboardNotifications(view: view, bottomConstraint: bottomConstrain, bottomOffset: bottomOffset)
+        postTestNotification(name: Notification.Name.UIKeyboardWillShow)
+        postTestNotification(name: Notification.Name.UIKeyboardWillShow)
+        postTestNotification(name: Notification.Name.UIKeyboardWillShow)
+        // THEN
+        XCTAssertEqual(bottomConstrain.constant, -endFrame.height)
+    }
+
+    func testViewShouldChangeBottomInsetAfterKeyboardsWillDisappear() {
+        // GIVEN
+        let view = UIView()
+        let parentView = UIView()
+        parentView.addSubview(view)
+        let bottomConstrain = parentView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        let bottomOffset: CGFloat = 20.0
+        // WHEN
+        keyboardManager.bindToKeyboardNotifications(view: view, bottomConstraint: bottomConstrain, bottomOffset: bottomOffset)
+        postTestNotification(name: Notification.Name.UIKeyboardWillHide)
+        // THEN
+        XCTAssertEqual(bottomConstrain.constant, -bottomOffset)
+    }
+
+    func testViewShouldChangeBottomInsetOnceAfterMultipleKeyboardsWillDisappear() {
+        // GIVEN
+        let view = UIView()
+        let parentView = UIView()
+        parentView.addSubview(view)
+        let bottomConstrain = parentView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        let bottomOffset: CGFloat = 20.0
+        // WHEN
+        keyboardManager.bindToKeyboardNotifications(view: view, bottomConstraint: bottomConstrain, bottomOffset: bottomOffset)
+        postTestNotification(name: Notification.Name.UIKeyboardWillHide)
+        postTestNotification(name: Notification.Name.UIKeyboardWillHide)
+        postTestNotification(name: Notification.Name.UIKeyboardWillHide)
+        // THEN
+        XCTAssertEqual(bottomConstrain.constant, -bottomOffset)
+    }
+
+    func testViewShouldNotChangeBottomInsetAfterKeyboardsDidAppear() {
+        // GIVEN
+        let view = UIView()
+        let parentView = UIView()
+        parentView.addSubview(view)
+        let bottomConstrain = parentView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        let bottomOffset: CGFloat = 20.0
+        // WHEN
+        keyboardManager.bindToKeyboardNotifications(view: view, bottomConstraint: bottomConstrain, bottomOffset: bottomOffset)
+        postTestNotification(name: Notification.Name.UIKeyboardDidShow)
+        // THEN
+        XCTAssertEqual(bottomConstrain.constant, 0)
+    }
+
+    func testViewShouldNotChangeBottomInsetAfterKeyboardsDidDisappear() {
+        // GIVEN
+        let view = UIView()
+        let parentView = UIView()
+        parentView.addSubview(view)
+        let bottomConstrain = parentView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        let bottomOffset: CGFloat = 20.0
+        // WHEN
+        keyboardManager.bindToKeyboardNotifications(view: view, bottomConstraint: bottomConstrain, bottomOffset: bottomOffset)
+        postTestNotification(name: Notification.Name.UIKeyboardDidHide)
+        // THEN
+        XCTAssertEqual(bottomConstrain.constant, 0)
+    }
+
+    func testViewShouldNotCancelScrollViewBindingWhileViewBindingActivated() {
+        // GIVEN
+        let scrollView = UIScrollView()
+        let initialInsets = UIEdgeInsets(top: 10, left: 11, bottom: 12, right: 13)
+        scrollView.contentInset = initialInsets
+
+        let view = UIView()
+        let parentView = UIView()
+        parentView.addSubview(view)
+        let bottomConstrain = parentView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        let bottomOffset: CGFloat = 20.0
+
+        // WHEN
+        keyboardManager.bindToKeyboardNotifications(scrollView: scrollView)
+        keyboardManager.bindToKeyboardNotifications(view: view, bottomConstraint: bottomConstrain, bottomOffset: bottomOffset)
+        postTestNotification(name: Notification.Name.UIKeyboardWillShow)
+        // THEN
+        XCTAssertEqual(scrollView.contentInset.bottom, initialInsets.bottom + endFrame.height)
+        XCTAssertEqual(bottomConstrain.constant, -endFrame.height)
+    }
+
     func testDataPropertyInEventModel() {
         // GIVEN
         let frame = KeyboardManagerEvent.Frame(begin: beginFrame, end: endFrame)
