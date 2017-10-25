@@ -34,6 +34,16 @@ public enum KeyboardManagerEvent {
     case didHide(KeyboardManagerEvent.Data)
 
     /**
+     UIKeyboardWillChangeFrame notification case event
+     */
+    case willFrameChange(KeyboardManagerEvent.Data)
+
+    /**
+     UIKeyboardDidChangeFrame notification case event
+     */
+    case didFrameChange(KeyboardManagerEvent.Data)
+
+    /**
      Object with `UIKeyboardFrameBeginUserInfoKey` and `UIKeyboardFrameEndUserInfoKey` notification's `userInfo` values
      */
     public struct Frame {
@@ -81,13 +91,12 @@ public enum KeyboardManagerEvent {
 
     var data: KeyboardManagerEvent.Data {
         switch self {
-        case let .willShow(data):
-            return data
-        case let .didShow(data):
-            return data
-        case let .willHide(data):
-            return data
-        case let .didHide(data):
+        case let .willShow(data),
+             let .didShow(data),
+             let .willHide(data),
+             let .didHide(data),
+             let .willFrameChange(data),
+             let .didFrameChange(data):
             return data
         }
     }
@@ -162,6 +171,16 @@ public final class KeyboardManager {
                                        name: Notification.Name.UIKeyboardDidHide,
                                        object: nil
         )
+        notificationCenter.addObserver(self,
+                                       selector: #selector(keyboardWillChangeFrame(_:)),
+                                       name: Notification.Name.UIKeyboardWillChangeFrame,
+                                       object: nil
+        )
+        notificationCenter.addObserver(self,
+                                       selector: #selector(keyboardDidChangeFrame(_:)),
+                                       name: Notification.Name.UIKeyboardDidChangeFrame,
+                                       object: nil
+        )
     }
 
     deinit {
@@ -188,6 +207,16 @@ public final class KeyboardManager {
     @objc
     private func keyboardDidHide(_ notification: Notification) {
         invokeClosures(.didHide(extractData(from: notification)))
+    }
+
+    @objc
+    private func keyboardWillChangeFrame(_ notification: Notification) {
+        invokeClosures(.willFrameChange(extractData(from: notification)))
+    }
+
+    @objc
+    private func keyboardDidChangeFrame(_ notification: Notification) {
+        invokeClosures(.didFrameChange(extractData(from: notification)))
     }
 
     private func invokeClosures(_ event: KeyboardManagerEvent) {

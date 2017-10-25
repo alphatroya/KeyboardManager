@@ -77,8 +77,7 @@
 				D4DD029E1E2B937E006963D9 /* KeyboardManager.swift */,
 				B8DCA28E65D024633CCBA5F3 /* KeyboardManager.h */,
 			);
-			name = Source;
-			path = KeyboardManager;
+			path = Source;
 			sourceTree = "<group>";
 		};
 		D41CA4301E2A5D8F00410ECF /* Tests */ = {
@@ -87,8 +86,7 @@
 				B8DCA2B15A3AE93D79F87038 /* Info.plist */,
 				B8DCACC2F4652B1090940597 /* KeyboardManagerTests.swift */,
 			);
-			name = Tests;
-			path = KeyboardManagerTests;
+			path = Tests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

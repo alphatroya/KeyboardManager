@@ -81,6 +81,30 @@ class KeyboardManagerTests: XCTestCase {
         XCTAssertTrue(isTriggered)
     }
 
+    func testCallClosureAfterWillChangeFrameNotification() {
+        var isTriggered = false
+        keyboardManager.eventClosure = { event in
+            if case let .willFrameChange(data) = event,
+                self.compareWithTestData(another: data) {
+                isTriggered = true
+            }
+        }
+        postTestNotification(name: Notification.Name.UIKeyboardWillChangeFrame)
+        XCTAssertTrue(isTriggered)
+    }
+
+    func testCallClosureAfterDidChangeFrameNotification() {
+        var isTriggered = false
+        keyboardManager.eventClosure = { event in
+            if case let .didFrameChange(data) = event,
+                self.compareWithTestData(another: data) {
+                isTriggered = true
+            }
+        }
+        postTestNotification(name: Notification.Name.UIKeyboardDidChangeFrame)
+        XCTAssertTrue(isTriggered)
+    }
+
     func testNullObjectAfterWrongFormatNotification() {
         let expectation = self.expectation(description: "wrong notification expectation")
         keyboardManager.eventClosure = { event in
