@@ -253,7 +253,7 @@ extension KeyboardManager: KeyboardManagerProtocol {
     public func bindToKeyboardNotifications(view: UIView, bottomConstraint: NSLayoutConstraint, bottomOffset: CGFloat) {
         let closure: KeyboardManagerEventClosure = {
             switch $0 {
-            case let .willShow(data):
+            case let .willShow(data), let .willFrameChange(data):
                 bottomConstraint.constant = -data.frame.end.size.height
             case .willHide:
                 bottomConstraint.constant = -bottomOffset
@@ -281,7 +281,7 @@ extension KeyboardManager: KeyboardManagerProtocol {
 
     private func handle(by scrollView: UIScrollView, event: KeyboardManagerEvent, initialInset: UIEdgeInsets) {
         switch event {
-        case let .willShow(data):
+        case let .willShow(data), let .willFrameChange(data):
             UIView.animateKeyframes(
                 withDuration: data.animationDuration,
                 delay: 0,
