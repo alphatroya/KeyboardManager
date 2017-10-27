@@ -81,6 +81,30 @@ class KeyboardManagerTests: XCTestCase {
         XCTAssertTrue(isTriggered)
     }
 
+    func testCallClosureAfterWillChangeFrameNotification() {
+        var isTriggered = false
+        keyboardManager.eventClosure = { event in
+            if case let .willFrameChange(data) = event,
+                self.compareWithTestData(another: data) {
+                isTriggered = true
+            }
+        }
+        postTestNotification(name: Notification.Name.UIKeyboardWillChangeFrame)
+        XCTAssertTrue(isTriggered)
+    }
+
+    func testCallClosureAfterDidChangeFrameNotification() {
+        var isTriggered = false
+        keyboardManager.eventClosure = { event in
+            if case let .didFrameChange(data) = event,
+                self.compareWithTestData(another: data) {
+                isTriggered = true
+            }
+        }
+        postTestNotification(name: Notification.Name.UIKeyboardDidChangeFrame)
+        XCTAssertTrue(isTriggered)
+    }
+
     func testNullObjectAfterWrongFormatNotification() {
         let expectation = self.expectation(description: "wrong notification expectation")
         keyboardManager.eventClosure = { event in
@@ -105,82 +129,6 @@ class KeyboardManagerTests: XCTestCase {
         waitForExpectations(timeout: 5)
     }
 
-    func testScrollViewInsetAdjustingAfterKeyboardAppear() {
-        // GIVEN
-        let scrollView = UIScrollView()
-        let initialInsets = UIEdgeInsets(top: 10, left: 11, bottom: 12, right: 13)
-        scrollView.contentInset = initialInsets
-        // WHEN
-        keyboardManager.bindToKeyboardNotifications(scrollView: scrollView)
-        postTestNotification(name: Notification.Name.UIKeyboardWillShow)
-        // THEN
-        XCTAssertEqual(scrollView.contentInset.bottom, initialInsets.bottom + endFrame.height)
-    }
-
-    func testScrollViewInsetAdjustingAfterMultipleKeyboardAppearNotifications() {
-        // GIVEN
-        let scrollView = UIScrollView()
-        let initialInsets = UIEdgeInsets(top: 10, left: 11, bottom: 12, right: 13)
-        scrollView.contentInset = initialInsets
-        // WHEN
-        keyboardManager.bindToKeyboardNotifications(scrollView: scrollView)
-        postTestNotification(name: Notification.Name.UIKeyboardWillShow)
-        postTestNotification(name: Notification.Name.UIKeyboardWillShow)
-        // THEN
-        XCTAssertEqual(scrollView.contentInset.bottom, initialInsets.bottom + endFrame.height)
-    }
-
-    func testResetBottomInsetAfterKeyboardDisappear() {
-        // GIVEN
-        let scrollView = UIScrollView()
-        let initialInsets = UIEdgeInsets(top: 10, left: 11, bottom: 12, right: 13)
-        scrollView.contentInset = initialInsets
-        // WHEN
-        keyboardManager.bindToKeyboardNotifications(scrollView: scrollView)
-        postTestNotification(name: Notification.Name.UIKeyboardWillShow)
-        postTestNotification(name: Notification.Name.UIKeyboardWillHide)
-        // THEN
-        XCTAssertEqual(scrollView.contentInset, initialInsets)
-    }
-
-    func testResetBottomInsetAfterMultipleKeyboardDisappearNotifications() {
-        // GIVEN
-        let scrollView = UIScrollView()
-        let initialInsets = UIEdgeInsets(top: 10, left: 11, bottom: 12, right: 13)
-        scrollView.contentInset = initialInsets
-        // WHEN
-        keyboardManager.bindToKeyboardNotifications(scrollView: scrollView)
-        postTestNotification(name: Notification.Name.UIKeyboardWillShow)
-        postTestNotification(name: Notification.Name.UIKeyboardWillHide)
-        postTestNotification(name: Notification.Name.UIKeyboardWillHide)
-        // THEN
-        XCTAssertEqual(scrollView.contentInset, initialInsets)
-    }
-
-    func testScrollViewShouldNotChangeInsetsOnDidShowNotification() {
-        // GIVEN
-        let scrollView = UIScrollView()
-        let initialInsets = UIEdgeInsets(top: 10, left: 11, bottom: 12, right: 13)
-        scrollView.contentInset = initialInsets
-        // WHEN
-        keyboardManager.bindToKeyboardNotifications(scrollView: scrollView)
-        postTestNotification(name: Notification.Name.UIKeyboardDidShow)
-        // THEN
-        XCTAssertEqual(scrollView.contentInset, initialInsets)
-    }
-
-    func testScrollViewShouldNotChangeInsetsOnDidHideNotification() {
-        // GIVEN
-        let scrollView = UIScrollView()
-        let initialInsets = UIEdgeInsets(top: 10, left: 11, bottom: 12, right: 13)
-        scrollView.contentInset = initialInsets
-        // WHEN
-        keyboardManager.bindToKeyboardNotifications(scrollView: scrollView)
-        postTestNotification(name: Notification.Name.UIKeyboardWillHide)
-        // THEN
-        XCTAssertEqual(scrollView.contentInset, initialInsets)
-    }
-
     func testViewShouldChangeBottomInsetAfterKeyboardsWillAppear() {
         // GIVEN
         let view = UIView()
@@ -191,6 +139,20 @@ class KeyboardManagerTests: XCTestCase {
         // WHEN
         keyboardManager.bindToKeyboardNotifications(view: view, bottomConstraint: bottomConstrain, bottomOffset: bottomOffset)
         postTestNotification(name: Notification.Name.UIKeyboardWillShow)
+        // THEN
+        XCTAssertEqual(bottomConstrain.constant, -endFrame.height)
+    }
+
+    func testViewShouldChangeBottomInsetAfterKeyboardWillChangeFrame() {
+        // GIVEN
+        let view = UIView()
+        let parentView = UIView()
+        parentView.addSubview(view)
+        let bottomConstrain = parentView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        let bottomOffset: CGFloat = 20.0
+        // WHEN
+        keyboardManager.bindToKeyboardNotifications(view: view, bottomConstraint: bottomConstrain, bottomOffset: bottomOffset)
+        postTestNotification(name: Notification.Name.UIKeyboardWillChangeFrame)
         // THEN
         XCTAssertEqual(bottomConstrain.constant, -endFrame.height)
     }
@@ -269,6 +231,20 @@ class KeyboardManagerTests: XCTestCase {
         XCTAssertEqual(bottomConstrain.constant, 0)
     }
 
+    func testViewShouldNotChangeBottomInsetAfterKeyboardsDidChangeFrame() {
+        // GIVEN
+        let view = UIView()
+        let parentView = UIView()
+        parentView.addSubview(view)
+        let bottomConstrain = parentView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        let bottomOffset: CGFloat = 20.0
+        // WHEN
+        keyboardManager.bindToKeyboardNotifications(view: view, bottomConstraint: bottomConstrain, bottomOffset: bottomOffset)
+        postTestNotification(name: Notification.Name.UIKeyboardDidChangeFrame)
+        // THEN
+        XCTAssertEqual(bottomConstrain.constant, 0)
+    }
+
     func testViewShouldNotCancelScrollViewBindingWhileViewBindingActivated() {
         // GIVEN
         let scrollView = UIScrollView()
@@ -309,44 +285,5 @@ class KeyboardManagerTests: XCTestCase {
         XCTAssertTrue(willHideSuccess)
         XCTAssertTrue(willShowSuccess)
         XCTAssertTrue(didShowSuccess)
-    }
-}
-
-// MARK: - Private methods
-
-fileprivate extension KeyboardManagerTests {
-
-    func postTestNotification(name: Notification.Name) {
-        notificationCenter.post(name: name, object: nil, userInfo: [
-            UIKeyboardFrameEndUserInfoKey: NSValue(cgRect: endFrame),
-            UIKeyboardFrameBeginUserInfoKey: NSValue(cgRect: beginFrame),
-            UIKeyboardAnimationDurationUserInfoKey: animationDuration,
-            UIKeyboardIsLocalUserInfoKey: isLocal,
-            UIKeyboardAnimationCurveUserInfoKey: curve,
-        ])
-    }
-
-    func postWrongTestNotification() {
-        notificationCenter.post(name: Notification.Name.UIKeyboardDidShow, object: nil, userInfo: [
-            UIKeyboardFrameEndUserInfoKey: NSValue(cgRect: endFrame),
-            UIKeyboardAnimationCurveUserInfoKey: 10,
-        ])
-    }
-
-    func compareWithTestData(another data: KeyboardManagerEvent.Data) -> Bool {
-        let isFrameEqual = data.frame.begin == beginFrame &&
-            data.frame.end == endFrame
-        return isFrameEqual &&
-            data.animationDuration == animationDuration &&
-            data.animationCurve == curve &&
-            data.isLocal == isLocal
-    }
-
-    func compare(lhs: KeyboardManagerEvent.Data, rhs: KeyboardManagerEvent.Data) -> Bool {
-        return lhs.animationCurve == rhs.animationCurve &&
-            lhs.animationDuration == rhs.animationDuration &&
-            lhs.isLocal == rhs.isLocal &&
-            lhs.frame.begin == rhs.frame.begin &&
-            lhs.frame.end == rhs.frame.end
     }
 }

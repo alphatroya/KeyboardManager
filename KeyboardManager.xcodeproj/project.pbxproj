@@ -8,7 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		B8DCA3C4CC9777CEC7031A53 /* KeyboardManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8DCACC2F4652B1090940597 /* KeyboardManagerTests.swift */; };
+		B8DCA4617891AA8E033F5D66 /* KeyboardManager+ScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8DCA5A991C12C97DC8D7B99 /* KeyboardManager+ScrollView.swift */; };
 		B8DCA5D0C80BDF5980131D23 /* KeyboardManager.h in Headers */ = {isa = PBXBuildFile; fileRef = B8DCA28E65D024633CCBA5F3 /* KeyboardManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B8DCA910ACF0E0539641A5BE /* KeyboardManager+NotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8DCA6476511202CCEDA8D48 /* KeyboardManager+NotificationCenter.swift */; };
+		B8DCAF4E768E1ABADEE14789 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8DCAC88ACFD0432C523FAE1 /* Helpers.swift */; };
 		D41CA42D1E2A5D8F00410ECF /* KeyboardManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D41CA4231E2A5D8F00410ECF /* KeyboardManager.framework */; };
 		D4DD029F1E2B937E006963D9 /* KeyboardManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4DD029E1E2B937E006963D9 /* KeyboardManager.swift */; };
 /* End PBXBuildFile section */
@@ -26,7 +29,10 @@
 /* Begin PBXFileReference section */
 		B8DCA28E65D024633CCBA5F3 /* KeyboardManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KeyboardManager.h; path = Source/KeyboardManager.h; sourceTree = SOURCE_ROOT; };
 		B8DCA2B15A3AE93D79F87038 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.info; name = Info.plist; path = Tests/Info.plist; sourceTree = SOURCE_ROOT; };
+		B8DCA5A991C12C97DC8D7B99 /* KeyboardManager+ScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "KeyboardManager+ScrollView.swift"; sourceTree = "<group>"; };
+		B8DCA6476511202CCEDA8D48 /* KeyboardManager+NotificationCenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "KeyboardManager+NotificationCenter.swift"; sourceTree = "<group>"; };
 		B8DCA74C3D17DA9B49829E11 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.info; name = Info.plist; path = Source/Info.plist; sourceTree = SOURCE_ROOT; };
+		B8DCAC88ACFD0432C523FAE1 /* Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		B8DCACC2F4652B1090940597 /* KeyboardManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyboardManagerTests.swift; path = Tests/KeyboardManagerTests.swift; sourceTree = SOURCE_ROOT; };
 		D41CA4231E2A5D8F00410ECF /* KeyboardManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = KeyboardManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D41CA42C1E2A5D8F00410ECF /* KeyboardManagerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KeyboardManagerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -77,8 +83,7 @@
 				D4DD029E1E2B937E006963D9 /* KeyboardManager.swift */,
 				B8DCA28E65D024633CCBA5F3 /* KeyboardManager.h */,
 			);
-			name = Source;
-			path = KeyboardManager;
+			path = Source;
 			sourceTree = "<group>";
 		};
 		D41CA4301E2A5D8F00410ECF /* Tests */ = {
@@ -86,9 +91,11 @@
 			children = (
 				B8DCA2B15A3AE93D79F87038 /* Info.plist */,
 				B8DCACC2F4652B1090940597 /* KeyboardManagerTests.swift */,
+				B8DCAC88ACFD0432C523FAE1 /* Helpers.swift */,
+				B8DCA6476511202CCEDA8D48 /* KeyboardManager+NotificationCenter.swift */,
+				B8DCA5A991C12C97DC8D7B99 /* KeyboardManager+ScrollView.swift */,
 			);
-			name = Tests;
-			path = KeyboardManagerTests;
+			path = Tests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -212,6 +219,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				B8DCA3C4CC9777CEC7031A53 /* KeyboardManagerTests.swift in Sources */,
+				B8DCAF4E768E1ABADEE14789 /* Helpers.swift in Sources */,
+				B8DCA910ACF0E0539641A5BE /* KeyboardManager+NotificationCenter.swift in Sources */,
+				B8DCA4617891AA8E033F5D66 /* KeyboardManager+ScrollView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
