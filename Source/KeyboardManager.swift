@@ -5,6 +5,9 @@
 
 import UIKit
 
+/**
+ The closure that will be raised after new keyboard events
+ */
 public typealias KeyboardManagerEventClosure = (KeyboardManagerEvent) -> Void
 
 /**
@@ -62,7 +65,6 @@ public enum KeyboardManagerEvent {
      Keyboard notification's `userInfo` parsed object
      */
     public struct Data {
-
         /**
          `UIKeyboardFrameBeginUserInfoKey` and `UIKeyboardFrameEndUserInfoKey` notification's values
          */
@@ -107,7 +109,6 @@ public enum KeyboardManagerEvent {
  */
 
 public protocol KeyboardManagerProtocol: class {
-
     /// Notify a client for a new parsed keyboard events
     var eventClosure: KeyboardManagerEventClosure? { get set }
 
@@ -122,12 +123,12 @@ public protocol KeyboardManagerProtocol: class {
     /**
      Helper method that automatically adjusts view's bottom constraint after receiving keyboard appear notifications
 
-     - parameter view: UIView instance, that will be layout after contraint adjust
+     - parameter superview: UIView instance, that will be layout after contraint adjust, basically the superview of the scene
      - parameter bottomConstraint: contraint instance that `constant` property will be adjusted
      - parameter bottomOffset: minimal offset value that will be preserved after keyboard disappeared
      */
     func bindToKeyboardNotifications(
-        view: UIView,
+        superview: UIView,
         bottomConstraint: NSLayoutConstraint,
         bottomOffset: CGFloat
     )
@@ -138,7 +139,6 @@ public protocol KeyboardManagerProtocol: class {
  */
 
 public final class KeyboardManager {
-
     /// Notify a client for a new parsed keyboard events
     public var eventClosure: KeyboardManagerEventClosure?
 
@@ -246,11 +246,11 @@ extension KeyboardManager: KeyboardManagerProtocol {
     /**
      Helper method that automatically adjusts view's bottom constraint after receiving keyboard appear notifications
 
-     - parameter view: UIView instance, that will be layout after contraint adjust
+     - parameter superview: UIView instance, that will be layout after contraint adjust
      - parameter bottomConstraint: contraint instance that `constant` property will be adjusted
      - parameter bottomOffset: minimal offset value that will be preserved after keyboard disappeared
      */
-    public func bindToKeyboardNotifications(view: UIView, bottomConstraint: NSLayoutConstraint, bottomOffset: CGFloat) {
+    public func bindToKeyboardNotifications(superview: UIView, bottomConstraint: NSLayoutConstraint, bottomOffset: CGFloat) {
         let closure: KeyboardManagerEventClosure = {
             switch $0 {
             case let .willShow(data), let .willFrameChange(data):
@@ -260,7 +260,7 @@ extension KeyboardManager: KeyboardManagerProtocol {
             default:
                 break
             }
-            view.layoutIfNeeded()
+            superview.layoutIfNeeded()
         }
         innerEventClosures += [closure]
     }

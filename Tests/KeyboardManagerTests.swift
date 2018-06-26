@@ -6,12 +6,11 @@
 //  Copyright © 2017 Alexey Korolev. All rights reserved.
 //
 
-import XCTest
-import UIKit
 @testable import KeyboardManager
+import UIKit
+import XCTest
 
 class KeyboardManagerTests: XCTestCase {
-
     let beginFrame = CGRect(x: 2, y: 6, width: 111, height: 222)
     let endFrame = CGRect(x: 1, y: 3, width: 111, height: 222)
     let animationDuration: Double = 4.0
@@ -137,7 +136,7 @@ class KeyboardManagerTests: XCTestCase {
         let bottomConstrain = parentView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         let bottomOffset: CGFloat = 20.0
         // WHEN
-        keyboardManager.bindToKeyboardNotifications(view: view, bottomConstraint: bottomConstrain, bottomOffset: bottomOffset)
+        keyboardManager.bindToKeyboardNotifications(superview: view, bottomConstraint: bottomConstrain, bottomOffset: bottomOffset)
         postTestNotification(name: Notification.Name.UIKeyboardWillShow)
         // THEN
         XCTAssertEqual(bottomConstrain.constant, -endFrame.height)
@@ -151,7 +150,7 @@ class KeyboardManagerTests: XCTestCase {
         let bottomConstrain = parentView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         let bottomOffset: CGFloat = 20.0
         // WHEN
-        keyboardManager.bindToKeyboardNotifications(view: view, bottomConstraint: bottomConstrain, bottomOffset: bottomOffset)
+        keyboardManager.bindToKeyboardNotifications(superview: view, bottomConstraint: bottomConstrain, bottomOffset: bottomOffset)
         postTestNotification(name: Notification.Name.UIKeyboardWillChangeFrame)
         // THEN
         XCTAssertEqual(bottomConstrain.constant, -endFrame.height)
@@ -165,7 +164,7 @@ class KeyboardManagerTests: XCTestCase {
         let bottomConstrain = parentView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         let bottomOffset: CGFloat = 20.0
         // WHEN
-        keyboardManager.bindToKeyboardNotifications(view: view, bottomConstraint: bottomConstrain, bottomOffset: bottomOffset)
+        keyboardManager.bindToKeyboardNotifications(superview: view, bottomConstraint: bottomConstrain, bottomOffset: bottomOffset)
         postTestNotification(name: Notification.Name.UIKeyboardWillShow)
         postTestNotification(name: Notification.Name.UIKeyboardWillShow)
         postTestNotification(name: Notification.Name.UIKeyboardWillShow)
@@ -181,7 +180,7 @@ class KeyboardManagerTests: XCTestCase {
         let bottomConstrain = parentView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         let bottomOffset: CGFloat = 20.0
         // WHEN
-        keyboardManager.bindToKeyboardNotifications(view: view, bottomConstraint: bottomConstrain, bottomOffset: bottomOffset)
+        keyboardManager.bindToKeyboardNotifications(superview: view, bottomConstraint: bottomConstrain, bottomOffset: bottomOffset)
         postTestNotification(name: Notification.Name.UIKeyboardWillHide)
         // THEN
         XCTAssertEqual(bottomConstrain.constant, -bottomOffset)
@@ -195,7 +194,7 @@ class KeyboardManagerTests: XCTestCase {
         let bottomConstrain = parentView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         let bottomOffset: CGFloat = 20.0
         // WHEN
-        keyboardManager.bindToKeyboardNotifications(view: view, bottomConstraint: bottomConstrain, bottomOffset: bottomOffset)
+        keyboardManager.bindToKeyboardNotifications(superview: view, bottomConstraint: bottomConstrain, bottomOffset: bottomOffset)
         postTestNotification(name: Notification.Name.UIKeyboardWillHide)
         postTestNotification(name: Notification.Name.UIKeyboardWillHide)
         postTestNotification(name: Notification.Name.UIKeyboardWillHide)
@@ -211,7 +210,7 @@ class KeyboardManagerTests: XCTestCase {
         let bottomConstrain = parentView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         let bottomOffset: CGFloat = 20.0
         // WHEN
-        keyboardManager.bindToKeyboardNotifications(view: view, bottomConstraint: bottomConstrain, bottomOffset: bottomOffset)
+        keyboardManager.bindToKeyboardNotifications(superview: view, bottomConstraint: bottomConstrain, bottomOffset: bottomOffset)
         postTestNotification(name: Notification.Name.UIKeyboardDidShow)
         // THEN
         XCTAssertEqual(bottomConstrain.constant, 0)
@@ -225,7 +224,7 @@ class KeyboardManagerTests: XCTestCase {
         let bottomConstrain = parentView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         let bottomOffset: CGFloat = 20.0
         // WHEN
-        keyboardManager.bindToKeyboardNotifications(view: view, bottomConstraint: bottomConstrain, bottomOffset: bottomOffset)
+        keyboardManager.bindToKeyboardNotifications(superview: view, bottomConstraint: bottomConstrain, bottomOffset: bottomOffset)
         postTestNotification(name: Notification.Name.UIKeyboardDidHide)
         // THEN
         XCTAssertEqual(bottomConstrain.constant, 0)
@@ -239,7 +238,7 @@ class KeyboardManagerTests: XCTestCase {
         let bottomConstrain = parentView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         let bottomOffset: CGFloat = 20.0
         // WHEN
-        keyboardManager.bindToKeyboardNotifications(view: view, bottomConstraint: bottomConstrain, bottomOffset: bottomOffset)
+        keyboardManager.bindToKeyboardNotifications(superview: view, bottomConstraint: bottomConstrain, bottomOffset: bottomOffset)
         postTestNotification(name: Notification.Name.UIKeyboardDidChangeFrame)
         // THEN
         XCTAssertEqual(bottomConstrain.constant, 0)
@@ -259,7 +258,7 @@ class KeyboardManagerTests: XCTestCase {
 
         // WHEN
         keyboardManager.bindToKeyboardNotifications(scrollView: scrollView)
-        keyboardManager.bindToKeyboardNotifications(view: view, bottomConstraint: bottomConstrain, bottomOffset: bottomOffset)
+        keyboardManager.bindToKeyboardNotifications(superview: view, bottomConstraint: bottomConstrain, bottomOffset: bottomOffset)
         postTestNotification(name: Notification.Name.UIKeyboardWillShow)
         // THEN
         XCTAssertEqual(scrollView.contentInset.bottom, initialInsets.bottom + endFrame.height)
