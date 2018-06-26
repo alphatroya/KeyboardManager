@@ -1,8 +1,18 @@
 language: objective-c
-osx_image: xcode9
+osx_image: xcode9.4
 xcode_sdk: iphoneos11.0
 cache: bundler
 script:
-    - bundle install
-    - bundle exec fastlane test
-    - bash <(curl -s https://codecov.io/bash)
+  - bundle install
+  - bundle exec fastlane test
+  - bash <(curl -s https://codecov.io/bash)
+before_deploy:
+  - carthage build --no-skip-current --platform iOS
+  - carthage archive KeyboardManager
+deploy:
+  provider: releases
+  api_key:
+    secure: vA0ITSF3ZNuPNHZEBfjOFK47B2p+e9kh8eoZqGBtBPdtilNRtE7WcvAgJ+QpZJ3pZeUs5SF7nEdX6J2aKiV38glHEvoDBtnUgUswlyIuduxvAo2t9+1Vcyn9cT005pS7TTbgYlRIiMf8LIRG40mVOrICMLWLPLBemKeFKebXHx/GjfEolg7UdRxdpdv4LCHwY8IUaim5vPulSUiB2pUYd3uLktmYnaxk9ZfeD2RQfvexZPsaG5EUTZHLBLwzmoSFSGqFSvgP3rjCDnl0QMvGv5gGKY/UsjwoT2V4hHiDQvF2YdR1fh62/P689i8ixEpK8lzFB2HOrGFTuuOEM3kA0ZTQ9oRzlnk9Az58oQViV6wAgrFy7wORbq8TfMtPSmYvy1KMr4bziKzNWAIp9dQf6ziAueqrUyCz8GM7pJo/6swM4ec9Tf5UgymDVfnLtrkYdvPti26wAnlPrEy1awPsIXtyLCODs3msYTvUt8z5BVsFHgqx9HZvBcAZnqiQxy54rXug6T1oUbDFESYox62n+/tyG0DTpqoBJXnMg/l8REo/986XikwJe3RN1vezA2w01X38uXbD0MVb2HhsAmwsyFsQy0rWQQQHIvQc2dYkq9kwu6KLIJ8XGGZvsGEW920HtCrbpkN5Avt34TbQCMhjmJEwaREWPH7muyLN6uCvhAo=
+  file: KeyboardManager.framework.zip
+  on:
+    tags: true
