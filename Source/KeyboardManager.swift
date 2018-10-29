@@ -141,6 +141,7 @@ public protocol KeyboardManagerProtocol: class {
 public final class KeyboardManager {
     /// Notify a client for a new parsed keyboard events
     public var eventClosure: KeyboardManagerEventClosure?
+    public var isEnabledNotifications: Bool = true
 
     let notificationCenter: NotificationCenter
 
@@ -220,6 +221,10 @@ public final class KeyboardManager {
     }
 
     private func invokeClosures(_ event: KeyboardManagerEvent) {
+        guard isEnabledNotifications else {
+            return
+        }
+
         eventClosure?(event)
         innerEventClosures.forEach { $0(event) }
     }
