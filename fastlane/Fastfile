@@ -15,9 +15,7 @@ platform :ios do
       project: 'KeyboardManager.xcodeproj',
       scheme: 'KeyboardManager',
       clean: true,
-      code_coverage: true,
-      formatter: 'xcpretty-json-formatter'
+      code_coverage: true
     )
-    danger
   end
 end
