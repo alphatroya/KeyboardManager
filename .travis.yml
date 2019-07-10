@@ -14,5 +14,6 @@ deploy:
   api_key:
     secure: PSEPnhdcqVxEaoOelOaDFw5nvPA6i+uxr5H2UDc2AHoTW+dqCs5Tnqbl7X99s5W/RmuBAkIlF0D13n1BNbbKDVFimV5vucc5DTW6OxbwKwrQwCh/quMKHk9CsTrjJb2Az/Il6MdZUpDERDs3GlBdwTkIcbf6EkSHJ5ZHevwO/4DMNESSZhDMFWUtn7L+nXXkji5prB4Ez/HeqOJCveKKmfxS/+cZWiJhVnCms0q7pY8ReYBNm+aS+kHq5QxiEt0ZSJvo7T/CkPjvrpB8rxSGpj8ZM+MUC3MsjpfFJMrmVHAN/AO1y3OKm7o+3gcsIgVyV3cjD4ea7Wr3Tlf0Cxb3WDWqxXRkrAhD+c7zMqATS77TLjfROwZ8BXWPI4+F8npaMzcMQvt4jKLqqBY2z+A1xhmrRqZgpPQVou8tnx+X4mY+3xq+bAJFueMvCjmGcLS+L491i+T3JCCVHioQWGXGBjdBeaACK2/dHBjNicRITS0mj++Di7RmLXcw8oowfQrU3+pKSE1GvgUQqMzl8PwrK7OnmIKyn2kmTeL4qxPmj8Lw17ky8zrICqXtSsq33/I5HwiMb5Qdqndvnrt5VVAqyjkvbSNZyOt4kpRDQkrz0RX10XuomtiCNQ08MJllF8niyJFpTStO4z0EnXH73tNok1luRVOo7DjeBwGc49beSZg=
   file: KeyboardManager.framework.zip
+  skip_cleanup: true
   on:
     tags: true
