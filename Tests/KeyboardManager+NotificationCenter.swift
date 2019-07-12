@@ -5,11 +5,10 @@
 
 import UIKit
 
-import XCTest
 @testable import KeyboardManager
+import XCTest
 
 class KeyboardManagerNotificationCenterTest: XCTestCase {
-
     private var notificationCenter: NotificationCenterMock!
     var keyboardManager: KeyboardManagerProtocol!
 
@@ -57,7 +56,6 @@ class KeyboardManagerNotificationCenterTest: XCTestCase {
 
 // swiftlint:disable force_unwrapping
 private class NotificationCenterMock: NotificationCenter {
-
     var isWillShow: Bool = false
     var isDidShow: Bool = false
     var isWillHide: Bool = false
@@ -67,17 +65,17 @@ private class NotificationCenterMock: NotificationCenter {
     var isUnsubscribed: Bool = false
 
     override func addObserver(_: Any, selector _: Selector, name aName: NSNotification.Name?, object _: Any?) {
-        if case Notification.Name.UIKeyboardWillShow = aName! {
+        if case UIResponder.keyboardWillShowNotification = aName! {
             isWillShow = true
-        } else if case Notification.Name.UIKeyboardDidShow = aName! {
+        } else if case UIResponder.keyboardDidShowNotification = aName! {
             isDidShow = true
-        } else if case Notification.Name.UIKeyboardWillHide = aName! {
+        } else if case UIResponder.keyboardWillHideNotification = aName! {
             isWillHide = true
-        } else if case Notification.Name.UIKeyboardDidHide = aName! {
+        } else if case UIResponder.keyboardDidHideNotification = aName! {
             isDidHide = true
-        } else if case Notification.Name.UIKeyboardWillChangeFrame = aName! {
+        } else if case UIResponder.keyboardWillChangeFrameNotification = aName! {
             isWillChangeFrame = true
-        } else if case Notification.Name.UIKeyboardDidChangeFrame = aName! {
+        } else if case UIResponder.keyboardDidChangeFrameNotification = aName! {
             isDidChangeFrame = true
         }
     }

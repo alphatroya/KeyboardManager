@@ -3,25 +3,24 @@
 // Copyright (c) 2017 Alexey Korolev. All rights reserved.
 //
 
-import UIKit
 import KeyboardManager
+import UIKit
 
 extension KeyboardManagerTests {
-
     func postTestNotification(name: Notification.Name) {
         notificationCenter.post(name: name, object: nil, userInfo: [
-            UIKeyboardFrameEndUserInfoKey: NSValue(cgRect: endFrame),
-            UIKeyboardFrameBeginUserInfoKey: NSValue(cgRect: beginFrame),
-            UIKeyboardAnimationDurationUserInfoKey: animationDuration,
-            UIKeyboardIsLocalUserInfoKey: isLocal,
-            UIKeyboardAnimationCurveUserInfoKey: curve,
+            UIResponder.keyboardFrameEndUserInfoKey: NSValue(cgRect: endFrame),
+            UIResponder.keyboardFrameBeginUserInfoKey: NSValue(cgRect: beginFrame),
+            UIResponder.keyboardAnimationDurationUserInfoKey: animationDuration,
+            UIResponder.keyboardIsLocalUserInfoKey: isLocal,
+            UIResponder.keyboardAnimationCurveUserInfoKey: curve,
         ])
     }
 
     func postWrongTestNotification() {
-        notificationCenter.post(name: Notification.Name.UIKeyboardDidShow, object: nil, userInfo: [
-            UIKeyboardFrameEndUserInfoKey: NSValue(cgRect: endFrame),
-            UIKeyboardAnimationCurveUserInfoKey: 10,
+        notificationCenter.post(name: UIResponder.keyboardDidShowNotification, object: nil, userInfo: [
+            UIResponder.keyboardFrameEndUserInfoKey: NSValue(cgRect: endFrame),
+            UIResponder.keyboardAnimationCurveUserInfoKey: 10,
         ])
     }
 
