@@ -40,7 +40,7 @@ class KeyboardManagerTests: XCTestCase {
                 isTriggered = true
             }
         }
-        postTestNotification(name: Notification.Name.UIKeyboardWillShow)
+        postTestNotification(name: UIResponder.keyboardWillShowNotification)
         XCTAssertTrue(isTriggered)
     }
 
@@ -52,7 +52,7 @@ class KeyboardManagerTests: XCTestCase {
                 isTriggered = true
             }
         }
-        postTestNotification(name: Notification.Name.UIKeyboardDidShow)
+        postTestNotification(name: UIResponder.keyboardDidShowNotification)
         XCTAssertTrue(isTriggered)
     }
 
@@ -64,7 +64,7 @@ class KeyboardManagerTests: XCTestCase {
                 isTriggered = true
             }
         }
-        postTestNotification(name: Notification.Name.UIKeyboardWillHide)
+        postTestNotification(name: UIResponder.keyboardWillHideNotification)
         XCTAssertTrue(isTriggered)
     }
 
@@ -76,7 +76,7 @@ class KeyboardManagerTests: XCTestCase {
                 isTriggered = true
             }
         }
-        postTestNotification(name: Notification.Name.UIKeyboardDidHide)
+        postTestNotification(name: UIResponder.keyboardDidHideNotification)
         XCTAssertTrue(isTriggered)
     }
 
@@ -88,7 +88,7 @@ class KeyboardManagerTests: XCTestCase {
                 isTriggered = true
             }
         }
-        postTestNotification(name: Notification.Name.UIKeyboardWillChangeFrame)
+        postTestNotification(name: UIResponder.keyboardWillChangeFrameNotification)
         XCTAssertTrue(isTriggered)
     }
 
@@ -100,7 +100,7 @@ class KeyboardManagerTests: XCTestCase {
                 isTriggered = true
             }
         }
-        postTestNotification(name: Notification.Name.UIKeyboardDidChangeFrame)
+        postTestNotification(name: UIResponder.keyboardDidChangeFrameNotification)
         XCTAssertTrue(isTriggered)
     }
 
@@ -124,7 +124,7 @@ class KeyboardManagerTests: XCTestCase {
             XCTAssertTrue(self.compare(lhs: data, rhs: nullObject))
             expectation.fulfill()
         }
-        notificationCenter.post(name: Notification.Name.UIKeyboardDidShow, object: nil)
+        notificationCenter.post(name: UIResponder.keyboardDidShowNotification, object: nil)
         waitForExpectations(timeout: 5)
     }
 
@@ -137,7 +137,7 @@ class KeyboardManagerTests: XCTestCase {
         let bottomOffset: CGFloat = 20.0
         // WHEN
         keyboardManager.bindToKeyboardNotifications(superview: view, bottomConstraint: bottomConstrain, bottomOffset: bottomOffset)
-        postTestNotification(name: Notification.Name.UIKeyboardWillShow)
+        postTestNotification(name: UIResponder.keyboardWillShowNotification)
         // THEN
         XCTAssertEqual(bottomConstrain.constant, -endFrame.height)
     }
@@ -151,7 +151,7 @@ class KeyboardManagerTests: XCTestCase {
         let bottomOffset: CGFloat = 20.0
         // WHEN
         keyboardManager.bindToKeyboardNotifications(superview: view, bottomConstraint: bottomConstrain, bottomOffset: bottomOffset)
-        postTestNotification(name: Notification.Name.UIKeyboardWillChangeFrame)
+        postTestNotification(name: UIResponder.keyboardWillChangeFrameNotification)
         // THEN
         XCTAssertEqual(bottomConstrain.constant, -endFrame.height)
     }
@@ -165,9 +165,9 @@ class KeyboardManagerTests: XCTestCase {
         let bottomOffset: CGFloat = 20.0
         // WHEN
         keyboardManager.bindToKeyboardNotifications(superview: view, bottomConstraint: bottomConstrain, bottomOffset: bottomOffset)
-        postTestNotification(name: Notification.Name.UIKeyboardWillShow)
-        postTestNotification(name: Notification.Name.UIKeyboardWillShow)
-        postTestNotification(name: Notification.Name.UIKeyboardWillShow)
+        postTestNotification(name: UIResponder.keyboardWillShowNotification)
+        postTestNotification(name: UIResponder.keyboardWillShowNotification)
+        postTestNotification(name: UIResponder.keyboardWillShowNotification)
         // THEN
         XCTAssertEqual(bottomConstrain.constant, -endFrame.height)
     }
@@ -181,7 +181,7 @@ class KeyboardManagerTests: XCTestCase {
         let bottomOffset: CGFloat = 20.0
         // WHEN
         keyboardManager.bindToKeyboardNotifications(superview: view, bottomConstraint: bottomConstrain, bottomOffset: bottomOffset)
-        postTestNotification(name: Notification.Name.UIKeyboardWillHide)
+        postTestNotification(name: UIResponder.keyboardWillHideNotification)
         // THEN
         XCTAssertEqual(bottomConstrain.constant, -bottomOffset)
     }
@@ -195,9 +195,9 @@ class KeyboardManagerTests: XCTestCase {
         let bottomOffset: CGFloat = 20.0
         // WHEN
         keyboardManager.bindToKeyboardNotifications(superview: view, bottomConstraint: bottomConstrain, bottomOffset: bottomOffset)
-        postTestNotification(name: Notification.Name.UIKeyboardWillHide)
-        postTestNotification(name: Notification.Name.UIKeyboardWillHide)
-        postTestNotification(name: Notification.Name.UIKeyboardWillHide)
+        postTestNotification(name: UIResponder.keyboardWillHideNotification)
+        postTestNotification(name: UIResponder.keyboardWillHideNotification)
+        postTestNotification(name: UIResponder.keyboardWillHideNotification)
         // THEN
         XCTAssertEqual(bottomConstrain.constant, -bottomOffset)
     }
@@ -211,7 +211,7 @@ class KeyboardManagerTests: XCTestCase {
         let bottomOffset: CGFloat = 20.0
         // WHEN
         keyboardManager.bindToKeyboardNotifications(superview: view, bottomConstraint: bottomConstrain, bottomOffset: bottomOffset)
-        postTestNotification(name: Notification.Name.UIKeyboardDidShow)
+        postTestNotification(name: UIResponder.keyboardDidShowNotification)
         // THEN
         XCTAssertEqual(bottomConstrain.constant, 0)
     }
@@ -225,7 +225,7 @@ class KeyboardManagerTests: XCTestCase {
         let bottomOffset: CGFloat = 20.0
         // WHEN
         keyboardManager.bindToKeyboardNotifications(superview: view, bottomConstraint: bottomConstrain, bottomOffset: bottomOffset)
-        postTestNotification(name: Notification.Name.UIKeyboardDidHide)
+        postTestNotification(name: UIResponder.keyboardDidHideNotification)
         // THEN
         XCTAssertEqual(bottomConstrain.constant, 0)
     }
@@ -239,7 +239,7 @@ class KeyboardManagerTests: XCTestCase {
         let bottomOffset: CGFloat = 20.0
         // WHEN
         keyboardManager.bindToKeyboardNotifications(superview: view, bottomConstraint: bottomConstrain, bottomOffset: bottomOffset)
-        postTestNotification(name: Notification.Name.UIKeyboardDidChangeFrame)
+        postTestNotification(name: UIResponder.keyboardDidChangeFrameNotification)
         // THEN
         XCTAssertEqual(bottomConstrain.constant, 0)
     }
@@ -259,7 +259,7 @@ class KeyboardManagerTests: XCTestCase {
         // WHEN
         keyboardManager.bindToKeyboardNotifications(scrollView: scrollView)
         keyboardManager.bindToKeyboardNotifications(superview: view, bottomConstraint: bottomConstrain, bottomOffset: bottomOffset)
-        postTestNotification(name: Notification.Name.UIKeyboardWillShow)
+        postTestNotification(name: UIResponder.keyboardWillShowNotification)
         // THEN
         XCTAssertEqual(scrollView.contentInset.bottom, initialInsets.bottom + endFrame.height)
         XCTAssertEqual(bottomConstrain.constant, -endFrame.height)

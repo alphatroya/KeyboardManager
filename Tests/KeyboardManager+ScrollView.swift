@@ -3,12 +3,11 @@
 // Copyright (c) 2017 Alexey Korolev. All rights reserved.
 //
 
-import XCTest
-import UIKit
 @testable import KeyboardManager
+import UIKit
+import XCTest
 
 extension KeyboardManagerTests {
-
     func testScrollViewInsetAdjustingAfterKeyboardAppear() {
         // GIVEN
         let scrollView = UIScrollView()
@@ -16,7 +15,7 @@ extension KeyboardManagerTests {
         scrollView.contentInset = initialInsets
         // WHEN
         keyboardManager.bindToKeyboardNotifications(scrollView: scrollView)
-        postTestNotification(name: Notification.Name.UIKeyboardWillShow)
+        postTestNotification(name: UIResponder.keyboardWillShowNotification)
         // THEN
         XCTAssertEqual(scrollView.contentInset.bottom, initialInsets.bottom + endFrame.height)
     }
@@ -28,7 +27,7 @@ extension KeyboardManagerTests {
         scrollView.contentInset = initialInsets
         // WHEN
         keyboardManager.bindToKeyboardNotifications(scrollView: scrollView)
-        postTestNotification(name: Notification.Name.UIKeyboardWillChangeFrame)
+        postTestNotification(name: UIResponder.keyboardWillChangeFrameNotification)
         // THEN
         XCTAssertEqual(scrollView.contentInset.bottom, initialInsets.bottom + endFrame.height)
     }
@@ -40,8 +39,8 @@ extension KeyboardManagerTests {
         scrollView.contentInset = initialInsets
         // WHEN
         keyboardManager.bindToKeyboardNotifications(scrollView: scrollView)
-        postTestNotification(name: Notification.Name.UIKeyboardWillShow)
-        postTestNotification(name: Notification.Name.UIKeyboardWillShow)
+        postTestNotification(name: UIResponder.keyboardWillShowNotification)
+        postTestNotification(name: UIResponder.keyboardWillShowNotification)
         // THEN
         XCTAssertEqual(scrollView.contentInset.bottom, initialInsets.bottom + endFrame.height)
     }
@@ -53,8 +52,8 @@ extension KeyboardManagerTests {
         scrollView.contentInset = initialInsets
         // WHEN
         keyboardManager.bindToKeyboardNotifications(scrollView: scrollView)
-        postTestNotification(name: Notification.Name.UIKeyboardWillShow)
-        postTestNotification(name: Notification.Name.UIKeyboardWillChangeFrame)
+        postTestNotification(name: UIResponder.keyboardWillShowNotification)
+        postTestNotification(name: UIResponder.keyboardWillChangeFrameNotification)
         // THEN
         XCTAssertEqual(scrollView.contentInset.bottom, initialInsets.bottom + endFrame.height)
     }
@@ -66,8 +65,8 @@ extension KeyboardManagerTests {
         scrollView.contentInset = initialInsets
         // WHEN
         keyboardManager.bindToKeyboardNotifications(scrollView: scrollView)
-        postTestNotification(name: Notification.Name.UIKeyboardWillShow)
-        postTestNotification(name: Notification.Name.UIKeyboardWillHide)
+        postTestNotification(name: UIResponder.keyboardWillShowNotification)
+        postTestNotification(name: UIResponder.keyboardWillHideNotification)
         // THEN
         XCTAssertEqual(scrollView.contentInset, initialInsets)
     }
@@ -79,9 +78,9 @@ extension KeyboardManagerTests {
         scrollView.contentInset = initialInsets
         // WHEN
         keyboardManager.bindToKeyboardNotifications(scrollView: scrollView)
-        postTestNotification(name: Notification.Name.UIKeyboardWillShow)
-        postTestNotification(name: Notification.Name.UIKeyboardWillHide)
-        postTestNotification(name: Notification.Name.UIKeyboardWillHide)
+        postTestNotification(name: UIResponder.keyboardWillShowNotification)
+        postTestNotification(name: UIResponder.keyboardWillHideNotification)
+        postTestNotification(name: UIResponder.keyboardWillHideNotification)
         // THEN
         XCTAssertEqual(scrollView.contentInset, initialInsets)
     }
@@ -93,7 +92,7 @@ extension KeyboardManagerTests {
         scrollView.contentInset = initialInsets
         // WHEN
         keyboardManager.bindToKeyboardNotifications(scrollView: scrollView)
-        postTestNotification(name: Notification.Name.UIKeyboardDidShow)
+        postTestNotification(name: UIResponder.keyboardDidShowNotification)
         // THEN
         XCTAssertEqual(scrollView.contentInset, initialInsets)
     }
@@ -105,7 +104,7 @@ extension KeyboardManagerTests {
         scrollView.contentInset = initialInsets
         // WHEN
         keyboardManager.bindToKeyboardNotifications(scrollView: scrollView)
-        postTestNotification(name: Notification.Name.UIKeyboardDidChangeFrame)
+        postTestNotification(name: UIResponder.keyboardDidChangeFrameNotification)
         // THEN
         XCTAssertEqual(scrollView.contentInset, initialInsets)
     }
@@ -117,7 +116,7 @@ extension KeyboardManagerTests {
         scrollView.contentInset = initialInsets
         // WHEN
         keyboardManager.bindToKeyboardNotifications(scrollView: scrollView)
-        postTestNotification(name: Notification.Name.UIKeyboardWillHide)
+        postTestNotification(name: UIResponder.keyboardWillHideNotification)
         // THEN
         XCTAssertEqual(scrollView.contentInset, initialInsets)
     }

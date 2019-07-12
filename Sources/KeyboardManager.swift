@@ -153,34 +153,28 @@ public final class KeyboardManager {
 
         notificationCenter.addObserver(self,
                                        selector: #selector(keyboardWillShow(_:)),
-                                       name: Notification.Name.UIKeyboardWillShow,
-                                       object: nil
-        )
+                                       name: UIResponder.keyboardWillShowNotification,
+                                       object: nil)
         notificationCenter.addObserver(self,
                                        selector: #selector(keyboardDidShow(_:)),
-                                       name: Notification.Name.UIKeyboardDidShow,
-                                       object: nil
-        )
+                                       name: UIResponder.keyboardDidShowNotification,
+                                       object: nil)
         notificationCenter.addObserver(self,
                                        selector: #selector(keyboardWillHide(_:)),
-                                       name: Notification.Name.UIKeyboardWillHide,
-                                       object: nil
-        )
+                                       name: UIResponder.keyboardWillHideNotification,
+                                       object: nil)
         notificationCenter.addObserver(self,
                                        selector: #selector(keyboardDidHide(_:)),
-                                       name: Notification.Name.UIKeyboardDidHide,
-                                       object: nil
-        )
+                                       name: UIResponder.keyboardDidHideNotification,
+                                       object: nil)
         notificationCenter.addObserver(self,
                                        selector: #selector(keyboardWillChangeFrame(_:)),
-                                       name: Notification.Name.UIKeyboardWillChangeFrame,
-                                       object: nil
-        )
+                                       name: UIResponder.keyboardWillChangeFrameNotification,
+                                       object: nil)
         notificationCenter.addObserver(self,
                                        selector: #selector(keyboardDidChangeFrame(_:)),
-                                       name: Notification.Name.UIKeyboardDidChangeFrame,
-                                       object: nil
-        )
+                                       name: UIResponder.keyboardDidChangeFrameNotification,
+                                       object: nil)
     }
 
     deinit {
@@ -225,11 +219,11 @@ public final class KeyboardManager {
     }
 
     private func extractData(from notification: Notification) -> KeyboardManagerEvent.Data {
-        guard let endFrame = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue,
-            let beginFrame = notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue,
-            let curve = notification.userInfo?[UIKeyboardAnimationCurveUserInfoKey] as? NSNumber,
-            let isLocal = notification.userInfo?[UIKeyboardIsLocalUserInfoKey] as? NSNumber,
-            let duration = notification.userInfo?[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber else {
+        guard let endFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue,
+            let beginFrame = notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue,
+            let curve = notification.userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] as? NSNumber,
+            let isLocal = notification.userInfo?[UIResponder.keyboardIsLocalUserInfoKey] as? NSNumber,
+            let duration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber else {
             return KeyboardManagerEvent.Data.null()
         }
         let frame = KeyboardManagerEvent.Frame(begin: beginFrame.cgRectValue, end: endFrame.cgRectValue)
@@ -285,18 +279,20 @@ extension KeyboardManager: KeyboardManagerProtocol {
             UIView.animateKeyframes(
                 withDuration: data.animationDuration,
                 delay: 0,
-                options: UIViewKeyframeAnimationOptions(rawValue: UInt(data.animationCurve)),
+                options: UIView.KeyframeAnimationOptions(rawValue: UInt(data.animationCurve)),
                 animations: {
                     scrollView.contentInset.bottom = initialInset.bottom + data.frame.end.size.height
-            })
+                }
+            )
         case let .willHide(data):
             UIView.animateKeyframes(
                 withDuration: data.animationDuration,
                 delay: 0,
-                options: UIViewKeyframeAnimationOptions(rawValue: UInt(data.animationCurve)),
+                options: UIView.KeyframeAnimationOptions(rawValue: UInt(data.animationCurve)),
                 animations: {
                     scrollView.contentInset.bottom = initialInset.bottom
-            })
+                }
+            )
         default:
             break
         }
