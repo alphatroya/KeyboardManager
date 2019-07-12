@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0900"
+   LastUpgradeVersion = "1020"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D41CA4221E2A5D8F00410ECF"
+               BlueprintIdentifier = "7D0D30D3C59F1CBCCE7520D45ACDC857"
                BuildableName = "KeyboardManager.framework"
                BlueprintName = "KeyboardManager"
                ReferencedContainer = "container:KeyboardManager.xcodeproj">
@@ -26,15 +26,13 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      language = ""
-      shouldUseLaunchSchemeArgsEnv = "YES"
-      codeCoverageEnabled = "YES">
+      shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
          <TestableReference
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D41CA42B1E2A5D8F00410ECF"
+               BlueprintIdentifier = "FD4556E1ACA9FD0BAB2A75BE0F0700A5"
                BuildableName = "KeyboardManagerTests.xctest"
                BlueprintName = "KeyboardManagerTests"
                ReferencedContainer = "container:KeyboardManager.xcodeproj">
@@ -44,12 +42,14 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "D41CA4221E2A5D8F00410ECF"
+            BlueprintIdentifier = "7D0D30D3C59F1CBCCE7520D45ACDC857"
             BuildableName = "KeyboardManager.framework"
             BlueprintName = "KeyboardManager"
             ReferencedContainer = "container:KeyboardManager.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
+      <CommandLineArguments>
+      </CommandLineArguments>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -57,7 +57,6 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      language = ""
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
       ignoresPersistentStateOnLaunch = "NO"
@@ -67,12 +66,14 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "D41CA4221E2A5D8F00410ECF"
+            BlueprintIdentifier = "7D0D30D3C59F1CBCCE7520D45ACDC857"
             BuildableName = "KeyboardManager.framework"
             BlueprintName = "KeyboardManager"
             ReferencedContainer = "container:KeyboardManager.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
+      <CommandLineArguments>
+      </CommandLineArguments>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -82,15 +83,18 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "D41CA4221E2A5D8F00410ECF"
+            BlueprintIdentifier = "7D0D30D3C59F1CBCCE7520D45ACDC857"
             BuildableName = "KeyboardManager.framework"
             BlueprintName = "KeyboardManager"
             ReferencedContainer = "container:KeyboardManager.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
+      <CommandLineArguments>
+      </CommandLineArguments>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
