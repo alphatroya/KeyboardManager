@@ -1,0 +1,39 @@
+name: KeyboardManager
+options:
+  deploymentTarget:
+    iOS: 9.0
+  createIntermediateGroups: true
+attributes:
+  ORGANIZATIONNAME: alphatroya
+configs:
+  Debug: debug
+  Release: release
+settings:
+  base:
+    CURRENT_PROJECT_VERSION: 1
+    SWIFT_VERSION: 4.0
+  configs:
+    Debug:
+      OTHER_SWIFT_FLAGS: -D DEBUG
+    Release:
+      OTHER_SWIFT_FLAGS: -D RELEASE
+      SWIFT_COMPILATION_MODE: wholemodule
+targets:
+  KeyboardManager:
+    type: framework
+    platform: iOS
+    sources:
+      - path: Sources
+    scheme:
+      testTargets:
+        - KeyboardManagerTests
+    settings:
+      PRODUCT_BUNDLE_IDENTIFIER: alphatroya.KeyboardManager
+  KeyboardManagerTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - Sources
+      - Tests
+    dependencies:
+      - target: KeyboardManager
