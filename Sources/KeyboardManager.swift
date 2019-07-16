@@ -108,7 +108,7 @@ public enum KeyboardManagerEvent {
  Protocol defines an interface for keyboard manager
  */
 
-public protocol KeyboardManagerProtocol: class {
+public protocol KeyboardManagerProtocol: AnyObject {
     /// Notify a client for a new parsed keyboard events
     var eventClosure: KeyboardManagerEventClosure? { get set }
 
@@ -181,7 +181,7 @@ public final class KeyboardManager {
         notificationCenter.removeObserver(self)
     }
 
-    fileprivate var innerEventClosures: [KeyboardManagerEventClosure] = []
+    private var innerEventClosures: [KeyboardManagerEventClosure] = []
 
     @objc
     private func keyboardWillShow(_ notification: Notification) {
