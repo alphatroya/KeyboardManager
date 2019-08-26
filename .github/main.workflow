@@ -1,4 +1,4 @@
-workflow "New workflow" {
+workflow "Swiftlint check" {
   on = "push"
   resolves = ["swiftlint"]
 }

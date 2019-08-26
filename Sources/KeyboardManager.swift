@@ -15,7 +15,7 @@ public typealias KeyboardManagerEventClosure = (KeyboardManagerEvent) -> Void
  data object
  */
 
-public enum KeyboardManagerEvent {
+public enum KeyboardManagerEvent{
     /**
      UIKeyboardWillShow notification case event
      */
@@ -49,7 +49,7 @@ public enum KeyboardManagerEvent {
     /**
      Object with `UIKeyboardFrameBeginUserInfoKey` and `UIKeyboardFrameEndUserInfoKey` notification's `userInfo` values
      */
-    public struct Frame{
+    public struct Frame {
         /**
          `UIKeyboardFrameBeginUserInfoKey` notification's value
          */
