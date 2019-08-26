@@ -10,5 +10,3 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - uses: "norio-nomura/action-swiftlint@master"
-      secrets: 
-          - "GITHUB_TOKEN"
