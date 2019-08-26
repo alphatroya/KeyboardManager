@@ -8,14 +8,14 @@ import UIKit
 /**
  The closure that will be raised after new keyboard events
  */
-public typealias KeyboardManagerEventClosure = (KeyboardManagerEvent) -> Void
+public typealias KeyboardManagerEventClosure =(KeyboardManagerEvent) -> Void
 
 /**
  The object contains type of keyboard transition and parsed `userInfo` dictionary
  data object
  */
 
-public enum KeyboardManagerEvent{
+public enum KeyboardManagerEvent {
     /**
      UIKeyboardWillShow notification case event
      */
