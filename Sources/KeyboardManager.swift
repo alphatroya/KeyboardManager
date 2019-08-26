@@ -8,7 +8,7 @@ import UIKit
 /**
  The closure that will be raised after new keyboard events
  */
-public typealias KeyboardManagerEventClosure =(KeyboardManagerEvent) -> Void
+public typealias KeyboardManagerEventClosure = (KeyboardManagerEvent) -> Void
 
 /**
  The object contains type of keyboard transition and parsed `userInfo` dictionary
@@ -49,7 +49,7 @@ public enum KeyboardManagerEvent {
     /**
      Object with `UIKeyboardFrameBeginUserInfoKey` and `UIKeyboardFrameEndUserInfoKey` notification's `userInfo` values
      */
-    public struct Frame {
+    public struct Frame{
         /**
          `UIKeyboardFrameBeginUserInfoKey` notification's value
          */
