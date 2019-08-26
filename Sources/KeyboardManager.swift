@@ -15,7 +15,7 @@ public typealias KeyboardManagerEventClosure = (KeyboardManagerEvent) -> Void
  data object
  */
 
-public enum KeyboardManagerEvent {
+public enum KeyboardManagerEvent{
     /**
      UIKeyboardWillShow notification case event
      */
