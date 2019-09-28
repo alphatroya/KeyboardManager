@@ -38,7 +38,7 @@ Run `carthage update` to build the framework and drag the built KeyboardManager.
 ### Swift Package Manager (required Xcode 11)
 
 1. Select File > Swift Packages > Add Package Dependency. Enter `https://github.com/alphatroya/KeyboardManager` in the "Choose Package Repository" dialog.
-2. In the next page, specify the version resolving rule as "Up to Next Major" with "1.4" as its earliest version.
+2. In the next page, specify the version resolving rule as "Up to Next Major" with "1.4.0" as its earliest version.
 3. After Xcode checking out the source and resolving the version, you can choose the "KeyboardManager" library and add it to your app target.
 
 ## Author
