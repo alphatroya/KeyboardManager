@@ -1,6 +1,6 @@
 //
-// Created by Alexey Korolev on 14.01.17.
-// Copyright (c) 2017 Alexey Korolev. All rights reserved.
+// KeyboardManager on 05.05.2020
+// Copyright © 2020 Alexey Korolev <alphatroya@gmail.com>
 //
 
 import UIKit
@@ -151,30 +151,42 @@ public final class KeyboardManager {
     public init(notificationCenter: NotificationCenter) {
         self.notificationCenter = notificationCenter
 
-        notificationCenter.addObserver(self,
-                                       selector: #selector(keyboardWillShow(_:)),
-                                       name: UIResponder.keyboardWillShowNotification,
-                                       object: nil)
-        notificationCenter.addObserver(self,
-                                       selector: #selector(keyboardDidShow(_:)),
-                                       name: UIResponder.keyboardDidShowNotification,
-                                       object: nil)
-        notificationCenter.addObserver(self,
-                                       selector: #selector(keyboardWillHide(_:)),
-                                       name: UIResponder.keyboardWillHideNotification,
-                                       object: nil)
-        notificationCenter.addObserver(self,
-                                       selector: #selector(keyboardDidHide(_:)),
-                                       name: UIResponder.keyboardDidHideNotification,
-                                       object: nil)
-        notificationCenter.addObserver(self,
-                                       selector: #selector(keyboardWillChangeFrame(_:)),
-                                       name: UIResponder.keyboardWillChangeFrameNotification,
-                                       object: nil)
-        notificationCenter.addObserver(self,
-                                       selector: #selector(keyboardDidChangeFrame(_:)),
-                                       name: UIResponder.keyboardDidChangeFrameNotification,
-                                       object: nil)
+        notificationCenter.addObserver(
+            self,
+            selector: #selector(keyboardWillShow(_:)),
+            name: UIResponder.keyboardWillShowNotification,
+            object: nil
+        )
+        notificationCenter.addObserver(
+            self,
+            selector: #selector(keyboardDidShow(_:)),
+            name: UIResponder.keyboardDidShowNotification,
+            object: nil
+        )
+        notificationCenter.addObserver(
+            self,
+            selector: #selector(keyboardWillHide(_:)),
+            name: UIResponder.keyboardWillHideNotification,
+            object: nil
+        )
+        notificationCenter.addObserver(
+            self,
+            selector: #selector(keyboardDidHide(_:)),
+            name: UIResponder.keyboardDidHideNotification,
+            object: nil
+        )
+        notificationCenter.addObserver(
+            self,
+            selector: #selector(keyboardWillChangeFrame(_:)),
+            name: UIResponder.keyboardWillChangeFrameNotification,
+            object: nil
+        )
+        notificationCenter.addObserver(
+            self,
+            selector: #selector(keyboardDidChangeFrame(_:)),
+            name: UIResponder.keyboardDidChangeFrameNotification,
+            object: nil
+        )
     }
 
     deinit {
@@ -281,7 +293,11 @@ extension KeyboardManager: KeyboardManagerProtocol {
                 delay: 0,
                 options: UIView.KeyframeAnimationOptions(rawValue: UInt(data.animationCurve)),
                 animations: {
-                    scrollView.contentInset.bottom = initialInset.bottom + data.frame.end.size.height
+                    let inset = initialInset.bottom + data.frame.end.size.height
+                    scrollView.contentInset.bottom = inset
+                    if #available(iOS 11.1, *) {
+                        scrollView.verticalScrollIndicatorInsets.bottom = inset
+                    }
                 }
             )
         case let .willHide(data):
@@ -291,6 +307,9 @@ extension KeyboardManager: KeyboardManagerProtocol {
                 options: UIView.KeyframeAnimationOptions(rawValue: UInt(data.animationCurve)),
                 animations: {
                     scrollView.contentInset.bottom = initialInset.bottom
+                    if #available(iOS 11.1, *) {
+                        scrollView.verticalScrollIndicatorInsets.bottom = initialInset.bottom
+                    }
                 }
             )
         default:
