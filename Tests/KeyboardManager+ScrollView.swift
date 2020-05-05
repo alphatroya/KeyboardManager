@@ -1,6 +1,6 @@
 //
-// Created by Alexey Korolev on 27.10.2017.
-// Copyright (c) 2017 Alexey Korolev. All rights reserved.
+// KeyboardManager on 05.05.2020
+// Copyright © 2020 Alexey Korolev <alphatroya@gmail.com>
 //
 
 @testable import KeyboardManager
