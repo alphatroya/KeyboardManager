@@ -11,7 +11,7 @@ platform :ios do
       command: "generate-xcodeproj",
     )
     scan(
-      # code_coverage: true
+      code_coverage: true
     )
   end
 end
