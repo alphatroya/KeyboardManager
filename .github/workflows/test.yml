@@ -1,4 +1,4 @@
-name: "Build project and run tests"
+name: "Run tests"
 
 on: [push]
 
@@ -12,7 +12,3 @@ jobs:
     - uses: maierj/fastlane-action@v1.4.0
       with:
         lane: 'test'
-
-    - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@v1
-
