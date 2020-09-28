@@ -1,6 +1,6 @@
 # Keyboard Manager
 [![Swift 5.0+](https://img.shields.io/badge/Swift-5.0+-red.svg)]()
-![Build](https://github.com/alphatroya/KeyboardManager/workflows/Build%20project%20and%20run%20tests/badge.svg?branch=master)
+![Run tests](https://github.com/alphatroya/KeyboardManager/workflows/Run%20tests/badge.svg)
 [![codebeat badge](https://codebeat.co/badges/e4acc510-15c2-45ef-9aa3-47d475ab3275)](https://codebeat.co/projects/github-com-alphatroya-keyboardmanager)
 [![Documentation](docs/badge.svg)](https://alphatroya.github.io/KeyboardManager)
 
