@@ -5,17 +5,11 @@ fastlane_version '2.0'
 default_platform :ios
 
 platform :ios do
-  before_all do
-    ENV['FASTLANE_XCODE_LIST_TIMEOUT'] = '120'
-  end
-
   desc 'Run tests'
   lane :test do
-    scan(
-      project: 'KeyboardManager.xcodeproj',
-      scheme: 'KeyboardManager',
-      clean: true,
-      code_coverage: true
+    spm(
+      command: "generate-xcodeproj",
     )
+    scan
   end
 end

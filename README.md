@@ -1,9 +1,7 @@
 # Keyboard Manager
 [![Swift 5.0+](https://img.shields.io/badge/Swift-5.0+-red.svg)]()
-[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
-[![Build Status](https://travis-ci.org/alphatroya/KeyboardManager.svg?branch=master)](https://travis-ci.org/alphatroya/KeyboardManager)
+![Run tests](https://github.com/alphatroya/KeyboardManager/workflows/Run%20tests/badge.svg)
 [![codebeat badge](https://codebeat.co/badges/e4acc510-15c2-45ef-9aa3-47d475ab3275)](https://codebeat.co/projects/github-com-alphatroya-keyboardmanager)
-[![codecov](https://codecov.io/gh/alphatroya/KeyboardManager/branch/master/graph/badge.svg)](https://codecov.io/gh/alphatroya/KeyboardManager)
 [![Documentation](docs/badge.svg)](https://alphatroya.github.io/KeyboardManager)
 
 Simple wrap up for UIKeyboardNotification events
@@ -25,16 +23,6 @@ There is also a helper method `bindToKeyboardNotifications(scrollView: UIScrollV
 
 ## Installation
  
-### Carthage
-
-To integrate KeyboardManager into your Xcode project using Carthage, specify it in your Cartfile:
-
-```ogdl
-github "alphatroya/KeyboardManager"
-```
-
-Run `carthage update` to build the framework and drag the built KeyboardManager.framework into your Xcode project.
-
 ### Swift Package Manager (required Xcode 11)
 
 1. Select File > Swift Packages > Add Package Dependency. Enter `https://github.com/alphatroya/KeyboardManager` in the "Choose Package Repository" dialog.

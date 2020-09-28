@@ -1,0 +1,14 @@
+name: "Run tests"
+
+on: [push]
+
+jobs:
+  test:
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v1
+
+    - uses: maierj/fastlane-action@v1.4.0
+      with:
+        lane: 'test'
