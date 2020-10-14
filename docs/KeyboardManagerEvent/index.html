@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KeyboardManager - KeyboardManagerEvent</title>
+    <link rel="stylesheet" type="text/css" href="/all.css" media="all" />
+</head>
+<body>
+    <header>
+        <a href="/">
+            <strong>
+                KeyboardManager
+            </strong>
+            <span>Documentation</span>
+        </a>
+        <sup>Beta</sup>
+    </header>
+
+    <!--
+    <form class="search">
+        <input type="search" placeholder="Search" />
+    </form>
+    -->
+
+    <nav>
+        <div class="wrapper">
+            <h2>On This Page</h2>
+            <ol><li><a href="#relationships">Relationships</a><ul><li><a href="#relationships">Nested Types</a></li></ul></li><li><a href="#enumeration cases">Enumeration Cases</a><ul><li class="case"><a href="#keyboardmanagerevent.willshow">will​Show</a></li><li class="case"><a href="#keyboardmanagerevent.didshow">did​Show</a></li><li class="case"><a href="#keyboardmanagerevent.willhide">will​Hide</a></li><li class="case"><a href="#keyboardmanagerevent.didhide">did​Hide</a></li><li class="case"><a href="#keyboardmanagerevent.willframechange">will​Frame​Change</a></li><li class="case"><a href="#keyboardmanagerevent.didframechange">did​Frame​Change</a></li></ul></li></ol>
+        </div>
+    </nav>
+
+    <main>
+        <article>
+            <h1>
+    <small>Enumeration</small>
+    <code class="name">Keyboard​Manager​Event</code>
+</h1>
+
+<html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">enum</span> <span class="type">KeyboardManagerEvent</span></code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>The object contains type of keyboard transition and parsed <code>userInfo</code> dictionary
+data object</p>
+
+</div>
+<section id="relationships">
+    <h2 hidden>Relationships</h2>
+        
+        <h3>Nested Types</h3>
+<dl>
+    <dt class="structure"><code><a href="/KeyboardManagerEvent_Frame">KeyboardManagerEvent.Frame</a></code></dt>
+<dd><p>Object with <code>UIKeyboardFrameBeginUserInfoKey</code> and <code>UIKeyboardFrameEndUserInfoKey</code> notification's <code>userInfo</code> values</p>
+</dd>
+<dt class="structure"><code><a href="/KeyboardManagerEvent_Data">KeyboardManagerEvent.Data</a></code></dt>
+<dd><p>Keyboard notification's <code>userInfo</code> parsed object</p>
+</dd>
+</dl>
+</section>
+    <section id="enumeration cases">
+        <h2>Enumeration Cases</h2>
+
+        <div role="article" class="case" id="keyboardmanagerevent.willshow">
+    <h3>
+        <code>will​Show</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">willShow</span>(: <a href="/KeyboardManagerEvent"><span class="type">KeyboardManagerEvent</span></a>.<span class="type">Data</span>)</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>UIKeyboardWillShow notification case event</p>
+
+</div>
+</div>
+<div role="article" class="case" id="keyboardmanagerevent.didshow">
+    <h3>
+        <code>did​Show</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">didShow</span>(: <a href="/KeyboardManagerEvent"><span class="type">KeyboardManagerEvent</span></a>.<span class="type">Data</span>)</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>UIKeyboardDidShow notification case event</p>
+
+</div>
+</div>
+<div role="article" class="case" id="keyboardmanagerevent.willhide">
+    <h3>
+        <code>will​Hide</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">willHide</span>(: <a href="/KeyboardManagerEvent"><span class="type">KeyboardManagerEvent</span></a>.<span class="type">Data</span>)</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>UIKeyboardWillHide notification case event</p>
+
+</div>
+</div>
+<div role="article" class="case" id="keyboardmanagerevent.didhide">
+    <h3>
+        <code>did​Hide</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">didHide</span>(: <a href="/KeyboardManagerEvent"><span class="type">KeyboardManagerEvent</span></a>.<span class="type">Data</span>)</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>UIKeyboardDidHide notification case event</p>
+
+</div>
+</div>
+<div role="article" class="case" id="keyboardmanagerevent.willframechange">
+    <h3>
+        <code>will​Frame​Change</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">willFrameChange</span>(: <a href="/KeyboardManagerEvent"><span class="type">KeyboardManagerEvent</span></a>.<span class="type">Data</span>)</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>UIKeyboardWillChangeFrame notification case event</p>
+
+</div>
+</div>
+<div role="article" class="case" id="keyboardmanagerevent.didframechange">
+    <h3>
+        <code>did​Frame​Change</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">didFrameChange</span>(: <a href="/KeyboardManagerEvent"><span class="type">KeyboardManagerEvent</span></a>.<span class="type">Data</span>)</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>UIKeyboardDidChangeFrame notification case event</p>
+
+</div>
+</div>
+    </section>
+
+
+
+        </article>
+    </main>
+
+    <footer>
+        <p>
+    Generated on <time datetime="2020-10-14T11:41:30+0300">14 октября 2020 г.</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-beta.5</span>.
+</p>
+    </footer>
+</body>
+</html>
