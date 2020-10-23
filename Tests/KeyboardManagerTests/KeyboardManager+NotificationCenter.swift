@@ -1,5 +1,5 @@
 //
-// KeyboardManager on 05.05.2020
+// KeyboardManager on 23.10.2020
 // Copyright © 2020 Alexey Korolev <alphatroya@gmail.com>
 //
 
@@ -64,7 +64,12 @@ private class NotificationCenterMock: NotificationCenter {
     var isDidChangeFrame: Bool = false
     var isUnsubscribed: Bool = false
 
-    override func addObserver(_: Any, selector _: Selector, name aName: NSNotification.Name?, object _: Any?) {
+    override func addObserver(
+        _: Any,
+        selector _: Selector,
+        name aName: NSNotification.Name?,
+        object _: Any?
+    ) {
         if case UIResponder.keyboardWillShowNotification = aName! {
             isWillShow = true
         } else if case UIResponder.keyboardDidShowNotification = aName! {

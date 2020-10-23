@@ -1,5 +1,5 @@
 //
-// KeyboardManager on 05.05.2020
+// KeyboardManager on 23.10.2020
 // Copyright © 2020 Alexey Korolev <alphatroya@gmail.com>
 //
 
@@ -33,7 +33,8 @@ class KeyboardManagerTests: XCTestCase {
         var isTriggered = false
         keyboardManager.eventClosure = { event in
             if case let .willShow(data) = event,
-                self.compareWithTestData(another: data) {
+               self.compareWithTestData(another: data)
+            {
                 isTriggered = true
             }
         }
@@ -45,7 +46,8 @@ class KeyboardManagerTests: XCTestCase {
         var isTriggered = false
         keyboardManager.eventClosure = { event in
             if case let .didShow(data) = event,
-                self.compareWithTestData(another: data) {
+               self.compareWithTestData(another: data)
+            {
                 isTriggered = true
             }
         }
@@ -57,7 +59,8 @@ class KeyboardManagerTests: XCTestCase {
         var isTriggered = false
         keyboardManager.eventClosure = { event in
             if case let .willHide(data) = event,
-                self.compareWithTestData(another: data) {
+               self.compareWithTestData(another: data)
+            {
                 isTriggered = true
             }
         }
@@ -69,7 +72,8 @@ class KeyboardManagerTests: XCTestCase {
         var isTriggered = false
         keyboardManager.eventClosure = { event in
             if case let .didHide(data) = event,
-                self.compareWithTestData(another: data) {
+               self.compareWithTestData(another: data)
+            {
                 isTriggered = true
             }
         }
@@ -81,7 +85,8 @@ class KeyboardManagerTests: XCTestCase {
         var isTriggered = false
         keyboardManager.eventClosure = { event in
             if case let .willFrameChange(data) = event,
-                self.compareWithTestData(another: data) {
+               self.compareWithTestData(another: data)
+            {
                 isTriggered = true
             }
         }
@@ -93,7 +98,8 @@ class KeyboardManagerTests: XCTestCase {
         var isTriggered = false
         keyboardManager.eventClosure = { event in
             if case let .didFrameChange(data) = event,
-                self.compareWithTestData(another: data) {
+               self.compareWithTestData(another: data)
+            {
                 isTriggered = true
             }
         }
