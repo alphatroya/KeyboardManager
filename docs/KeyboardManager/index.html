@@ -26,7 +26,7 @@
     <nav>
         <div class="wrapper">
             <h2>On This Page</h2>
-            <ol><li><a href="#relationships">Relationships</a><ul><li><a href="#relationships">Conforms To</a></li></ul></li><li><a href="#initializers">Initializers</a><ul><li class="initializer"><a href="#keyboardmanager.init(notificationcenter:)">init(notification​Center:​)</a></li></ul></li><li><a href="#properties">Properties</a><ul><li class="variable"><a href="#keyboardmanager.eventclosure">event​Closure</a></li></ul></li><li><a href="#methods">Methods</a><ul><li class="function"><a href="#keyboardmanager.bindtokeyboardnotifications(superview:bottomconstraint:bottomoffset:)">bind​ToKeyboard​Notifications(superview:​bottom​Constraint:​bottom​Offset:​)</a></li><li class="function"><a href="#keyboardmanager.bindtokeyboardnotifications(scrollview:)">bind​ToKeyboard​Notifications(scroll​View:​)</a></li></ul></li></ol>
+            <ol><li><a href="#relationships">Relationships</a><ul><li><a href="#relationships">Conforms To</a></li></ul></li><li><a href="#initializers">Initializers</a><ul><li class="initializer"><a href="#keyboardmanager.init(notificationcenter:)">init(notification​Center:​)</a></li></ul></li><li><a href="#properties">Properties</a><ul><li class="variable"><a href="#keyboardmanager.eventclosure">event​Closure</a></li></ul></li><li><a href="#methods">Methods</a><ul><li class="function"><a href="#keyboardmanager.bindtokeyboardnotifications(superview:bottomconstraint:bottomoffset:animated:)">bind​ToKeyboard​Notifications(superview:​bottom​Constraint:​bottom​Offset:​animated:​)</a></li><li class="function"><a href="#keyboardmanager.bindtokeyboardnotifications(scrollview:)">bind​ToKeyboard​Notifications(scroll​View:​)</a></li></ul></li></ol>
         </div>
     </nav>
 
@@ -99,7 +99,7 @@
     <h3>
         <code>init(notification​Center:​)</code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">init</span>(<span class="variable">notificationCenter</span>: <span class="type">NotificationCenter</span>)</code></pre></body></html>
+    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">init</span>(<span class="variable">notificationCenter</span>: <span class="type">NotificationCenter</span> = .<span class="variable">default</span>)</code></pre></body></html>
 <div class="summary" role="doc-abstract">
     <p>Creates a new keyboard manager instance</p>
 
@@ -142,11 +142,11 @@
     <section id="methods">
         <h2>Methods</h2>
 
-        <div role="article" class="function" id="keyboardmanager.bindtokeyboardnotifications(superview:bottomconstraint:bottomoffset:)">
+        <div role="article" class="function" id="keyboardmanager.bindtokeyboardnotifications(superview:bottomconstraint:bottomoffset:animated:)">
     <h3>
-        <code>bind​ToKeyboard​Notifications(superview:​bottom​Constraint:​bottom​Offset:​)</code>
+        <code>bind​ToKeyboard​Notifications(superview:​bottom​Constraint:​bottom​Offset:​animated:​)</code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">func</span> <span class="function">bindToKeyboardNotifications</span>(<span class="variable">superview</span>: <span class="type">UIView</span>, <span class="variable">bottomConstraint</span>: <span class="type">NSLayoutConstraint</span>, <span class="variable">bottomOffset</span>: <span class="type">CGFloat</span>)</code></pre></body></html>
+    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">func</span> <span class="function">bindToKeyboardNotifications</span>(<span class="variable">superview</span>: <span class="type">UIView</span>, <span class="variable">bottomConstraint</span>: <span class="type">NSLayoutConstraint</span>, <span class="variable">bottomOffset</span>: <span class="type">CGFloat</span>, <span class="variable">animated</span>: <span class="type">Bool</span>)</code></pre></body></html>
 <div class="summary" role="doc-abstract">
     <p>Helper method that automatically adjusts view's bottom constraint after receiving keyboard appear notifications</p>
 
@@ -222,7 +222,7 @@ with animation after receive keyboard will appear and will hide notifications.</
 
     <footer>
         <p>
-    Generated on <time datetime="2020-10-14T11:58:42+0300">14 октября 2020 г.</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-beta.5</span>.
+    Generated on <time datetime="2020-10-23T11:36:16+0300">23 октября 2020 г.</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-beta.5</span>.
 </p>
     </footer>
 </body>

@@ -1,5 +1,5 @@
 //
-// KeyboardManager on 05.05.2020
+// KeyboardManager on 23.10.2020
 // Copyright © 2020 Alexey Korolev <alphatroya@gmail.com>
 //
 
@@ -105,36 +105,6 @@ public enum KeyboardManagerEvent {
 }
 
 /**
- Protocol defines an interface for keyboard manager
- */
-
-public protocol KeyboardManagerProtocol: AnyObject {
-    /// Notify a client for a new parsed keyboard events
-    var eventClosure: KeyboardManagerEventClosure? { get set }
-
-    /**
-     Helper method that automatically adjusts scrollView's contentInset property
-     with animation after receive keyboard will appear and will hide notifications.
-
-     - parameter scrollView: UIScrollView instance, that will be modified after notifications emerged
-     */
-    func bindToKeyboardNotifications(scrollView: UIScrollView)
-
-    /**
-     Helper method that automatically adjusts view's bottom constraint after receiving keyboard appear notifications
-
-     - parameter superview: UIView instance, that will be layout after contraint adjust, basically the superview of the scene
-     - parameter bottomConstraint: contraint instance that `constant` property will be adjusted
-     - parameter bottomOffset: minimal offset value that will be preserved after keyboard disappeared
-     */
-    func bindToKeyboardNotifications(
-        superview: UIView,
-        bottomConstraint: NSLayoutConstraint,
-        bottomOffset: CGFloat
-    )
-}
-
-/**
  Keyboard manager class that implement KeyboardManagerProtocol
  */
 
@@ -148,7 +118,7 @@ public final class KeyboardManager {
      Creates a new keyboard manager instance
      - parameter notificationCenter: notification center needed to observe new keyboard events such a UIKeyboardWillShow and etc
      */
-    public init(notificationCenter: NotificationCenter) {
+    public init(notificationCenter: NotificationCenter = .default) {
         self.notificationCenter = notificationCenter
 
         notificationCenter.addObserver(
@@ -232,10 +202,11 @@ public final class KeyboardManager {
 
     private func extractData(from notification: Notification) -> KeyboardManagerEvent.Data {
         guard let endFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue,
-            let beginFrame = notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue,
-            let curve = notification.userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] as? NSNumber,
-            let isLocal = notification.userInfo?[UIResponder.keyboardIsLocalUserInfoKey] as? NSNumber,
-            let duration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber else {
+              let beginFrame = notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue,
+              let curve = notification.userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] as? NSNumber,
+              let isLocal = notification.userInfo?[UIResponder.keyboardIsLocalUserInfoKey] as? NSNumber,
+              let duration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber
+        else {
             return KeyboardManagerEvent.Data.null()
         }
         let frame = KeyboardManagerEvent.Frame(begin: beginFrame.cgRectValue, end: endFrame.cgRectValue)
@@ -256,17 +227,28 @@ extension KeyboardManager: KeyboardManagerProtocol {
      - parameter bottomConstraint: contraint instance that `constant` property will be adjusted
      - parameter bottomOffset: minimal offset value that will be preserved after keyboard disappeared
      */
-    public func bindToKeyboardNotifications(superview: UIView, bottomConstraint: NSLayoutConstraint, bottomOffset: CGFloat) {
+    public func bindToKeyboardNotifications(superview: UIView, bottomConstraint: NSLayoutConstraint, bottomOffset: CGFloat,
+                                            animated: Bool)
+    {
         let closure: KeyboardManagerEventClosure = {
+            let animationDuration: Double
             switch $0 {
             case let .willShow(data), let .willFrameChange(data):
+                animationDuration = data.animationDuration
                 bottomConstraint.constant = -data.frame.end.size.height
-            case .willHide:
+            case let .willHide(data):
+                animationDuration = data.animationDuration
                 bottomConstraint.constant = -bottomOffset
             default:
-                break
+                return
             }
-            superview.layoutIfNeeded()
+            if animated {
+                UIView.animate(withDuration: animationDuration) {
+                    superview.layoutIfNeeded()
+                }
+            } else {
+                superview.layoutIfNeeded()
+            }
         }
         innerEventClosures += [closure]
     }

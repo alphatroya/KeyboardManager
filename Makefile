@@ -10,7 +10,7 @@ bootstrap: hook
 
 ## project: Generate xcproject file
 project:
-	mint run xcodegen
+	swift package generate-xcodeproj
 
 ## test: Launch unit tests
 test:
@@ -30,5 +30,11 @@ hook:
 help:
 	@echo "Usage: \n"
 	@sed -n 's/^##//p' ${MAKEFILE_LIST} | column -t -s ':' |  sed -e 's/^/ /'
+
+.PHONY: docs
+## docs: Generate documentation
+docs:
+	swift-doc generate --module-name KeyboardManager -o docs --format html . --base-url 'https://alphatroya.github.io/KeyboardManager'
+
 
 .PHONY: clean help bootstrap test fmt hook
