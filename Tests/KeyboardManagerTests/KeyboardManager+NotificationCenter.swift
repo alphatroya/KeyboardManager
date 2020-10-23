@@ -1,5 +1,5 @@
 //
-// KeyboardManager on 05.05.2020
+// KeyboardManager on 23.10.2020
 // Copyright © 2020 Alexey Korolev <alphatroya@gmail.com>
 //
 
