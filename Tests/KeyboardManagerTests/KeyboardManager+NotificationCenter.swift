@@ -64,7 +64,12 @@ private class NotificationCenterMock: NotificationCenter {
     var isDidChangeFrame: Bool = false
     var isUnsubscribed: Bool = false
 
-    override func addObserver(_: Any, selector _: Selector, name aName: NSNotification.Name?, object _: Any?) {
+    override func addObserver(
+        _: Any,
+        selector _: Selector,
+        name aName: NSNotification.Name?,
+        object _: Any?
+    ) {
         if case UIResponder.keyboardWillShowNotification = aName! {
             isWillShow = true
         } else if case UIResponder.keyboardDidShowNotification = aName! {
