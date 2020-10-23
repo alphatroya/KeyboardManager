@@ -226,10 +226,14 @@ extension KeyboardManager: KeyboardManagerProtocol {
      - parameter superview: UIView instance, that will be layout after contraint adjust
      - parameter bottomConstraint: contraint instance that `constant` property will be adjusted
      - parameter bottomOffset: minimal offset value that will be preserved after keyboard disappeared
+     - parameter animated: should changes be animated
      */
-    public func bindToKeyboardNotifications(superview: UIView, bottomConstraint: NSLayoutConstraint, bottomOffset: CGFloat,
-                                            animated: Bool)
-    {
+    public func bindToKeyboardNotifications(
+        superview: UIView,
+        bottomConstraint: NSLayoutConstraint,
+        bottomOffset: CGFloat,
+        animated: Bool
+    ) {
         let closure: KeyboardManagerEventClosure = {
             let animationDuration: Double
             switch $0 {
