@@ -15,7 +15,7 @@ class KeyboardManagerTests: XCTestCase {
     let isLocal = true
 
     var notificationCenter: NotificationCenter!
-    var keyboardManager: KeyboardManagerProtocol!
+    var keyboardManager: KeyboardManager!
 
     override func setUp() {
         super.setUp()

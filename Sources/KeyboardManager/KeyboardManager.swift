@@ -219,7 +219,7 @@ public final class KeyboardManager {
     }
 }
 
-extension KeyboardManager: KeyboardManagerProtocol {
+public extension KeyboardManager {
     /**
      Helper method that automatically adjusts view's bottom constraint after receiving keyboard appear notifications
 
@@ -228,11 +228,11 @@ extension KeyboardManager: KeyboardManagerProtocol {
      - parameter bottomOffset: minimal offset value that will be preserved after keyboard disappeared
      - parameter animated: should changes be animated
      */
-    public func bindToKeyboardNotifications(
+    func bindToKeyboardNotifications(
         superview: UIView,
         bottomConstraint: NSLayoutConstraint,
-        bottomOffset: CGFloat,
-        animated: Bool
+        bottomOffset: CGFloat = 0.0,
+        animated: Bool = false
     ) {
         let closure: KeyboardManagerEventClosure = {
             let animationDuration: Double
@@ -263,7 +263,7 @@ extension KeyboardManager: KeyboardManagerProtocol {
 
      - parameter scrollView: UIScrollView instance, that will be modified after notifications emerged
      */
-    public func bindToKeyboardNotifications(scrollView: UIScrollView) {
+    func bindToKeyboardNotifications(scrollView: UIScrollView) {
         let initialScrollViewInsets = scrollView.contentInset
         let closure = { [unowned self] event in
             self.handle(by: scrollView, event: event, initialInset: initialScrollViewInsets)

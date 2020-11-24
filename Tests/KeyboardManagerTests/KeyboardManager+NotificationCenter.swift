@@ -10,7 +10,7 @@ import XCTest
 
 class KeyboardManagerNotificationCenterTest: XCTestCase {
     private var notificationCenter: NotificationCenterMock!
-    var keyboardManager: KeyboardManagerProtocol!
+    var keyboardManager: KeyboardManager!
 
     override func setUp() {
         super.setUp()
