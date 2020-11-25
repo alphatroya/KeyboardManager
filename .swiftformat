@@ -1,5 +1,5 @@
 --swiftversion 5.2
---header "\nKeyboardManager on {created}\nCopyright © {created.year} Alexey Korolev <alphatroya@gmail.com>\n//"
+--header "\nCopyright © {created.year} Alexey Korolev <alphatroya@gmail.com>\n//"
 --maxwidth 140
 --wraparguments before-first
 --wrapcollections before-first

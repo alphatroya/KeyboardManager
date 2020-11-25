@@ -1,88 +1,53 @@
 //
-// KeyboardManager on 23.10.2020
 // Copyright © 2020 Alexey Korolev <alphatroya@gmail.com>
 //
 
 import UIKit
 
-/**
- The closure that will be raised after new keyboard events
- */
+/// Keyboard's notification observing closure
 public typealias KeyboardManagerEventClosure = (KeyboardManagerEvent) -> Void
 
-/**
- The object contains type of keyboard transition and parsed `userInfo` dictionary
- data object
- */
-
+/// Keyboard transition metadata object
 public enum KeyboardManagerEvent {
-    /**
-     UIKeyboardWillShow notification case event
-     */
+    /// UIKeyboardWillShow notification case event
     case willShow(KeyboardManagerEvent.Data)
 
-    /**
-     UIKeyboardDidShow notification case event
-     */
+    /// UIKeyboardDidShow notification case event
     case didShow(KeyboardManagerEvent.Data)
 
-    /**
-     UIKeyboardWillHide notification case event
-     */
+    /// UIKeyboardWillHide notification case event
     case willHide(KeyboardManagerEvent.Data)
 
-    /**
-     UIKeyboardDidHide notification case event
-     */
+    /// UIKeyboardDidHide notification case event
     case didHide(KeyboardManagerEvent.Data)
 
-    /**
-     UIKeyboardWillChangeFrame notification case event
-     */
+    /// UIKeyboardWillChangeFrame notification case event
     case willFrameChange(KeyboardManagerEvent.Data)
 
-    /**
-     UIKeyboardDidChangeFrame notification case event
-     */
+    /// UIKeyboardDidChangeFrame notification case event
     case didFrameChange(KeyboardManagerEvent.Data)
 
-    /**
-     Object with `UIKeyboardFrameBeginUserInfoKey` and `UIKeyboardFrameEndUserInfoKey` notification's `userInfo` values
-     */
+    /// `UIKeyboardFrameBeginUserInfoKey` and `UIKeyboardFrameEndUserInfoKey` values
     public struct Frame {
-        /**
-         `UIKeyboardFrameBeginUserInfoKey` notification's value
-         */
+        /// Begin transition keyboard frame
         public var begin: CGRect
 
-        /**
-         `UIKeyboardFrameEndUserInfoKey` notification's value
-         */
+        /// Final transition keyboard frame
         public var end: CGRect
     }
 
-    /**
-     Keyboard notification's `userInfo` parsed object
-     */
+    /// Notification `userInfo` metadata info
     public struct Data {
-        /**
-         `UIKeyboardFrameBeginUserInfoKey` and `UIKeyboardFrameEndUserInfoKey` notification's values
-         */
+        /// Keyboard frames
         public var frame: Frame
 
-        /**
-         `UIKeyboardAnimationCurveUserInfoKey` notification's value
-         */
+        /// Animation curve value
         public var animationCurve: Int
 
-        /**
-         `UIKeyboardAnimationDurationUserInfoKey` notification's value
-         */
+        /// Transition animation duration value
         public var animationDuration: Double
 
-        /**
-         `UIKeyboardIsLocalUserInfoKey` notification's value
-         */
+        /// `UIKeyboardIsLocalUserInfoKey` `userInfo` value
         public var isLocal: Bool
 
         static func null() -> Data {
@@ -104,10 +69,7 @@ public enum KeyboardManagerEvent {
     }
 }
 
-/**
- Keyboard manager class that implement KeyboardManagerProtocol
- */
-
+/// Manager class who monitors keyboard's notification
 public final class KeyboardManager {
     /// Notify a client for a new parsed keyboard events
     public var eventClosure: KeyboardManagerEventClosure?
@@ -115,8 +77,8 @@ public final class KeyboardManager {
     let notificationCenter: NotificationCenter
 
     /**
-     Creates a new keyboard manager instance
-     - parameter notificationCenter: notification center needed to observe new keyboard events such a UIKeyboardWillShow and etc
+     Keyboard manager instance constructor
+     - parameter notificationCenter: observed notification center
      */
     public init(notificationCenter: NotificationCenter = .default) {
         self.notificationCenter = notificationCenter
@@ -221,11 +183,11 @@ public final class KeyboardManager {
 
 public extension KeyboardManager {
     /**
-     Helper method that automatically adjusts view's bottom constraint after receiving keyboard appear notifications
+     Automatically adjusts view's bottom constraint offset after receiving keyboard's notifications
 
-     - parameter superview: UIView instance, that will be layout after contraint adjust
-     - parameter bottomConstraint: contraint instance that `constant` property will be adjusted
-     - parameter bottomOffset: minimal offset value that will be preserved after keyboard disappeared
+     - parameter superview: parent view for adjusted constraints
+     - parameter bottomConstraint: current bottom constraint instance
+     - parameter bottomOffset: minimal preserved constraint offset value
      - parameter animated: should changes be animated
      */
     func bindToKeyboardNotifications(
@@ -258,10 +220,8 @@ public extension KeyboardManager {
     }
 
     /**
-     Helper method that automatically adjusts scrollView's contentInset property
-     with animation after receive keyboard will appear and will hide notifications.
-
-     - parameter scrollView: UIScrollView instance, that will be modified after notifications emerged
+     Automatically adjusts scrollView's contentInset property with animation after receivign keyboard's notifications
+     - parameter scrollView: current scroll view instance
      */
     func bindToKeyboardNotifications(scrollView: UIScrollView) {
         let initialScrollViewInsets = scrollView.contentInset
