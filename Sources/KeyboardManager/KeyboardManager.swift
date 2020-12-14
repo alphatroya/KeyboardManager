@@ -188,14 +188,14 @@ public extension KeyboardManager {
      - parameter superview: parent view for adjusted constraints
      - parameter bottomConstraint: current bottom constraint instance
      - parameter bottomOffset: minimal preserved constraint offset value
-     - parameter safeAreaInsets: bottom safe area generator for compensate views with tabbar offset, usually equals view.safeAreaInsets.bottom
+     - parameter safeAreaInsets: safe area generator for compensate offset for view controllers with tabbar
      - parameter animated: should changes be animated
      */
     func bindToKeyboardNotifications(
         superview: UIView,
         bottomConstraint: NSLayoutConstraint,
         bottomOffset: CGFloat = 0.0,
-        safeAreaInsets: @escaping () -> CGFloat = { 0 as CGFloat },
+        safeAreaInsets: @escaping () -> UIEdgeInsets = { UIEdgeInsets.zero },
         animated: Bool = false
     ) {
         let closure: KeyboardManagerEventClosure = {
@@ -203,7 +203,7 @@ public extension KeyboardManager {
             switch $0 {
             case let .willShow(data), let .willFrameChange(data):
                 animationDuration = data.animationDuration
-                bottomConstraint.constant = -data.frame.end.height + safeAreaInsets()
+                bottomConstraint.constant = -data.frame.end.height + safeAreaInsets().bottom
             case let .willHide(data):
                 animationDuration = data.animationDuration
                 bottomConstraint.constant = -bottomOffset

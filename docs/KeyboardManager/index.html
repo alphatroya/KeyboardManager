@@ -97,7 +97,7 @@
     <h3>
         <code>bind​ToKeyboard​Notifications(superview:​bottom​Constraint:​bottom​Offset:​safe​Area​Insets:​animated:​)</code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">func</span> <span class="function">bindToKeyboardNotifications</span>(<span class="variable">superview</span>: <span class="type">UIView</span>, <span class="variable">bottomConstraint</span>: <span class="type">NSLayoutConstraint</span>, <span class="variable">bottomOffset</span>: <span class="type">CGFloat</span> = <span class="number literal">0.0</span>, <span class="variable">safeAreaInsets</span>: <span class="attribute">@</span><span class="attribute">escaping</span> () -&gt; <span class="type">CGFloat</span> = { <span class="number literal">0</span> <span class="keyword">as</span> <span class="type">CGFloat</span> }, <span class="variable">animated</span>: <span class="type">Bool</span> = <span class="keyword">false</span>)</code></pre></body></html>
+    <html><body><pre class="highlight"><code><span class="keyword">func</span> <span class="function">bindToKeyboardNotifications</span>(<span class="variable">superview</span>: <span class="type">UIView</span>, <span class="variable">bottomConstraint</span>: <span class="type">NSLayoutConstraint</span>, <span class="variable">bottomOffset</span>: <span class="type">CGFloat</span> = <span class="number literal">0.0</span>, <span class="variable">safeAreaInsets</span>: <span class="attribute">@</span><span class="attribute">escaping</span> () -&gt; <span class="type">UIEdgeInsets</span> = { <span class="variable">UIEdgeInsets</span>.<span class="type">zero</span> }, <span class="variable">animated</span>: <span class="type">Bool</span> = <span class="keyword">false</span>)</code></pre></body></html>
 <div class="summary" role="doc-abstract">
     <p>Automatically adjusts view's bottom constraint offset after receiving keyboard's notifications</p>
 
@@ -133,8 +133,8 @@
 </tr>
 <tr>
     <th>safe​Area​Insets</th>
-    <td><code class="type">@escaping () -&gt; CGFloat</code></td>
-    <td><p>bottom safe area generator for compensate views with tabbar offset, usually equals view.safeAreaInsets.bottom</p>
+    <td><code class="type">@escaping () -&gt; UIEdge​Insets</code></td>
+    <td><p>safe area generator for compensate offset for view controllers with tabbar</p>
 </td>
 </tr>
 <tr>
@@ -190,7 +190,7 @@
 
     <footer>
         <p>
-    Generated on <time datetime="2020-12-14T10:54:47+0300">14 декабря 2020 г.</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-beta.5</span>.
+    Generated on <time datetime="2020-12-14T10:58:48+0300">14 декабря 2020 г.</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-beta.5</span>.
 </p>
     </footer>
 </body>
