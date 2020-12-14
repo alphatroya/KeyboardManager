@@ -188,12 +188,14 @@ public extension KeyboardManager {
      - parameter superview: parent view for adjusted constraints
      - parameter bottomConstraint: current bottom constraint instance
      - parameter bottomOffset: minimal preserved constraint offset value
+     - parameter safeAreaInsets: bottom safe area generator for compensate views with tabbar offset, usually equals view.safeAreaInsets.bottom
      - parameter animated: should changes be animated
      */
     func bindToKeyboardNotifications(
         superview: UIView,
         bottomConstraint: NSLayoutConstraint,
         bottomOffset: CGFloat = 0.0,
+        safeAreaInsets: @escaping () -> CGFloat = { 0 as CGFloat },
         animated: Bool = false
     ) {
         let closure: KeyboardManagerEventClosure = {
@@ -201,7 +203,7 @@ public extension KeyboardManager {
             switch $0 {
             case let .willShow(data), let .willFrameChange(data):
                 animationDuration = data.animationDuration
-                bottomConstraint.constant = -data.frame.end.size.height
+                bottomConstraint.constant = -data.frame.end.height + safeAreaInsets()
             case let .willHide(data):
                 animationDuration = data.animationDuration
                 bottomConstraint.constant = -bottomOffset
@@ -220,7 +222,7 @@ public extension KeyboardManager {
     }
 
     /**
-     Automatically adjusts scrollView's contentInset property with animation after receivign keyboard's notifications
+     Automatically adjusts scrollView's contentInset property with animation after receiving keyboard's notifications
      - parameter scrollView: current scroll view instance
      */
     func bindToKeyboardNotifications(scrollView: UIScrollView) {
