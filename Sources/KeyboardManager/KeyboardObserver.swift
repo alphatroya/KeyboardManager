@@ -93,7 +93,7 @@ public enum KeyboardObserver {
           - scrollView: scroll view instance
       - Returns: observer token that store subscription
      */
-    func bindToKeyboardNotifications(
+    public func bindToKeyboardNotifications(
         _ notificationCenter: NotificationCenter = .default,
         scrollView: UIScrollView
     ) -> KeyboardObserverToken {
