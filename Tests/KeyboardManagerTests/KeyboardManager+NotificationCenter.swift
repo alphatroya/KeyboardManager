@@ -73,7 +73,7 @@ class KeyboardManagerNotificationCenterTest: XCTestCase {
 }
 
 // swiftlint:disable force_unwrapping
-private class NotificationCenterMock: NotificationCenter {
+class NotificationCenterMock: NotificationCenter {
     var isWillShow: Bool = false
     var isDidShow: Bool = false
     var isWillHide: Bool = false

@@ -23,17 +23,17 @@
 
 import UIKit
 
-/// Token instance that internally store subscription. Cancels subscription on deallocation
+/// Token instance that internally store subscription, cancels subscription on deallocation
 public final class KeyboardObserverToken {
     init(keyboardManager: KeyboardManager) {
         self.keyboardManager = keyboardManager
     }
 
-    private var keyboardManager: KeyboardManager
+    private var keyboardManager: KeyboardManager?
 
-    /// Cancel stored subscription
+    /// Cancel subscription
     public func cancel() {
-        keyboardManager.innerEventClosures = []
+        keyboardManager = nil
     }
 }
 
@@ -59,7 +59,7 @@ public enum KeyboardObserver {
         Automatically adjusts view's bottom constraint offset after receiving keyboard's notifications
 
         - Parameters:
-          - notificationCenter: notification center to observe notifications
+          - _ notificationCenter: notification center to observe notifications
           - superview: parent view for adjusted constraints
           - bottomConstraint: current bottom constraint instance
           - bottomOffset: minimal preserved constraint offset value
@@ -67,7 +67,7 @@ public enum KeyboardObserver {
           - animated: should changes be animated
         - Returns: observer token that store subscription
      */
-    public func addObserver(
+    public static func addObserver(
         _ notificationCenter: NotificationCenter = .default,
         superview: UIView,
         bottomConstraint: NSLayoutConstraint,
@@ -89,11 +89,11 @@ public enum KeyboardObserver {
     /**
      Automatically adjusts scrollView's contentInset property with animation after receiving keyboard's notifications
       - Parameters:
-          - notificationCenter: notification center to observe notifications
+          - _ notificationCenter: notification center to observe notifications
           - scrollView: scroll view instance
       - Returns: observer token that store subscription
      */
-    public func bindToKeyboardNotifications(
+    public static func addObserver(
         _ notificationCenter: NotificationCenter = .default,
         scrollView: UIScrollView
     ) -> KeyboardObserverToken {

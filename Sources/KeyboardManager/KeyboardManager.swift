@@ -128,9 +128,7 @@ final class KeyboardManager {
             isLocal: isLocal.boolValue
         )
     }
-}
 
-extension KeyboardManager {
     func bindToKeyboardNotifications(
         superview: UIView,
         bottomConstraint: NSLayoutConstraint,
