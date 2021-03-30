@@ -8,18 +8,15 @@ Simple wrap up for UIKeyboardNotification events
 
 ## Usage
 
-The framework introduce a KeyboardManager class with `eventClosure` property what receive parsed UIKeyboardNotification user data values
+The framework introduces a KeyboardObserver object with helper methods that simplify working with UIKeyboardNotification data.
 
 ``` swift
-let keyboardManager = KeyboardManager(notificationCenter: NotificationCenter.default)
-keyboardManager.eventClosure = { event in
+self.observationToken = KeyboardObserver.addObserver { event in
     if case let .willShow(data) = event {
         // process KeyboardManager.Data struct
     }
 }
 ```
-
-There is also a helper method `bindToKeyboardNotifications(scrollView: UIScrollView)` which simplify inset adjustment after keyboard appear/disappear 
 
 ## Installation
  
