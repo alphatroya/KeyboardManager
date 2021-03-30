@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KeyboardManager - KeyboardManagerEventClosure</title>
+    <title>KeyboardManager - KeyboardObserverToken</title>
     <link rel="stylesheet" type="text/css" href="https://alphatroya.github.io/KeyboardManager/all.css" media="all" />
 </head>
 <body>
@@ -26,22 +26,41 @@
     <nav>
         <div class="wrapper">
             <h2>On This Page</h2>
-            <ol/>
+            <ol><li><a href="#methods">Methods</a><ul><li class="function"><a href="#keyboardobservertoken.cancel()">cancel()</a></li></ul></li></ol>
         </div>
     </nav>
 
     <main>
         <article>
             <h1>
-    <small>Typealias</small>
-    <span class="name">Keyboard​Manager​Event​Closure</span>
+    <small>Class</small>
+    <code class="name">Keyboard​Observer​Token</code>
 </h1>
 
-<html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">typealias</span> <span class="variable">KeyboardManagerEventClosure</span> = (<a href="https://alphatroya.github.io/KeyboardManager/KeyboardManagerEvent"><span class="type">KeyboardManagerEvent</span></a>) -&gt; <span class="type">Void</span></code></pre></body></html>
+<html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="attribute">final</span> <span class="keyword">class</span> <span class="type">KeyboardObserverToken</span></code></pre></body></html>
 <div class="summary" role="doc-abstract">
-    <p>Keyboard's notification observing closure</p>
+    <p>Token instance that internally store subscription
+Cancel subscription on deallocation</p>
 
 </div>
+
+    <section id="methods">
+        <h2>Methods</h2>
+
+        <div role="article" class="function" id="keyboardobservertoken.cancel()">
+    <h3>
+        <code>cancel()</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">func</span> <span class="function">cancel</span>()</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Cancel stored subscription</p>
+
+</div>
+</div>
+    </section>
+
+
+
         </article>
     </main>
 
