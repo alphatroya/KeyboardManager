@@ -55,16 +55,9 @@ class KeyboardObserverTests: XCTestCase {
         token = nil
         XCTAssertTrue(notificationCenter.isUnsubscribed)
     }
-
-    func testObserverTokenCancelMethod() {
-        let token = KeyboardObserver.addObserver(notificationCenter) { _ in }
-        XCTAssertFalse(notificationCenter.isUnsubscribed)
-        token.cancel()
-        XCTAssertTrue(notificationCenter.isUnsubscribed)
-    }
 }
 
 extension KeyboardObserverToken {
-    /// this method does nothing to remove warning in L33
+    /// this method does nothing to remove warning in L52
     func doNothing() {}
 }

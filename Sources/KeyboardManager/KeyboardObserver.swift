@@ -29,12 +29,7 @@ public final class KeyboardObserverToken {
         self.keyboardManager = keyboardManager
     }
 
-    private var keyboardManager: KeyboardManager?
-
-    /// Cancel subscription
-    public func cancel() {
-        keyboardManager = nil
-    }
+    private var keyboardManager: KeyboardManager
 }
 
 /// Keyboard observer is a namespace for subscription static methods
