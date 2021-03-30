@@ -23,8 +23,7 @@
 
 import UIKit
 
-/// Token instance that internally store subscription
-/// Cancel subscription on deallocation
+/// Token instance that internally store subscription. Cancels subscription on deallocation
 public final class KeyboardObserverToken {
     init(keyboardManager: KeyboardManager) {
         self.keyboardManager = keyboardManager
@@ -34,25 +33,25 @@ public final class KeyboardObserverToken {
 
     /// Cancel stored subscription
     public func cancel() {
-        keyboardManager.eventClosure = nil
         keyboardManager.innerEventClosures = []
     }
 }
 
+/// Keyboard observer is a namespace for subscription static methods
 public enum KeyboardObserver {
     /**
-      Add observer closure for observing keyboard events
-      - Parameters:
-        - notificationCenter: notification center to observe notifications
-        - observer: closure for observing events
-     - Returns: observer token that store subscription
-               */
+       Add observer closure for observing keyboard events
+       - Parameters:
+         - notificationCenter: notification center to observe notifications
+         - observer: closure for observing events
+      - Returns: observer token that store subscription
+     */
     public static func addObserver(
         _ notificationCenter: NotificationCenter = .default,
         _ observer: @escaping KeyboardManagerEventClosure
     ) -> KeyboardObserverToken {
         let keyboardManager = KeyboardManager(notificationCenter: notificationCenter)
-        keyboardManager.eventClosure = observer
+        keyboardManager.addEventClosure(observer)
         return KeyboardObserverToken(keyboardManager: keyboardManager)
     }
 

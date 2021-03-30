@@ -49,7 +49,7 @@ class KeyboardManagerTests: XCTestCase {
 
     func testCallClosureAfterWillAppearNotification() {
         var isTriggered = false
-        keyboardManager.eventClosure = { event in
+        keyboardManager.addEventClosure { event in
             if case let .willShow(data) = event,
                self.compareWithTestData(another: data)
             {
@@ -62,7 +62,7 @@ class KeyboardManagerTests: XCTestCase {
 
     func testCallClosureAfterDidAppearNotification() {
         var isTriggered = false
-        keyboardManager.eventClosure = { event in
+        keyboardManager.addEventClosure { event in
             if case let .didShow(data) = event,
                self.compareWithTestData(another: data)
             {
@@ -75,7 +75,7 @@ class KeyboardManagerTests: XCTestCase {
 
     func testCallClosureAfterWillHideNotification() {
         var isTriggered = false
-        keyboardManager.eventClosure = { event in
+        keyboardManager.addEventClosure { event in
             if case let .willHide(data) = event,
                self.compareWithTestData(another: data)
             {
@@ -88,7 +88,7 @@ class KeyboardManagerTests: XCTestCase {
 
     func testCallClosureAfterDidHideNotification() {
         var isTriggered = false
-        keyboardManager.eventClosure = { event in
+        keyboardManager.addEventClosure { event in
             if case let .didHide(data) = event,
                self.compareWithTestData(another: data)
             {
@@ -101,7 +101,7 @@ class KeyboardManagerTests: XCTestCase {
 
     func testCallClosureAfterWillChangeFrameNotification() {
         var isTriggered = false
-        keyboardManager.eventClosure = { event in
+        keyboardManager.addEventClosure { event in
             if case let .willFrameChange(data) = event,
                self.compareWithTestData(another: data)
             {
@@ -114,7 +114,7 @@ class KeyboardManagerTests: XCTestCase {
 
     func testCallClosureAfterDidChangeFrameNotification() {
         var isTriggered = false
-        keyboardManager.eventClosure = { event in
+        keyboardManager.addEventClosure { event in
             if case let .didFrameChange(data) = event,
                self.compareWithTestData(another: data)
             {
@@ -127,7 +127,7 @@ class KeyboardManagerTests: XCTestCase {
 
     func testNullObjectAfterWrongFormatNotification() {
         let expectation = self.expectation(description: "wrong notification expectation")
-        keyboardManager.eventClosure = { event in
+        keyboardManager.addEventClosure { event in
             let data = event.data
             let nullObject = KeyboardManagerEvent.Data.null()
             XCTAssertTrue(self.compare(lhs: data, rhs: nullObject))
@@ -139,7 +139,7 @@ class KeyboardManagerTests: XCTestCase {
 
     func testNullObjectAfterNotificationWithoutUserDictionary() {
         let expectation = self.expectation(description: "null object expectation")
-        keyboardManager.eventClosure = { event in
+        keyboardManager.addEventClosure { event in
             let data = event.data
             let nullObject = KeyboardManagerEvent.Data.null()
             XCTAssertTrue(self.compare(lhs: data, rhs: nullObject))

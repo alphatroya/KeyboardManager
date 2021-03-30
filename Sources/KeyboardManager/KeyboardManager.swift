@@ -24,8 +24,6 @@
 import UIKit
 
 final class KeyboardManager {
-    var eventClosure: KeyboardManagerEventClosure?
-
     let notificationCenter: NotificationCenter
 
     init(notificationCenter: NotificationCenter = .default) {
@@ -75,6 +73,10 @@ final class KeyboardManager {
 
     var innerEventClosures: [KeyboardManagerEventClosure] = []
 
+    func addEventClosure(_ eventClosure: @escaping KeyboardManagerEventClosure) {
+        innerEventClosures.append(eventClosure)
+    }
+
     @objc
     private func keyboardWillShow(_ notification: Notification) {
         invokeClosures(.willShow(extractData(from: notification)))
@@ -106,7 +108,6 @@ final class KeyboardManager {
     }
 
     private func invokeClosures(_ event: KeyboardManagerEvent) {
-        eventClosure?(event)
         innerEventClosures.forEach { $0(event) }
     }
 
