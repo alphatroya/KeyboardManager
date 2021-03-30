@@ -54,7 +54,7 @@ public enum KeyboardObserver {
         Automatically adjusts view's bottom constraint offset after receiving keyboard's notifications
 
         - Parameters:
-          - _ notificationCenter: notification center to observe notifications
+          - notificationCenter: notification center to observe notifications
           - superview: parent view for adjusted constraints
           - bottomConstraint: current bottom constraint instance
           - bottomOffset: minimal preserved constraint offset value
@@ -84,7 +84,7 @@ public enum KeyboardObserver {
     /**
      Automatically adjusts scrollView's contentInset property with animation after receiving keyboard's notifications
       - Parameters:
-          - _ notificationCenter: notification center to observe notifications
+          - notificationCenter: notification center to observe notifications
           - scrollView: scroll view instance
       - Returns: observer token that store subscription
      */
