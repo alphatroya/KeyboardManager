@@ -71,10 +71,10 @@ final class KeyboardManager {
         notificationCenter.removeObserver(self)
     }
 
-    var innerEventClosures: [KeyboardManagerEventClosure] = []
+    private var observers: [KeyboardManagerEventClosure] = []
 
     func addEventClosure(_ eventClosure: @escaping KeyboardManagerEventClosure) {
-        innerEventClosures.append(eventClosure)
+        observers.append(eventClosure)
     }
 
     @objc
@@ -108,7 +108,7 @@ final class KeyboardManager {
     }
 
     private func invokeClosures(_ event: KeyboardManagerEvent) {
-        innerEventClosures.forEach { $0(event) }
+        observers.forEach { $0(event) }
     }
 
     private func extractData(from notification: Notification) -> KeyboardManagerEvent.Data {
@@ -156,7 +156,7 @@ final class KeyboardManager {
                 superview.layoutIfNeeded()
             }
         }
-        innerEventClosures += [closure]
+        observers += [closure]
     }
 
     func bindToKeyboardNotifications(scrollView: UIScrollView) {
@@ -164,7 +164,7 @@ final class KeyboardManager {
         let closure = { [unowned self] event in
             self.handle(by: scrollView, event: event, initialInset: initialScrollViewInsets)
         }
-        innerEventClosures += [closure]
+        observers += [closure]
     }
 
     private func handle(by scrollView: UIScrollView, event: KeyboardManagerEvent, initialInset: UIEdgeInsets) {
