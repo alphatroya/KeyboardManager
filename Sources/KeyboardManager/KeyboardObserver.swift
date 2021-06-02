@@ -32,8 +32,21 @@ public final class KeyboardObserverToken {
     private var keyboardManager: KeyboardManager
 }
 
+private final class LastKeyboardEventStorage {
+    init() {}
+
+    var token: KeyboardObserverToken?
+    var event: KeyboardManagerEvent?
+}
+
 /// Keyboard observer is a namespace for subscription static methods
 public enum KeyboardObserver {
+    private static let lastEventStorage = LastKeyboardEventStorage()
+
+    public static var lastEvent: KeyboardManagerEvent? {
+        lastEventStorage.event
+    }
+
     /**
        Add observer closure for observing keyboard events
        - Parameters:
@@ -97,5 +110,11 @@ public enum KeyboardObserver {
             scrollView: scrollView
         )
         return KeyboardObserverToken(keyboardManager: keyboardManager)
+    }
+
+    public static func initEventObserver(notificationCenter: NotificationCenter = .default) {
+        lastEventStorage.token = Self.addObserver(notificationCenter, { event in
+            lastEventStorage.event = event
+        })
     }
 }
