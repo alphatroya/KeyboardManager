@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class LastKeyboardEventStorage {
+public final class LastKeyboardEventStorage {
     private init() {
         token = KeyboardObserver.addObserver(.default) { event in
             self.event = event
@@ -18,7 +18,7 @@ final class LastKeyboardEventStorage {
         token = nil
     }
 
-    static let shared = LastKeyboardEventStorage()
+    public static let shared = LastKeyboardEventStorage()
 
     public static var lastEvent: KeyboardManagerEvent? {
         shared.event
