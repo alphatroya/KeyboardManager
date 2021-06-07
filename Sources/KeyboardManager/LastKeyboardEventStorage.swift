@@ -1,7 +1,7 @@
 //
 // MIT License
 //
-// Copyright (c) 2021 Alexey Korolev
+// Copyright (c) 2021
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the  Software), to deal
@@ -23,9 +23,10 @@
 
 import Foundation
 
+/// Singletone storage for last keyboard transition metadata object
 public final class LastKeyboardEventStorage {
-    private init() {
-        token = KeyboardObserver.addObserver(.default) { event in
+    init(notificationCenter: NotificationCenter = .default) {
+        token = KeyboardObserver.addObserver(notificationCenter) { event in
             self.event = event
         }
     }
@@ -34,10 +35,12 @@ public final class LastKeyboardEventStorage {
         token = nil
     }
 
+    /// Init this instance as early as possible for start keyboard event observer
     public static let shared = LastKeyboardEventStorage()
 
-    public static var lastEvent: KeyboardManagerEvent? {
-        shared.event
+    /// Last registered keyboard transition metadata object
+    public var lastEvent: KeyboardManagerEvent? {
+        event
     }
 
     private var token: KeyboardObserverToken?

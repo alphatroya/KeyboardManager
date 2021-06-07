@@ -14,7 +14,6 @@
             </strong>
             <span>Documentation</span>
         </a>
-        <sup>Beta</sup>
     </header>
 
     <!--
@@ -37,7 +36,9 @@
     <code class="name">Keyboard​Observer</code>
 </h1>
 
-<html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">enum</span> <span class="type">KeyboardObserver</span></code></pre></body></html>
+<div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">public</span> <span class="keyword">enum</span> <span class="type">KeyboardObserver</span>  </body></html></code></pre>
+</div>
 <div class="summary" role="doc-abstract">
     <p>Keyboard observer is a namespace for subscription static methods</p>
 
@@ -48,9 +49,14 @@
 
         <div role="article" class="function" id="keyboardobserver.addobserver(_:_:)">
     <h3>
-        <code>add​Observer(_:​_:​)</code>
+        <code><a href="#keyboardobserver.addobserver(_:_:)">add​Observer(_:​_:​)</a></code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">func</span> <span class="function">addObserver</span>(<span class="keyword">_</span> <span class="variable">notificationCenter</span>: <span class="type">NotificationCenter</span> = .<span class="variable">default</span>, <span class="keyword">_</span> <span class="variable">observer</span>: <span class="attribute">@</span><span class="attribute">escaping</span> <a href="https://alphatroya.github.io/KeyboardManager/KeyboardManagerEventClosure"><span class="type">KeyboardManagerEventClosure</span></a>) -&gt; <a href="https://alphatroya.github.io/KeyboardManager/KeyboardObserverToken"><span class="type">KeyboardObserverToken</span></a></code></pre></body></html>
+    <div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">func</span> <span class="function">addObserver</span>(
+        <span class="keyword">_</span> <span class="variable">notificationCenter</span>: <span class="type">NotificationCenter</span> = .<span class="variable">default</span>,
+        <span class="keyword">_</span> <span class="variable">observer</span>: <span class="attribute">@</span><span class="attribute">escaping</span> <span class="type">KeyboardManagerEventClosure</span>
+    ) -&gt; <a href="https://alphatroya.github.io/KeyboardManager/KeyboardObserverToken"><span class="type">KeyboardObserverToken</span></a>  </body></html></code></pre>
+</div>
 <div class="summary" role="doc-abstract">
     <p>Add observer closure for observing keyboard events</p>
 
@@ -86,9 +92,18 @@
 </div>
 <div role="article" class="function" id="keyboardobserver.addobserver(_:superview:bottomconstraint:bottomoffset:safeareainsets:animated:)">
     <h3>
-        <code>add​Observer(_:​superview:​bottom​Constraint:​bottom​Offset:​safe​Area​Insets:​animated:​)</code>
+        <code><a href="#keyboardobserver.addobserver(_:superview:bottomconstraint:bottomoffset:safeareainsets:animated:)">add​Observer(_:​superview:​bottom​Constraint:​bottom​Offset:​safe​Area​Insets:​animated:​)</a></code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">func</span> <span class="function">addObserver</span>(<span class="keyword">_</span> <span class="variable">notificationCenter</span>: <span class="type">NotificationCenter</span> = .<span class="variable">default</span>, <span class="variable">superview</span>: <span class="type">UIView</span>, <span class="variable">bottomConstraint</span>: <span class="type">NSLayoutConstraint</span>, <span class="variable">bottomOffset</span>: <span class="type">CGFloat</span> = <span class="number literal">0.0</span>, <span class="variable">safeAreaInsets</span>: <span class="attribute">@</span><span class="attribute">escaping</span> () -&gt; <span class="type">UIEdgeInsets</span> = { <span class="variable">UIEdgeInsets</span>.<span class="type">zero</span> }, <span class="variable">animated</span>: <span class="type">Bool</span> = <span class="keyword">false</span>) -&gt; <a href="https://alphatroya.github.io/KeyboardManager/KeyboardObserverToken"><span class="type">KeyboardObserverToken</span></a></code></pre></body></html>
+    <div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">func</span> <span class="function">addObserver</span>(
+        <span class="keyword">_</span> <span class="variable">notificationCenter</span>: <span class="type">NotificationCenter</span> = .<span class="variable">default</span>,
+        <span class="variable">superview</span>: <span class="type">UIView</span>,
+        <span class="variable">bottomConstraint</span>: <span class="type">NSLayoutConstraint</span>,
+        <span class="variable">bottomOffset</span>: <span class="type">CGFloat</span> = <span class="number literal">0.0</span>,
+        <span class="variable">safeAreaInsets</span>: <span class="attribute">@</span><span class="attribute">escaping</span> () -&gt; <span class="type">UIEdgeInsets</span> = { <span class="variable">UIEdgeInsets</span>.<span class="variable">zero</span> },
+        <span class="variable">animated</span>: <span class="type">Bool</span> = <span class="keyword">false</span>
+    ) -&gt; <a href="https://alphatroya.github.io/KeyboardManager/KeyboardObserverToken"><span class="type">KeyboardObserverToken</span></a>  </body></html></code></pre>
+</div>
 <div class="summary" role="doc-abstract">
     <p>Automatically adjusts view's bottom constraint offset after receiving keyboard's notifications</p>
 
@@ -148,9 +163,14 @@
 </div>
 <div role="article" class="function" id="keyboardobserver.addobserver(_:scrollview:)">
     <h3>
-        <code>add​Observer(_:​scroll​View:​)</code>
+        <code><a href="#keyboardobserver.addobserver(_:scrollview:)">add​Observer(_:​scroll​View:​)</a></code>
     </h3>
-    <html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">func</span> <span class="function">addObserver</span>(<span class="keyword">_</span> <span class="variable">notificationCenter</span>: <span class="type">NotificationCenter</span> = .<span class="variable">default</span>, <span class="variable">scrollView</span>: <span class="type">UIScrollView</span>) -&gt; <a href="https://alphatroya.github.io/KeyboardManager/KeyboardObserverToken"><span class="type">KeyboardObserverToken</span></a></code></pre></body></html>
+    <div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">func</span> <span class="function">addObserver</span>(
+        <span class="keyword">_</span> <span class="variable">notificationCenter</span>: <span class="type">NotificationCenter</span> = .<span class="variable">default</span>,
+        <span class="variable">scrollView</span>: <span class="type">UIScrollView</span>
+    ) -&gt; <a href="https://alphatroya.github.io/KeyboardManager/KeyboardObserverToken"><span class="type">KeyboardObserverToken</span></a>  </body></html></code></pre>
+</div>
 <div class="summary" role="doc-abstract">
     <p>Automatically adjusts scrollView's contentInset property with animation after receiving keyboard's notifications</p>
 
@@ -193,7 +213,7 @@
 
     <footer>
         <p>
-    Generated on <time datetime="2021-03-30T12:11:07+0300">30 марта 2021 г.</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-beta.5</span>.
+    Generated on <time datetime="2021-06-07T16:43:38+0300">June 7, 2021</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-rc.1</span>.
 </p>
     </footer>
 </body>

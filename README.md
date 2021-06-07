@@ -29,3 +29,4 @@ self.observationToken = KeyboardObserver.addObserver { event in
 ## Author
 
 Alexey Korolev, alphatroya@gmail.com
+Vlad Zaicev, zaycevvd95@gmail.com

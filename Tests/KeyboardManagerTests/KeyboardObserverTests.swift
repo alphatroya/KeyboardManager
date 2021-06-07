@@ -1,7 +1,7 @@
 //
 // MIT License
 //
-// Copyright (c) 2021 Alexey Korolev
+// Copyright (c) 2021
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the  Software), to deal
@@ -39,7 +39,7 @@ class KeyboardObserverTests: XCTestCase {
     }
 
     func testKeyboardObserverSubscription() {
-        _ = KeyboardObserver.addObserver(notificationCenter) { _ in }
+        _ = LastKeyboardEventStorage(notificationCenter: notificationCenter)
         XCTAssertTrue(notificationCenter.isWillShow)
         XCTAssertTrue(notificationCenter.isDidShow)
         XCTAssertTrue(notificationCenter.isWillHide)
