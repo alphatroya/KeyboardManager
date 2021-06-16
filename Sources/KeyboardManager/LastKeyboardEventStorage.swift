@@ -26,8 +26,8 @@ import Foundation
 /// Singletone storage for last keyboard transition metadata object
 public final class LastKeyboardEventStorage {
     init(notificationCenter: NotificationCenter = .default) {
-        token = KeyboardObserver.addObserver(notificationCenter) { event in
-            self.event = event
+        token = KeyboardObserver.addObserver(notificationCenter) { [weak self] event in
+            self?.event = event
         }
     }
 

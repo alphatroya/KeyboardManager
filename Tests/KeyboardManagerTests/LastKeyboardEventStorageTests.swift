@@ -25,7 +25,7 @@ import Foundation
 @testable import KeyboardManager
 import XCTest
 
-class KeyboardObserverTests: XCTestCase {
+class LastKeyboardEventStorageTests: XCTestCase {
     var notificationCenter: NotificationCenterMock!
 
     override func setUp() {
@@ -38,8 +38,8 @@ class KeyboardObserverTests: XCTestCase {
         super.tearDown()
     }
 
-    func testKeyboardObserverSubscription() {
-        _ = KeyboardObserver.addObserver(notificationCenter) { _ in }
+    func testLastEventStorageSubscription() {
+        _ = LastKeyboardEventStorage(notificationCenter: notificationCenter)
         XCTAssertTrue(notificationCenter.isWillShow)
         XCTAssertTrue(notificationCenter.isDidShow)
         XCTAssertTrue(notificationCenter.isWillHide)
@@ -48,16 +48,16 @@ class KeyboardObserverTests: XCTestCase {
         XCTAssertTrue(notificationCenter.isDidChangeFrame)
     }
 
-    func testKeyboardObserverUnsubscriptionOnDeallocation() {
-        var token: KeyboardObserverToken? = KeyboardObserver.addObserver(notificationCenter) { _ in }
-        token?.doNothing()
+    func testLastEventStorageUnsubscriptionOnDealloc() {
+        var storage: LastKeyboardEventStorage? = LastKeyboardEventStorage(notificationCenter: notificationCenter)
+        storage?.doNothing()
         XCTAssertFalse(notificationCenter.isUnsubscribed)
-        token = nil
+        storage = nil
         XCTAssertTrue(notificationCenter.isUnsubscribed)
     }
 }
 
-extension KeyboardObserverToken {
+extension LastKeyboardEventStorage {
     /// this method does nothing to remove warning in L52
     func doNothing() {}
 }
