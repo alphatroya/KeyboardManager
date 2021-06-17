@@ -23,5 +23,22 @@
 
 import Foundation
 
-/// Keyboard's notification observing closure
-public typealias KeyboardManagerEventClosure = (KeyboardManagerEvent) -> Void
+/// Singletone storage for last keyboard transition metadata object
+public final class LastKeyboardEventStorage {
+    init(notificationCenter: NotificationCenter = .default) {
+        token = KeyboardObserver.addObserver(notificationCenter) { [weak self] event in
+            self?.event = event
+        }
+    }
+
+    /// Init this instance as early as possible for start keyboard event observer
+    public static let shared = LastKeyboardEventStorage()
+
+    /// Last registered keyboard transition metadata object
+    public var lastEvent: KeyboardManagerEvent? {
+        event
+    }
+
+    private var token: KeyboardObserverToken?
+    private var event: KeyboardManagerEvent?
+}
