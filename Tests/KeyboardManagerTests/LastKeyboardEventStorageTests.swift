@@ -27,19 +27,21 @@ import XCTest
 
 class LastKeyboardEventStorageTests: XCTestCase {
     var notificationCenter: NotificationCenterMock!
+    var storage: LastKeyboardEventStorage!
 
     override func setUp() {
         super.setUp()
         notificationCenter = NotificationCenterMock()
+        storage = LastKeyboardEventStorage(notificationCenter: notificationCenter)
     }
 
     override func tearDown() {
+        storage = nil
         notificationCenter = nil
         super.tearDown()
     }
 
-    func testLastEventStorageSubscription() {
-        _ = LastKeyboardEventStorage(notificationCenter: notificationCenter)
+    func testLastEventStorageShouldSubscribeAfterInitialization() {
         XCTAssertTrue(notificationCenter.isWillShow)
         XCTAssertTrue(notificationCenter.isDidShow)
         XCTAssertTrue(notificationCenter.isWillHide)
@@ -48,16 +50,9 @@ class LastKeyboardEventStorageTests: XCTestCase {
         XCTAssertTrue(notificationCenter.isDidChangeFrame)
     }
 
-    func testLastEventStorageUnsubscriptionOnDealloc() {
-        var storage: LastKeyboardEventStorage? = LastKeyboardEventStorage(notificationCenter: notificationCenter)
-        storage?.doNothing()
+    func testLastEventStorageShouldUnsubscribeOnDealloc() {
         XCTAssertFalse(notificationCenter.isUnsubscribed)
         storage = nil
         XCTAssertTrue(notificationCenter.isUnsubscribed)
     }
-}
-
-extension LastKeyboardEventStorage {
-    /// this method does nothing to remove warning in L52
-    func doNothing() {}
 }

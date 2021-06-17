@@ -31,10 +31,6 @@ public final class LastKeyboardEventStorage {
         }
     }
 
-    deinit {
-        token = nil
-    }
-
     /// Init this instance as early as possible for start keyboard event observer
     public static let shared = LastKeyboardEventStorage()
 
