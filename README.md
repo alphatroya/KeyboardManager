@@ -6,6 +6,12 @@
 
 Simple wrap up for UIKeyboardNotification events
 
+## Deprecation notice
+
+During wwdc2021 event apple announce a [keyboard layout guide](https://developer.apple.com/videos/play/wwdc2021/10259/). This new API does the same thing in a more elegant and native way.
+
+If you target your app for iOS 15 and above, you better use this API for setup keyboard avoidance.
+
 ## Usage
 
 The framework introduces a KeyboardObserver object with helper methods that simplify working with UIKeyboardNotification data.
