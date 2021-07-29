@@ -7,9 +7,11 @@ default_platform :ios
 platform :ios do
   desc 'Run tests'
   lane :test do
-    spm(
-      command: "generate-xcodeproj",
+    scan(
+      package_path: '.',
+      workspace: '.',
+      scheme: 'KeyboardManager',
+      device: 'iPhone 8',
     )
-    scan
   end
 end
