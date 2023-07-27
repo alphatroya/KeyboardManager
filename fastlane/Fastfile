@@ -12,6 +12,7 @@ platform :ios do
       workspace: '.',
       scheme: 'KeyboardManager',
       device: 'iPhone 8',
+      result_bundle: true,
     )
   end
 end
