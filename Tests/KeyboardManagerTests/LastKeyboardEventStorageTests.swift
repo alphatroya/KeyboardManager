@@ -23,36 +23,41 @@
 
 import Foundation
 @testable import KeyboardManager
-import XCTest
+import Testing
 
-class LastKeyboardEventStorageTests: XCTestCase {
+@MainActor @Suite(.serialized)
+class LastKeyboardEventStorageTests {
+    // MARK: Properties
+
     var notificationCenter: NotificationCenterMock!
     var storage: LastKeyboardEventStorage!
 
-    override func setUp() {
-        super.setUp()
+    // MARK: Lifecycle
+
+    init() {
         notificationCenter = NotificationCenterMock()
         storage = LastKeyboardEventStorage(notificationCenter: notificationCenter)
     }
 
-    override func tearDown() {
+    deinit {
         storage = nil
         notificationCenter = nil
-        super.tearDown()
     }
 
-    func testLastEventStorageShouldSubscribeAfterInitialization() {
-        XCTAssertTrue(notificationCenter.isWillShow)
-        XCTAssertTrue(notificationCenter.isDidShow)
-        XCTAssertTrue(notificationCenter.isWillHide)
-        XCTAssertTrue(notificationCenter.isDidHide)
-        XCTAssertTrue(notificationCenter.isWillChangeFrame)
-        XCTAssertTrue(notificationCenter.isDidChangeFrame)
+    // MARK: Functions
+
+    @Test func lastEventStorageShouldSubscribeAfterInitialization() {
+        #expect(notificationCenter.isWillShow)
+        #expect(notificationCenter.isDidShow)
+        #expect(notificationCenter.isWillHide)
+        #expect(notificationCenter.isDidHide)
+        #expect(notificationCenter.isWillChangeFrame)
+        #expect(notificationCenter.isDidChangeFrame)
     }
 
-    func testLastEventStorageShouldUnsubscribeOnDealloc() {
-        XCTAssertFalse(notificationCenter.isUnsubscribed)
+    @Test func lastEventStorageShouldUnsubscribeOnDealloc() {
+        #expect(!notificationCenter.isUnsubscribed)
         storage = nil
-        XCTAssertTrue(notificationCenter.isUnsubscribed)
+        #expect(notificationCenter.isUnsubscribed)
     }
 }

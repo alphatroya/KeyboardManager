@@ -23,14 +23,22 @@
 
 import UIKit
 
+// MARK: - KeyboardObserverToken
+
 /// Token instance that internally store subscription, cancels subscription on deallocation
 public final class KeyboardObserverToken {
+    // MARK: Properties
+
+    private var keyboardManager: KeyboardManager
+
+    // MARK: Lifecycle
+
     init(keyboardManager: KeyboardManager) {
         self.keyboardManager = keyboardManager
     }
-
-    private var keyboardManager: KeyboardManager
 }
+
+// MARK: - KeyboardObserver
 
 /// Keyboard observer is a namespace for subscription static methods
 public enum KeyboardObserver {
@@ -43,7 +51,7 @@ public enum KeyboardObserver {
      */
     public static func addObserver(
         _ notificationCenter: NotificationCenter = .default,
-        _ observer: @escaping KeyboardManagerEventClosure
+        _ observer: @escaping KeyboardManagerEventClosure,
     ) -> KeyboardObserverToken {
         let keyboardManager = KeyboardManager(notificationCenter: notificationCenter)
         keyboardManager.addEventClosure(observer)
@@ -68,7 +76,7 @@ public enum KeyboardObserver {
         bottomConstraint: NSLayoutConstraint,
         bottomOffset: CGFloat = 0.0,
         safeAreaInsets: @escaping () -> UIEdgeInsets = { UIEdgeInsets.zero },
-        animated: Bool = false
+        animated: Bool = false,
     ) -> KeyboardObserverToken {
         let keyboardManager = KeyboardManager(notificationCenter: notificationCenter)
         keyboardManager.bindToKeyboardNotifications(
@@ -76,7 +84,7 @@ public enum KeyboardObserver {
             bottomConstraint: bottomConstraint,
             bottomOffset: bottomOffset,
             safeAreaInsets: safeAreaInsets,
-            animated: animated
+            animated: animated,
         )
         return KeyboardObserverToken(keyboardManager: keyboardManager)
     }
@@ -90,11 +98,11 @@ public enum KeyboardObserver {
      */
     public static func addObserver(
         _ notificationCenter: NotificationCenter = .default,
-        scrollView: UIScrollView
+        scrollView: UIScrollView,
     ) -> KeyboardObserverToken {
         let keyboardManager = KeyboardManager(notificationCenter: notificationCenter)
         keyboardManager.bindToKeyboardNotifications(
-            scrollView: scrollView
+            scrollView: scrollView,
         )
         return KeyboardObserverToken(keyboardManager: keyboardManager)
     }

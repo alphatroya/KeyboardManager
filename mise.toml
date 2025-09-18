@@ -1,0 +1,3 @@
+[tools]
+swiftformat = "0.57.2"
+"ubi:cpisciotta/xcbeautify" = "latest"

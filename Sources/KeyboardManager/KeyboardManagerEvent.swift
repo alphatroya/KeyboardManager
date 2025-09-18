@@ -43,6 +43,8 @@ public enum KeyboardManagerEvent {
     /// UIKeyboardDidChangeFrame notification case event
     case didFrameChange(KeyboardManagerEvent.Data)
 
+    // MARK: Nested Types
+
     /// `UIKeyboardFrameBeginUserInfoKey` and `UIKeyboardFrameEndUserInfoKey` values
     public struct Frame {
         /// Begin transition keyboard frame
@@ -54,6 +56,8 @@ public enum KeyboardManagerEvent {
 
     /// Notification `userInfo` metadata info
     public struct Data {
+        // MARK: Properties
+
         /// Keyboard frames
         public var frame: Frame
 
@@ -66,11 +70,15 @@ public enum KeyboardManagerEvent {
         /// `UIKeyboardIsLocalUserInfoKey` `userInfo` value
         public var isLocal: Bool
 
+        // MARK: Static Functions
+
         static func null() -> Data {
             let frame = Frame(begin: CGRect.zero, end: CGRect.zero)
             return Data(frame: frame, animationCurve: 0, animationDuration: 0.0, isLocal: false)
         }
     }
+
+    // MARK: Computed Properties
 
     var data: KeyboardManagerEvent.Data {
         switch self {
@@ -80,7 +88,7 @@ public enum KeyboardManagerEvent {
              let .didHide(data),
              let .willFrameChange(data),
              let .didFrameChange(data):
-            return data
+            data
         }
     }
 }
