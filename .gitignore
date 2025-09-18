@@ -107,7 +107,3 @@ fastlane/screenshots/screenshots.html
 # scan temporary files
 
 # End of https://www.gitignore.io/api/swift,osx,fastlane
-
-# idea files
-.idea/
-*.xcodeproj

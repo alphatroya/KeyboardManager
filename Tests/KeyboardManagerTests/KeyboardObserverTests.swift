@@ -23,37 +23,44 @@
 
 import Foundation
 @testable import KeyboardManager
-import XCTest
+import Testing
 
-class KeyboardObserverTests: XCTestCase {
+// MARK: - KeyboardObserverTests
+
+@MainActor @Suite(.serialized)
+class KeyboardObserverTests {
+    // MARK: Properties
+
     var notificationCenter: NotificationCenterMock!
 
-    override func setUp() {
-        super.setUp()
+    // MARK: Lifecycle
+
+    init() {
         notificationCenter = NotificationCenterMock()
     }
 
-    override func tearDown() {
+    deinit {
         notificationCenter = nil
-        super.tearDown()
     }
 
-    func testKeyboardObserverSubscription() {
+    // MARK: Functions
+
+    @Test func keyboardObserverSubscription() {
         _ = KeyboardObserver.addObserver(notificationCenter) { _ in }
-        XCTAssertTrue(notificationCenter.isWillShow)
-        XCTAssertTrue(notificationCenter.isDidShow)
-        XCTAssertTrue(notificationCenter.isWillHide)
-        XCTAssertTrue(notificationCenter.isDidHide)
-        XCTAssertTrue(notificationCenter.isWillChangeFrame)
-        XCTAssertTrue(notificationCenter.isDidChangeFrame)
+        #expect(notificationCenter.isWillShow)
+        #expect(notificationCenter.isDidShow)
+        #expect(notificationCenter.isWillHide)
+        #expect(notificationCenter.isDidHide)
+        #expect(notificationCenter.isWillChangeFrame)
+        #expect(notificationCenter.isDidChangeFrame)
     }
 
-    func testKeyboardObserverUnsubscriptionOnDeallocation() {
+    @Test func keyboardObserverUnsubscriptionOnDeallocation() {
         var token: KeyboardObserverToken? = KeyboardObserver.addObserver(notificationCenter) { _ in }
         token?.doNothing()
-        XCTAssertFalse(notificationCenter.isUnsubscribed)
+        #expect(!notificationCenter.isUnsubscribed)
         token = nil
-        XCTAssertTrue(notificationCenter.isUnsubscribed)
+        #expect(notificationCenter.isUnsubscribed)
     }
 }
 

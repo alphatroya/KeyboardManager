@@ -1,7 +1,7 @@
 //
 // MIT License
 //
-// Copyright (c) 2021
+// Copyright (c) 2017
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the  Software), to deal
@@ -52,7 +52,7 @@ extension KeyboardManagerTests {
     }
 
     func compare(lhs: KeyboardManagerEvent.Data, rhs: KeyboardManagerEvent.Data) -> Bool {
-        return lhs.animationCurve == rhs.animationCurve &&
+        lhs.animationCurve == rhs.animationCurve &&
             lhs.animationDuration == rhs.animationDuration &&
             lhs.isLocal == rhs.isLocal &&
             lhs.frame.begin == rhs.frame.begin &&

@@ -1,7 +1,7 @@
 //
 // MIT License
 //
-// Copyright (c) 2021
+// Copyright (c) 2017
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the  Software), to deal
@@ -21,59 +21,72 @@
 // SOFTWARE.
 //
 
+import Foundation
+import Testing
 import UIKit
 
 @testable import KeyboardManager
-import XCTest
 
-class KeyboardManagerNotificationCenterTest: XCTestCase {
-    private var notificationCenter: NotificationCenterMock!
+// MARK: - KeyboardManagerNotificationCenterTest
+
+@MainActor @Suite(.serialized)
+class KeyboardManagerNotificationCenterTest {
+    // MARK: Properties
+
     var keyboardManager: KeyboardManager!
 
-    override func setUp() {
-        super.setUp()
+    private var notificationCenter: NotificationCenterMock!
+
+    // MARK: Lifecycle
+
+    init() {
         notificationCenter = NotificationCenterMock()
         keyboardManager = KeyboardManager(notificationCenter: notificationCenter)
     }
 
-    override func tearDown() {
-        super.tearDown()
+    deinit {
         keyboardManager = nil
         notificationCenter = nil
     }
 
-    func testSubscribeForWillAppearNotification() {
-        XCTAssertTrue(notificationCenter.isWillShow)
+    // MARK: Functions
+
+    @Test func subscribeForWillAppearNotification() {
+        #expect(notificationCenter.isWillShow)
     }
 
-    func testSubscribeForDidAppearNotification() {
-        XCTAssertTrue(notificationCenter.isDidShow)
+    @Test func subscribeForDidAppearNotification() {
+        #expect(notificationCenter.isDidShow)
     }
 
-    func testSubscribeForWillHideNotification() {
-        XCTAssertTrue(notificationCenter.isWillHide)
+    @Test func subscribeForWillHideNotification() {
+        #expect(notificationCenter.isWillHide)
     }
 
-    func testSubscribeForDidHideNotification() {
-        XCTAssertTrue(notificationCenter.isDidHide)
+    @Test func subscribeForDidHideNotification() {
+        #expect(notificationCenter.isDidHide)
     }
 
-    func testSubscribeForWillChangeFrameNotification() {
-        XCTAssertTrue(notificationCenter.isWillChangeFrame)
+    @Test func subscribeForWillChangeFrameNotification() {
+        #expect(notificationCenter.isWillChangeFrame)
     }
 
-    func testSubscribeForDidChangeFrameNotification() {
-        XCTAssertTrue(notificationCenter.isDidChangeFrame)
+    @Test func subscribeForDidChangeFrameNotification() {
+        #expect(notificationCenter.isDidChangeFrame)
     }
 
-    func testUnsubscribe() {
+    @Test func unsubscribe() {
         keyboardManager = nil
-        XCTAssertTrue(notificationCenter.isUnsubscribed)
+        #expect(notificationCenter.isUnsubscribed)
     }
 }
 
+// MARK: - NotificationCenterMock
+
 // swiftlint:disable force_unwrapping
 class NotificationCenterMock: NotificationCenter {
+    // MARK: Properties
+
     var isWillShow: Bool = false
     var isDidShow: Bool = false
     var isWillHide: Bool = false
@@ -82,11 +95,13 @@ class NotificationCenterMock: NotificationCenter {
     var isDidChangeFrame: Bool = false
     var isUnsubscribed: Bool = false
 
+    // MARK: Overridden Functions
+
     override func addObserver(
         _: Any,
         selector _: Selector,
         name aName: NSNotification.Name?,
-        object _: Any?
+        object _: Any?,
     ) {
         if case UIResponder.keyboardWillShowNotification = aName! {
             isWillShow = true

@@ -1,14 +1,14 @@
 name: "Run tests"
 
-on: [push, pull_request]
+on: [push]
 
 jobs:
   test:
     runs-on: macos-latest
 
     steps:
-    - uses: actions/checkout@v1
+      - uses: actions/checkout@v1
 
-    - uses: maierj/fastlane-action@v1.4.0
-      with:
-        lane: 'test'
+      - name: Run tests
+        run: |
+          xcodebuild test -scheme KeyboardManager -destination 'platform=iOS Simulator,name=iPhone 16 Pro,OS=latest' -sdk iphonesimulator | xcbeautify

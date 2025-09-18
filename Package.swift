@@ -9,11 +9,11 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: "KeyboardManager"
+            name: "KeyboardManager",
         ),
         .testTarget(
             name: "KeyboardManagerTests",
-            dependencies: ["KeyboardManager"]
+            dependencies: ["KeyboardManager"],
         ),
-    ]
+    ],
 )

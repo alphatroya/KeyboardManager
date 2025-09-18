@@ -1,7 +1,7 @@
 //
 // MIT License
 //
-// Copyright (c) 2021
+// Copyright (c) 2017
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the  Software), to deal
@@ -24,7 +24,13 @@
 import UIKit
 
 final class KeyboardManager {
+    // MARK: Properties
+
     let notificationCenter: NotificationCenter
+
+    private var observers: [KeyboardManagerEventClosure] = []
+
+    // MARK: Lifecycle
 
     init(notificationCenter: NotificationCenter = .default) {
         self.notificationCenter = notificationCenter
@@ -33,37 +39,37 @@ final class KeyboardManager {
             self,
             selector: #selector(keyboardWillShow(_:)),
             name: UIResponder.keyboardWillShowNotification,
-            object: nil
+            object: nil,
         )
         notificationCenter.addObserver(
             self,
             selector: #selector(keyboardDidShow(_:)),
             name: UIResponder.keyboardDidShowNotification,
-            object: nil
+            object: nil,
         )
         notificationCenter.addObserver(
             self,
             selector: #selector(keyboardWillHide(_:)),
             name: UIResponder.keyboardWillHideNotification,
-            object: nil
+            object: nil,
         )
         notificationCenter.addObserver(
             self,
             selector: #selector(keyboardDidHide(_:)),
             name: UIResponder.keyboardDidHideNotification,
-            object: nil
+            object: nil,
         )
         notificationCenter.addObserver(
             self,
             selector: #selector(keyboardWillChangeFrame(_:)),
             name: UIResponder.keyboardWillChangeFrameNotification,
-            object: nil
+            object: nil,
         )
         notificationCenter.addObserver(
             self,
             selector: #selector(keyboardDidChangeFrame(_:)),
             name: UIResponder.keyboardDidChangeFrameNotification,
-            object: nil
+            object: nil,
         )
     }
 
@@ -71,10 +77,50 @@ final class KeyboardManager {
         notificationCenter.removeObserver(self)
     }
 
-    private var observers: [KeyboardManagerEventClosure] = []
+    // MARK: Functions
 
     func addEventClosure(_ eventClosure: @escaping KeyboardManagerEventClosure) {
         observers.append(eventClosure)
+    }
+
+    func bindToKeyboardNotifications(
+        superview: UIView,
+        bottomConstraint: NSLayoutConstraint,
+        bottomOffset: CGFloat = 0.0,
+        safeAreaInsets: @escaping () -> UIEdgeInsets = { UIEdgeInsets.zero },
+        animated: Bool = false,
+    ) {
+        let closure: KeyboardManagerEventClosure = {
+            let animationDuration: Double
+            switch $0 {
+            case let .willShow(data), let .willFrameChange(data):
+                animationDuration = data.animationDuration
+                bottomConstraint.constant = -data.frame.end.height + safeAreaInsets().bottom
+
+            case let .willHide(data):
+                animationDuration = data.animationDuration
+                bottomConstraint.constant = -bottomOffset
+
+            default:
+                return
+            }
+            if animated {
+                UIView.animate(withDuration: animationDuration) {
+                    superview.layoutIfNeeded()
+                }
+            } else {
+                superview.layoutIfNeeded()
+            }
+        }
+        observers += [closure]
+    }
+
+    func bindToKeyboardNotifications(scrollView: UIScrollView) {
+        let initialScrollViewInsets = scrollView.contentInset
+        let closure = { [unowned self] event in
+            handle(by: scrollView, event: event, initialInset: initialScrollViewInsets)
+        }
+        observers += [closure]
     }
 
     @objc
@@ -120,51 +166,14 @@ final class KeyboardManager {
         else {
             return KeyboardManagerEvent.Data.null()
         }
+
         let frame = KeyboardManagerEvent.Frame(begin: beginFrame.cgRectValue, end: endFrame.cgRectValue)
         return KeyboardManagerEvent.Data(
             frame: frame,
             animationCurve: curve.intValue,
             animationDuration: duration.doubleValue,
-            isLocal: isLocal.boolValue
+            isLocal: isLocal.boolValue,
         )
-    }
-
-    func bindToKeyboardNotifications(
-        superview: UIView,
-        bottomConstraint: NSLayoutConstraint,
-        bottomOffset: CGFloat = 0.0,
-        safeAreaInsets: @escaping () -> UIEdgeInsets = { UIEdgeInsets.zero },
-        animated: Bool = false
-    ) {
-        let closure: KeyboardManagerEventClosure = {
-            let animationDuration: Double
-            switch $0 {
-            case let .willShow(data), let .willFrameChange(data):
-                animationDuration = data.animationDuration
-                bottomConstraint.constant = -data.frame.end.height + safeAreaInsets().bottom
-            case let .willHide(data):
-                animationDuration = data.animationDuration
-                bottomConstraint.constant = -bottomOffset
-            default:
-                return
-            }
-            if animated {
-                UIView.animate(withDuration: animationDuration) {
-                    superview.layoutIfNeeded()
-                }
-            } else {
-                superview.layoutIfNeeded()
-            }
-        }
-        observers += [closure]
-    }
-
-    func bindToKeyboardNotifications(scrollView: UIScrollView) {
-        let initialScrollViewInsets = scrollView.contentInset
-        let closure = { [unowned self] event in
-            self.handle(by: scrollView, event: event, initialInset: initialScrollViewInsets)
-        }
-        observers += [closure]
     }
 
     private func handle(by scrollView: UIScrollView, event: KeyboardManagerEvent, initialInset: UIEdgeInsets) {
@@ -180,8 +189,9 @@ final class KeyboardManager {
                     if #available(iOS 11.1, *) {
                         scrollView.verticalScrollIndicatorInsets.bottom = inset
                     }
-                }
+                },
             )
+
         case let .willHide(data):
             UIView.animateKeyframes(
                 withDuration: data.animationDuration,
@@ -192,8 +202,9 @@ final class KeyboardManager {
                     if #available(iOS 11.1, *) {
                         scrollView.verticalScrollIndicatorInsets.bottom = initialInset.bottom
                     }
-                }
+                },
             )
+
         default:
             break
         }

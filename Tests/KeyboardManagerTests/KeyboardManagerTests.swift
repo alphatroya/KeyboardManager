@@ -1,7 +1,7 @@
 //
 // MIT License
 //
-// Copyright (c) 2021
+// Copyright (c) 2017
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the  Software), to deal
@@ -26,6 +26,8 @@ import UIKit
 import XCTest
 
 class KeyboardManagerTests: XCTestCase {
+    // MARK: Properties
+
     let beginFrame = CGRect(x: 2, y: 6, width: 111, height: 222)
     let endFrame = CGRect(x: 1, y: 3, width: 111, height: 222)
     let animationDuration: Double = 4.0
@@ -35,6 +37,8 @@ class KeyboardManagerTests: XCTestCase {
     var notificationCenter: NotificationCenter!
     var keyboardManager: KeyboardManager!
     var observerToken: KeyboardObserverToken?
+
+    // MARK: Overridden Functions
 
     override func setUp() {
         super.setUp()
@@ -48,6 +52,8 @@ class KeyboardManagerTests: XCTestCase {
         notificationCenter = nil
         observerToken = nil
     }
+
+    // MARK: Functions
 
     func testCallClosureAfterWillAppearNotification() {
         var isTriggered = false
@@ -128,7 +134,7 @@ class KeyboardManagerTests: XCTestCase {
     }
 
     func testNullObjectAfterWrongFormatNotification() {
-        let expectation = self.expectation(description: "wrong notification expectation")
+        let expectation = expectation(description: "wrong notification expectation")
         observerToken = KeyboardObserver.addObserver(notificationCenter) { event in
             let data = event.data
             let nullObject = KeyboardManagerEvent.Data.null()
@@ -140,7 +146,7 @@ class KeyboardManagerTests: XCTestCase {
     }
 
     func testNullObjectAfterNotificationWithoutUserDictionary() {
-        let expectation = self.expectation(description: "null object expectation")
+        let expectation = expectation(description: "null object expectation")
         observerToken = KeyboardObserver.addObserver(notificationCenter) { event in
             let data = event.data
             let nullObject = KeyboardManagerEvent.Data.null()
@@ -163,7 +169,7 @@ class KeyboardManagerTests: XCTestCase {
             notificationCenter,
             superview: view,
             bottomConstraint: bottomConstrain,
-            bottomOffset: bottomOffset
+            bottomOffset: bottomOffset,
         )
         postTestNotification(name: UIResponder.keyboardWillShowNotification)
         // THEN
@@ -182,7 +188,7 @@ class KeyboardManagerTests: XCTestCase {
             notificationCenter,
             superview: view,
             bottomConstraint: bottomConstrain,
-            bottomOffset: bottomOffset
+            bottomOffset: bottomOffset,
         )
         postTestNotification(name: UIResponder.keyboardWillChangeFrameNotification)
         // THEN
@@ -201,7 +207,7 @@ class KeyboardManagerTests: XCTestCase {
             notificationCenter,
             superview: view,
             bottomConstraint: bottomConstrain,
-            bottomOffset: bottomOffset
+            bottomOffset: bottomOffset,
         )
         postTestNotification(name: UIResponder.keyboardWillShowNotification)
         postTestNotification(name: UIResponder.keyboardWillShowNotification)
@@ -222,7 +228,7 @@ class KeyboardManagerTests: XCTestCase {
             notificationCenter,
             superview: view,
             bottomConstraint: bottomConstrain,
-            bottomOffset: bottomOffset
+            bottomOffset: bottomOffset,
         )
         postTestNotification(name: UIResponder.keyboardWillHideNotification)
         // THEN
@@ -241,7 +247,7 @@ class KeyboardManagerTests: XCTestCase {
             notificationCenter,
             superview: view,
             bottomConstraint: bottomConstrain,
-            bottomOffset: bottomOffset
+            bottomOffset: bottomOffset,
         )
         postTestNotification(name: UIResponder.keyboardWillHideNotification)
         postTestNotification(name: UIResponder.keyboardWillHideNotification)
@@ -262,7 +268,7 @@ class KeyboardManagerTests: XCTestCase {
             notificationCenter,
             superview: view,
             bottomConstraint: bottomConstrain,
-            bottomOffset: bottomOffset
+            bottomOffset: bottomOffset,
         )
         postTestNotification(name: UIResponder.keyboardDidShowNotification)
         // THEN
@@ -281,7 +287,7 @@ class KeyboardManagerTests: XCTestCase {
             notificationCenter,
             superview: view,
             bottomConstraint: bottomConstrain,
-            bottomOffset: bottomOffset
+            bottomOffset: bottomOffset,
         )
         postTestNotification(name: UIResponder.keyboardDidHideNotification)
         // THEN
@@ -300,7 +306,7 @@ class KeyboardManagerTests: XCTestCase {
             notificationCenter,
             superview: view,
             bottomConstraint: bottomConstrain,
-            bottomOffset: bottomOffset
+            bottomOffset: bottomOffset,
         )
         postTestNotification(name: UIResponder.keyboardDidChangeFrameNotification)
         // THEN
@@ -326,7 +332,7 @@ class KeyboardManagerTests: XCTestCase {
             notificationCenter,
             superview: view,
             bottomConstraint: bottomConstrain,
-            bottomOffset: bottomOffset
+            bottomOffset: bottomOffset,
         )
         postTestNotification(name: UIResponder.keyboardWillShowNotification)
         // THEN
