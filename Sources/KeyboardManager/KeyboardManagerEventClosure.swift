@@ -23,5 +23,5 @@
 
 import Foundation
 
-/// Keyboard's notification observing closure
+/// Keyboard notification observing closure
 public typealias KeyboardManagerEventClosure = (KeyboardManagerEvent) -> Void

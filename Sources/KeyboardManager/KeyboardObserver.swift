@@ -25,7 +25,7 @@ import UIKit
 
 // MARK: - KeyboardObserverToken
 
-/// Token instance that internally store subscription, cancels subscription on deallocation
+/// Token instance that internally stores subscription and cancels subscription on deallocation
 public final class KeyboardObserverToken {
     // MARK: Properties
 
@@ -43,11 +43,11 @@ public final class KeyboardObserverToken {
 /// Keyboard observer is a namespace for subscription static methods
 public enum KeyboardObserver {
     /**
-       Add observer closure for observing keyboard events
+       Adds an observer closure for keyboard events
        - Parameters:
          - notificationCenter: notification center to observe notifications
          - observer: closure for observing events
-      - Returns: observer token that store subscription
+      - Returns: observer token that stores the subscription
      */
     public static func addObserver(
         _ notificationCenter: NotificationCenter = .default,
@@ -59,16 +59,16 @@ public enum KeyboardObserver {
     }
 
     /**
-        Automatically adjusts view's bottom constraint offset after receiving keyboard's notifications
+        Automatically adjusts view's bottom constraint offset after receiving keyboard notifications
 
         - Parameters:
           - notificationCenter: notification center to observe notifications
           - superview: parent view for adjusted constraints
           - bottomConstraint: current bottom constraint instance
           - bottomOffset: minimal preserved constraint offset value
-          - safeAreaInsets: safe area generator for compensate offset for view controllers with tabbar
+          - safeAreaInsets: safe area generator to compensate for the offset for view controllers with tab bar
           - animated: should changes be animated
-        - Returns: observer token that store subscription
+        - Returns: observer token that stores the subscription
      */
     public static func addObserver(
         _ notificationCenter: NotificationCenter = .default,
@@ -90,11 +90,11 @@ public enum KeyboardObserver {
     }
 
     /**
-     Automatically adjusts scrollView's contentInset property with animation after receiving keyboard's notifications
+     Automatically adjusts scrollView's contentInset property with animation after receiving keyboard notifications
       - Parameters:
           - notificationCenter: notification center to observe notifications
           - scrollView: scroll view instance
-      - Returns: observer token that store subscription
+      - Returns: observer token that stores the subscription
      */
     public static func addObserver(
         _ notificationCenter: NotificationCenter = .default,

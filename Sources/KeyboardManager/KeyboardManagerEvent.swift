@@ -45,26 +45,26 @@ public enum KeyboardManagerEvent {
 
     // MARK: Nested Types
 
-    /// `UIKeyboardFrameBeginUserInfoKey` and `UIKeyboardFrameEndUserInfoKey` values
+    /// `UIKeyboardFrameBeginUserInfoKey` and `UIKeyboardFrameEndUserInfoKey` frame values
     public struct Frame {
-        /// Begin transition keyboard frame
+        /// Beginning keyboard frame for transition
         public var begin: CGRect
 
-        /// Final transition keyboard frame
+        /// Final keyboard frame for transition
         public var end: CGRect
     }
 
-    /// Notification `userInfo` metadata info
+    /// Notification `userInfo` metadata information
     public struct Data {
         // MARK: Properties
 
         /// Keyboard frames
         public var frame: Frame
 
-        /// Animation curve value
+        /// Animation curve identifier value
         public var animationCurve: Int
 
-        /// Transition animation duration value
+        /// Transition animation duration in seconds
         public var animationDuration: Double
 
         /// `UIKeyboardIsLocalUserInfoKey` `userInfo` value
