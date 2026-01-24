@@ -1,3 +1,5 @@
+XCRUN := $(shell which xcrun)
+
 all: bootstrap
 
 ## clean: clean build artifacts
@@ -7,4 +9,5 @@ clean:
 .PHONY: docs
 ## docs: Generate documentation
 docs:
-	swift-doc generate --module-name KeyboardManager -o docs --format html . --base-url 'https://alphatroya.github.io/Keyboaranager'
+	xcodebuild docbuild -scheme KeyboardManager -destination 'platform=iOS Simulator,name=iPhone 17' -derivedDataPath .build
+	$(XCRUN) docc process-archive transform-for-static-hosting .build/Build/Products/Debug-iphonesimulator/KeyboardManager.doccarchive --output-path docs --hosting-base-path KeyboardManager

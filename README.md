@@ -1,7 +1,7 @@
 # Keyboard Manager
 [![Swift 5.0+](https://img.shields.io/badge/Swift-5.0+-red.svg)]()
 ![Run tests](https://github.com/alphatroya/KeyboardManager/workflows/Run%20tests/badge.svg)
-[![Documentation](https://img.shields.io/badge/Docs-available-yellow)](https://alphatroya.github.io/KeyboardManager)
+[![Documentation](https://img.shields.io/badge/Documentation-DocC-blue)](https://alphatroya.github.io/KeyboardManager/documentation/keyboardmanager)
 
 Simple wrap up for UIKeyboardNotification events
 
@@ -21,6 +21,15 @@ self.observationToken = KeyboardObserver.addObserver { event in
         // process KeyboardManager.Data struct
     }
 }
+```
+
+## Documentation
+
+Complete API documentation is available as [DocC documentation](https://alphatroya.github.io/KeyboardManager/documentation/keyboardmanager), including detailed usage examples and API reference.
+
+To build documentation locally:
+```bash
+make docs
 ```
 
 ## Installation
