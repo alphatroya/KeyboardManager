@@ -15,5 +15,5 @@ let package = Package(
             name: "KeyboardManagerTests",
             dependencies: ["KeyboardManager"],
         ),
-    ],
+    ]
 )

@@ -23,11 +23,11 @@
 
 import Foundation
 
-/// Singletone storage for last keyboard transition metadata object
+/// Singleton storage for last keyboard transition metadata object
 public final class LastKeyboardEventStorage {
     // MARK: Static Properties
 
-    /// Init this instance as early as possible for start keyboard event observer
+    /// Initialize this instance as early as possible to start the keyboard event observer
     public static let shared = LastKeyboardEventStorage()
 
     // MARK: Properties
