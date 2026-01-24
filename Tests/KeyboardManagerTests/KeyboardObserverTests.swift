@@ -21,31 +21,15 @@
 // SOFTWARE.
 //
 
-import Foundation
 @testable import KeyboardManager
 import Testing
 
 // MARK: - KeyboardObserverTests
 
-@MainActor @Suite(.serialized)
-class KeyboardObserverTests {
-    // MARK: Properties
-
-    var notificationCenter: NotificationCenterMock!
-
-    // MARK: Lifecycle
-
-    init() {
-        notificationCenter = NotificationCenterMock()
-    }
-
-    deinit {
-        notificationCenter = nil
-    }
-
-    // MARK: Functions
-
+@MainActor
+struct KeyboardObserverTests {
     @Test func keyboardObserverSubscription() {
+        let notificationCenter = NotificationCenterMock()
         _ = KeyboardObserver.addObserver(notificationCenter) { _ in }
         #expect(notificationCenter.isWillShow)
         #expect(notificationCenter.isDidShow)
@@ -56,15 +40,11 @@ class KeyboardObserverTests {
     }
 
     @Test func keyboardObserverUnsubscriptionOnDeallocation() {
+        let notificationCenter = NotificationCenterMock()
         var token: KeyboardObserverToken? = KeyboardObserver.addObserver(notificationCenter) { _ in }
-        token?.doNothing()
+        _ = token // Avoid unused variable warning
         #expect(!notificationCenter.isUnsubscribed)
         token = nil
         #expect(notificationCenter.isUnsubscribed)
     }
-}
-
-extension KeyboardObserverToken {
-    /// this method does nothing to remove warning in L52
-    func doNothing() {}
 }

@@ -22,298 +22,310 @@
 //
 
 @testable import KeyboardManager
+import Testing
 import UIKit
-import XCTest
 
-class KeyboardManagerTests: XCTestCase {
+@MainActor @Suite("KeyboardManager Tests")
+struct KeyboardManagerTests {
     // MARK: Properties
 
-    let beginFrame = CGRect(x: 2, y: 6, width: 111, height: 222)
-    let endFrame = CGRect(x: 1, y: 3, width: 111, height: 222)
-    let animationDuration: Double = 4.0
-    let curve = 7
-    let isLocal = true
+    let notificationCenter: NotificationCenter
 
-    var notificationCenter: NotificationCenter!
-    var keyboardManager: KeyboardManager!
-    var observerToken: KeyboardObserverToken?
+    // MARK: Lifecycle
 
-    // MARK: Overridden Functions
-
-    override func setUp() {
-        super.setUp()
+    init() {
         notificationCenter = NotificationCenter()
-        keyboardManager = KeyboardManager(notificationCenter: notificationCenter)
-    }
-
-    override func tearDown() {
-        super.tearDown()
-        keyboardManager = nil
-        notificationCenter = nil
-        observerToken = nil
     }
 
     // MARK: Functions
 
-    func testCallClosureAfterWillAppearNotification() {
+    @Test("Keyboard notification events", arguments: NotificationTestCase.allCases)
+    func keyboardNotificationEvents(testCase: NotificationTestCase) {
         var isTriggered = false
-        observerToken = KeyboardObserver.addObserver(notificationCenter) { event in
-            if case let .willShow(data) = event,
-               self.compareWithTestData(another: data)
-            {
+        let observerToken = KeyboardObserver.addObserver(notificationCenter) { event in
+            if testCase.matchesEvent(event), compareWithTestData(another: event.data) {
                 isTriggered = true
             }
         }
-        postTestNotification(name: UIResponder.keyboardWillShowNotification)
-        XCTAssertTrue(isTriggered)
+        _ = observerToken // Avoid unused variable warning
+        postTestNotification(name: testCase.notificationName)
+        #expect(isTriggered, "Failed to trigger \(testCase.description)")
     }
 
-    func testCallClosureAfterDidAppearNotification() {
+    @Test("Call closure after didShow notification")
+    func callClosureAfterDidAppearNotification() {
         var isTriggered = false
-        observerToken = KeyboardObserver.addObserver(notificationCenter) { event in
+        let observerToken = KeyboardObserver.addObserver(notificationCenter) { event in
             if case let .didShow(data) = event,
-               self.compareWithTestData(another: data)
+               compareWithTestData(another: data)
             {
                 isTriggered = true
             }
         }
+        _ = observerToken // Avoid unused variable warning
         postTestNotification(name: UIResponder.keyboardDidShowNotification)
-        XCTAssertTrue(isTriggered)
+        #expect(isTriggered)
     }
 
-    func testCallClosureAfterWillHideNotification() {
+    @Test("Call closure after willHide notification")
+    func callClosureAfterWillHideNotification() {
         var isTriggered = false
-        observerToken = KeyboardObserver.addObserver(notificationCenter) { event in
+        let observerToken = KeyboardObserver.addObserver(notificationCenter) { event in
             if case let .willHide(data) = event,
-               self.compareWithTestData(another: data)
+               compareWithTestData(another: data)
             {
                 isTriggered = true
             }
         }
+        _ = observerToken // Avoid unused variable warning
         postTestNotification(name: UIResponder.keyboardWillHideNotification)
-        XCTAssertTrue(isTriggered)
+        #expect(isTriggered)
     }
 
-    func testCallClosureAfterDidHideNotification() {
+    @Test("Call closure after didHide notification")
+    func callClosureAfterDidHideNotification() {
         var isTriggered = false
-        observerToken = KeyboardObserver.addObserver(notificationCenter) { event in
+        let observerToken = KeyboardObserver.addObserver(notificationCenter) { event in
             if case let .didHide(data) = event,
-               self.compareWithTestData(another: data)
+               compareWithTestData(another: data)
             {
                 isTriggered = true
             }
         }
+        _ = observerToken // Avoid unused variable warning
         postTestNotification(name: UIResponder.keyboardDidHideNotification)
-        XCTAssertTrue(isTriggered)
+        #expect(isTriggered)
     }
 
-    func testCallClosureAfterWillChangeFrameNotification() {
+    @Test("Call closure after willChangeFrame notification")
+    func callClosureAfterWillChangeFrameNotification() {
         var isTriggered = false
-        observerToken = KeyboardObserver.addObserver(notificationCenter) { event in
+        let observerToken = KeyboardObserver.addObserver(notificationCenter) { event in
             if case let .willFrameChange(data) = event,
-               self.compareWithTestData(another: data)
+               compareWithTestData(another: data)
             {
                 isTriggered = true
             }
         }
+        _ = observerToken // Avoid unused variable warning
         postTestNotification(name: UIResponder.keyboardWillChangeFrameNotification)
-        XCTAssertTrue(isTriggered)
+        #expect(isTriggered)
     }
 
-    func testCallClosureAfterDidChangeFrameNotification() {
+    @Test("Call closure after didChangeFrame notification")
+    func callClosureAfterDidChangeFrameNotification() {
         var isTriggered = false
-        observerToken = KeyboardObserver.addObserver(notificationCenter) { event in
+        let observerToken = KeyboardObserver.addObserver(notificationCenter) { event in
             if case let .didFrameChange(data) = event,
-               self.compareWithTestData(another: data)
+               compareWithTestData(another: data)
             {
                 isTriggered = true
             }
         }
+        _ = observerToken // Avoid unused variable warning
         postTestNotification(name: UIResponder.keyboardDidChangeFrameNotification)
-        XCTAssertTrue(isTriggered)
+        #expect(isTriggered)
     }
 
-    func testNullObjectAfterWrongFormatNotification() {
-        let expectation = expectation(description: "wrong notification expectation")
-        observerToken = KeyboardObserver.addObserver(notificationCenter) { event in
-            let data = event.data
-            let nullObject = KeyboardManagerEvent.Data.null()
-            XCTAssertTrue(self.compare(lhs: data, rhs: nullObject))
-            expectation.fulfill()
+    @Test("Null object after wrong format notification")
+    func nullObjectAfterWrongFormatNotification() async {
+        await confirmation("wrong notification expectation") { confirm in
+            let observerToken = KeyboardObserver.addObserver(notificationCenter) { event in
+                let data = event.data
+                let nullObject = KeyboardManagerEvent.Data.null()
+                #expect(compare(lhs: data, rhs: nullObject))
+                confirm()
+            }
+            _ = observerToken // Avoid unused variable warning
+            postWrongTestNotification()
         }
-        postWrongTestNotification()
-        waitForExpectations(timeout: 5)
     }
 
-    func testNullObjectAfterNotificationWithoutUserDictionary() {
-        let expectation = expectation(description: "null object expectation")
-        observerToken = KeyboardObserver.addObserver(notificationCenter) { event in
-            let data = event.data
-            let nullObject = KeyboardManagerEvent.Data.null()
-            XCTAssertTrue(self.compare(lhs: data, rhs: nullObject))
-            expectation.fulfill()
+    @Test("Null object after notification without user dictionary")
+    func nullObjectAfterNotificationWithoutUserDictionary() async {
+        await confirmation("null object expectation") { confirm in
+            let observerToken = KeyboardObserver.addObserver(notificationCenter) { event in
+                let data = event.data
+                let nullObject = KeyboardManagerEvent.Data.null()
+                #expect(compare(lhs: data, rhs: nullObject))
+                confirm()
+            }
+            _ = observerToken // Avoid unused variable warning
+            notificationCenter.post(name: UIResponder.keyboardDidShowNotification, object: nil)
         }
-        notificationCenter.post(name: UIResponder.keyboardDidShowNotification, object: nil)
-        waitForExpectations(timeout: 5)
     }
 
-    func testViewShouldChangeBottomInsetAfterKeyboardsWillAppear() {
+    @Test("View should change bottom inset after keyboard will appear")
+    func viewShouldChangeBottomInsetAfterKeyboardsWillAppear() {
         // GIVEN
-        let view = UIView()
-        let parentView = UIView()
-        parentView.addSubview(view)
-        let bottomConstrain = parentView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        let bottomOffset: CGFloat = 20.0
+        let (view, _, bottomConstraint) = createTestView()
+        let bottomOffset = TestConfiguration.defaultBottomOffset
         // WHEN
-        observerToken = KeyboardObserver.addObserver(
+        let observerToken = KeyboardObserver.addObserver(
             notificationCenter,
             superview: view,
-            bottomConstraint: bottomConstrain,
+            bottomConstraint: bottomConstraint,
             bottomOffset: bottomOffset,
         )
+        _ = observerToken // Avoid unused variable warning
         postTestNotification(name: UIResponder.keyboardWillShowNotification)
         // THEN
-        XCTAssertEqual(bottomConstrain.constant, -endFrame.height)
+        #expect(bottomConstraint.constant == -TestConfiguration.endFrame.height)
     }
 
-    func testViewShouldChangeBottomInsetAfterKeyboardWillChangeFrame() {
+    @Test("View should change bottom inset after keyboard will change frame")
+    func viewShouldChangeBottomInsetAfterKeyboardWillChangeFrame() {
         // GIVEN
         let view = UIView()
         let parentView = UIView()
         parentView.addSubview(view)
-        let bottomConstrain = parentView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        let bottomConstraint = parentView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         let bottomOffset: CGFloat = 20.0
         // WHEN
-        observerToken = KeyboardObserver.addObserver(
+        let observerToken = KeyboardObserver.addObserver(
             notificationCenter,
             superview: view,
-            bottomConstraint: bottomConstrain,
+            bottomConstraint: bottomConstraint,
             bottomOffset: bottomOffset,
         )
+        _ = observerToken // Avoid unused variable warning
         postTestNotification(name: UIResponder.keyboardWillChangeFrameNotification)
         // THEN
-        XCTAssertEqual(bottomConstrain.constant, -endFrame.height)
+        #expect(bottomConstraint.constant == -TestConfiguration.endFrame.height)
     }
 
-    func testViewShouldChangeBottomInsetOnceAfterMultipleKeyboardsWillAppear() {
+    @Test("View should change bottom inset once after multiple keyboards will appear")
+    func viewShouldChangeBottomInsetOnceAfterMultipleKeyboardsWillAppear() {
         // GIVEN
         let view = UIView()
         let parentView = UIView()
         parentView.addSubview(view)
-        let bottomConstrain = parentView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        let bottomConstraint = parentView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         let bottomOffset: CGFloat = 20.0
         // WHEN
-        observerToken = KeyboardObserver.addObserver(
+        let observerToken = KeyboardObserver.addObserver(
             notificationCenter,
             superview: view,
-            bottomConstraint: bottomConstrain,
+            bottomConstraint: bottomConstraint,
             bottomOffset: bottomOffset,
         )
+        _ = observerToken // Avoid unused variable warning
         postTestNotification(name: UIResponder.keyboardWillShowNotification)
         postTestNotification(name: UIResponder.keyboardWillShowNotification)
         postTestNotification(name: UIResponder.keyboardWillShowNotification)
         // THEN
-        XCTAssertEqual(bottomConstrain.constant, -endFrame.height)
+        #expect(bottomConstraint.constant == -TestConfiguration.endFrame.height)
     }
 
-    func testViewShouldChangeBottomInsetAfterKeyboardsWillDisappear() {
+    @Test("View should change bottom inset after keyboards will disappear")
+    func viewShouldChangeBottomInsetAfterKeyboardsWillDisappear() {
         // GIVEN
         let view = UIView()
         let parentView = UIView()
         parentView.addSubview(view)
-        let bottomConstrain = parentView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        let bottomConstraint = parentView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         let bottomOffset: CGFloat = 20.0
         // WHEN
-        observerToken = KeyboardObserver.addObserver(
+        let observerToken = KeyboardObserver.addObserver(
             notificationCenter,
             superview: view,
-            bottomConstraint: bottomConstrain,
+            bottomConstraint: bottomConstraint,
             bottomOffset: bottomOffset,
         )
+        _ = observerToken // Avoid unused variable warning
         postTestNotification(name: UIResponder.keyboardWillHideNotification)
         // THEN
-        XCTAssertEqual(bottomConstrain.constant, -bottomOffset)
+        #expect(bottomConstraint.constant == -bottomOffset)
     }
 
-    func testViewShouldChangeBottomInsetOnceAfterMultipleKeyboardsWillDisappear() {
+    @Test("View should change bottom inset once after multiple keyboards will disappear")
+    func viewShouldChangeBottomInsetOnceAfterMultipleKeyboardsWillDisappear() {
         // GIVEN
         let view = UIView()
         let parentView = UIView()
         parentView.addSubview(view)
-        let bottomConstrain = parentView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        let bottomConstraint = parentView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         let bottomOffset: CGFloat = 20.0
         // WHEN
-        observerToken = KeyboardObserver.addObserver(
+        let observerToken = KeyboardObserver.addObserver(
             notificationCenter,
             superview: view,
-            bottomConstraint: bottomConstrain,
+            bottomConstraint: bottomConstraint,
             bottomOffset: bottomOffset,
         )
+        _ = observerToken // Avoid unused variable warning
         postTestNotification(name: UIResponder.keyboardWillHideNotification)
         postTestNotification(name: UIResponder.keyboardWillHideNotification)
         postTestNotification(name: UIResponder.keyboardWillHideNotification)
         // THEN
-        XCTAssertEqual(bottomConstrain.constant, -bottomOffset)
+        #expect(bottomConstraint.constant == -bottomOffset)
     }
 
-    func testViewShouldNotChangeBottomInsetAfterKeyboardsDidAppear() {
+    @Test("View should not change bottom inset after keyboards did appear")
+    func viewShouldNotChangeBottomInsetAfterKeyboardsDidAppear() {
         // GIVEN
         let view = UIView()
         let parentView = UIView()
         parentView.addSubview(view)
-        let bottomConstrain = parentView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        let bottomConstraint = parentView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         let bottomOffset: CGFloat = 20.0
         // WHEN
-        observerToken = KeyboardObserver.addObserver(
+        let observerToken = KeyboardObserver.addObserver(
             notificationCenter,
             superview: view,
-            bottomConstraint: bottomConstrain,
+            bottomConstraint: bottomConstraint,
             bottomOffset: bottomOffset,
         )
+        _ = observerToken // Avoid unused variable warning
         postTestNotification(name: UIResponder.keyboardDidShowNotification)
         // THEN
-        XCTAssertEqual(bottomConstrain.constant, 0)
+        #expect(bottomConstraint.constant == 0)
     }
 
-    func testViewShouldNotChangeBottomInsetAfterKeyboardsDidDisappear() {
+    @Test("View should not change bottom inset after keyboards did disappear")
+    func viewShouldNotChangeBottomInsetAfterKeyboardsDidDisappear() {
         // GIVEN
         let view = UIView()
         let parentView = UIView()
         parentView.addSubview(view)
-        let bottomConstrain = parentView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        let bottomConstraint = parentView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         let bottomOffset: CGFloat = 20.0
         // WHEN
-        observerToken = KeyboardObserver.addObserver(
+        let observerToken = KeyboardObserver.addObserver(
             notificationCenter,
             superview: view,
-            bottomConstraint: bottomConstrain,
+            bottomConstraint: bottomConstraint,
             bottomOffset: bottomOffset,
         )
+        _ = observerToken // Avoid unused variable warning
         postTestNotification(name: UIResponder.keyboardDidHideNotification)
         // THEN
-        XCTAssertEqual(bottomConstrain.constant, 0)
+        #expect(bottomConstraint.constant == 0)
     }
 
-    func testViewShouldNotChangeBottomInsetAfterKeyboardsDidChangeFrame() {
+    @Test("View should not change bottom inset after keyboards did change frame")
+    func viewShouldNotChangeBottomInsetAfterKeyboardsDidChangeFrame() {
         // GIVEN
         let view = UIView()
         let parentView = UIView()
         parentView.addSubview(view)
-        let bottomConstrain = parentView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        let bottomConstraint = parentView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         let bottomOffset: CGFloat = 20.0
         // WHEN
-        observerToken = KeyboardObserver.addObserver(
+        let observerToken = KeyboardObserver.addObserver(
             notificationCenter,
             superview: view,
-            bottomConstraint: bottomConstrain,
+            bottomConstraint: bottomConstraint,
             bottomOffset: bottomOffset,
         )
+        _ = observerToken // Avoid unused variable warning
         postTestNotification(name: UIResponder.keyboardDidChangeFrameNotification)
         // THEN
-        XCTAssertEqual(bottomConstrain.constant, 0)
+        #expect(bottomConstraint.constant == 0)
     }
 
-    func testViewShouldNotCancelScrollViewBindingWhileViewBindingActivated() {
+    @Test("View should not cancel scroll view binding while view binding activated")
+    func viewShouldNotCancelScrollViewBindingWhileViewBindingActivated() {
         // GIVEN
         let scrollView = UIScrollView()
         let initialInsets = UIEdgeInsets(top: 10, left: 11, bottom: 12, right: 13)
@@ -322,28 +334,35 @@ class KeyboardManagerTests: XCTestCase {
         let view = UIView()
         let parentView = UIView()
         parentView.addSubview(view)
-        let bottomConstrain = parentView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        let bottomConstraint = parentView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         let bottomOffset: CGFloat = 20.0
 
         // WHEN
         let anotherToken = KeyboardObserver.addObserver(notificationCenter, scrollView: scrollView)
-        anotherToken.doNothing()
-        observerToken = KeyboardObserver.addObserver(
+        _ = anotherToken // Avoid unused variable warning
+        let observerToken = KeyboardObserver.addObserver(
             notificationCenter,
             superview: view,
-            bottomConstraint: bottomConstrain,
+            bottomConstraint: bottomConstraint,
             bottomOffset: bottomOffset,
         )
+        _ = observerToken // Avoid unused variable warning
         postTestNotification(name: UIResponder.keyboardWillShowNotification)
         // THEN
-        XCTAssertEqual(scrollView.contentInset.bottom, initialInsets.bottom + endFrame.height)
-        XCTAssertEqual(bottomConstrain.constant, -endFrame.height)
+        #expect(scrollView.contentInset.bottom == initialInsets.bottom + TestConfiguration.endFrame.height)
+        #expect(bottomConstraint.constant == -TestConfiguration.endFrame.height)
     }
 
-    func testDataPropertyInEventModel() {
+    @Test("Data property in event model")
+    func dataPropertyInEventModel() {
         // GIVEN
-        let frame = KeyboardManagerEvent.Frame(begin: beginFrame, end: endFrame)
-        let data = KeyboardManagerEvent.Data(frame: frame, animationCurve: curve, animationDuration: animationDuration, isLocal: isLocal)
+        let frame = KeyboardManagerEvent.Frame(begin: TestConfiguration.beginFrame, end: TestConfiguration.endFrame)
+        let data = KeyboardManagerEvent.Data(
+            frame: frame,
+            animationCurve: TestConfiguration.curve,
+            animationDuration: TestConfiguration.animationDuration,
+            isLocal: TestConfiguration.isLocal,
+        )
         // WHEN
         let didHideEvent = KeyboardManagerEvent.didHide(data)
         let willHideEvent = KeyboardManagerEvent.willHide(data)
@@ -355,9 +374,9 @@ class KeyboardManagerTests: XCTestCase {
         let willShowSuccess = compareWithTestData(another: willShowEvent.data)
         let didShowSuccess = compareWithTestData(another: didShowEvent.data)
         // THEN
-        XCTAssertTrue(didHideSuccess)
-        XCTAssertTrue(willHideSuccess)
-        XCTAssertTrue(willShowSuccess)
-        XCTAssertTrue(didShowSuccess)
+        #expect(didHideSuccess)
+        #expect(willHideSuccess)
+        #expect(willShowSuccess)
+        #expect(didShowSuccess)
     }
 }

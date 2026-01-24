@@ -21,15 +21,13 @@
 // SOFTWARE.
 //
 
-import Foundation
+@testable import KeyboardManager
 import Testing
 import UIKit
 
-@testable import KeyboardManager
-
 // MARK: - KeyboardManagerNotificationCenterTest
 
-@MainActor @Suite(.serialized)
+@MainActor
 class KeyboardManagerNotificationCenterTest {
     // MARK: Properties
 
@@ -78,47 +76,5 @@ class KeyboardManagerNotificationCenterTest {
     @Test func unsubscribe() {
         keyboardManager = nil
         #expect(notificationCenter.isUnsubscribed)
-    }
-}
-
-// MARK: - NotificationCenterMock
-
-// swiftlint:disable force_unwrapping
-class NotificationCenterMock: NotificationCenter {
-    // MARK: Properties
-
-    var isWillShow: Bool = false
-    var isDidShow: Bool = false
-    var isWillHide: Bool = false
-    var isDidHide: Bool = false
-    var isWillChangeFrame: Bool = false
-    var isDidChangeFrame: Bool = false
-    var isUnsubscribed: Bool = false
-
-    // MARK: Overridden Functions
-
-    override func addObserver(
-        _: Any,
-        selector _: Selector,
-        name aName: NSNotification.Name?,
-        object _: Any?,
-    ) {
-        if case UIResponder.keyboardWillShowNotification = aName! {
-            isWillShow = true
-        } else if case UIResponder.keyboardDidShowNotification = aName! {
-            isDidShow = true
-        } else if case UIResponder.keyboardWillHideNotification = aName! {
-            isWillHide = true
-        } else if case UIResponder.keyboardDidHideNotification = aName! {
-            isDidHide = true
-        } else if case UIResponder.keyboardWillChangeFrameNotification = aName! {
-            isWillChangeFrame = true
-        } else if case UIResponder.keyboardDidChangeFrameNotification = aName! {
-            isDidChangeFrame = true
-        }
-    }
-
-    override func removeObserver(_: Any, name _: NSNotification.Name?, object _: Any?) {
-        isUnsubscribed = true
     }
 }

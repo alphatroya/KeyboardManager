@@ -21,15 +21,14 @@
 // SOFTWARE.
 //
 
-import Foundation
 @testable import KeyboardManager
 import Testing
 
-@MainActor @Suite(.serialized)
-class LastKeyboardEventStorageTests {
+@MainActor
+struct LastKeyboardEventStorageTests {
     // MARK: Properties
 
-    var notificationCenter: NotificationCenterMock!
+    var notificationCenter: NotificationCenterMock
     var storage: LastKeyboardEventStorage!
 
     // MARK: Lifecycle
@@ -37,11 +36,6 @@ class LastKeyboardEventStorageTests {
     init() {
         notificationCenter = NotificationCenterMock()
         storage = LastKeyboardEventStorage(notificationCenter: notificationCenter)
-    }
-
-    deinit {
-        storage = nil
-        notificationCenter = nil
     }
 
     // MARK: Functions
@@ -55,7 +49,7 @@ class LastKeyboardEventStorageTests {
         #expect(notificationCenter.isDidChangeFrame)
     }
 
-    @Test func lastEventStorageShouldUnsubscribeOnDealloc() {
+    @Test mutating func lastEventStorageShouldUnsubscribeOnDealloc() {
         #expect(!notificationCenter.isUnsubscribed)
         storage = nil
         #expect(notificationCenter.isUnsubscribed)
