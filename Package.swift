@@ -1,9 +1,9 @@
-// swift-tools-version:5.1
+// swift-tools-version:5.9
 import PackageDescription
 
 let package = Package(
     name: "KeyboardManager",
-    platforms: [.iOS(.v9)],
+    platforms: [.iOS(.v13)],
     products: [
         .library(name: "KeyboardManager", targets: ["KeyboardManager"]),
     ],

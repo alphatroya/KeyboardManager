@@ -22,35 +22,51 @@
 //
 
 @testable import KeyboardManager
+import Testing
 import UIKit
-import XCTest
 
-extension KeyboardManagerTests {
-    func testScrollViewInsetAdjustingAfterKeyboardAppear() {
+@MainActor @Suite("KeyboardManager ScrollView Tests")
+struct KeyboardManagerScrollViewTests {
+    // MARK: Properties
+
+    let notificationCenter: NotificationCenter
+    let keyboardManager: KeyboardManager
+
+    // MARK: Lifecycle
+
+    init() {
+        notificationCenter = NotificationCenter()
+        keyboardManager = KeyboardManager(notificationCenter: notificationCenter)
+    }
+
+    // MARK: Functions
+
+    @Test("ScrollView inset adjusting after keyboard appear")
+    func scrollViewInsetAdjustingAfterKeyboardAppear() {
         // GIVEN
-        let scrollView = UIScrollView()
-        let initialInsets = UIEdgeInsets(top: 10, left: 11, bottom: 12, right: 13)
-        scrollView.contentInset = initialInsets
+        let scrollView = createTestScrollView()
+        let initialInsets = TestConfiguration.defaultScrollViewInsets
         // WHEN
         keyboardManager.bindToKeyboardNotifications(scrollView: scrollView)
         postTestNotification(name: UIResponder.keyboardWillShowNotification)
         // THEN
-        XCTAssertEqual(scrollView.contentInset.bottom, initialInsets.bottom + endFrame.height)
+        #expect(scrollView.contentInset.bottom == initialInsets.bottom + TestConfiguration.endFrame.height)
     }
 
-    func testScrollViewInsetAdjustingAfterKeyboardWillChangeFrame() {
+    @Test("ScrollView inset adjusting after keyboard will change frame")
+    func scrollViewInsetAdjustingAfterKeyboardWillChangeFrame() {
         // GIVEN
-        let scrollView = UIScrollView()
-        let initialInsets = UIEdgeInsets(top: 10, left: 11, bottom: 12, right: 13)
-        scrollView.contentInset = initialInsets
+        let scrollView = createTestScrollView()
+        let initialInsets = TestConfiguration.defaultScrollViewInsets
         // WHEN
         keyboardManager.bindToKeyboardNotifications(scrollView: scrollView)
         postTestNotification(name: UIResponder.keyboardWillChangeFrameNotification)
         // THEN
-        XCTAssertEqual(scrollView.contentInset.bottom, initialInsets.bottom + endFrame.height)
+        #expect(scrollView.contentInset.bottom == initialInsets.bottom + TestConfiguration.endFrame.height)
     }
 
-    func testScrollViewInsetAdjustingAfterMultipleKeyboardAppearNotifications() {
+    @Test("ScrollView inset adjusting after multiple keyboard appear notifications")
+    func scrollViewInsetAdjustingAfterMultipleKeyboardAppearNotifications() {
         // GIVEN
         let scrollView = UIScrollView()
         let initialInsets = UIEdgeInsets(top: 10, left: 11, bottom: 12, right: 13)
@@ -60,10 +76,11 @@ extension KeyboardManagerTests {
         postTestNotification(name: UIResponder.keyboardWillShowNotification)
         postTestNotification(name: UIResponder.keyboardWillShowNotification)
         // THEN
-        XCTAssertEqual(scrollView.contentInset.bottom, initialInsets.bottom + endFrame.height)
+        #expect(scrollView.contentInset.bottom == initialInsets.bottom + TestConfiguration.endFrame.height)
     }
 
-    func testScrollViewInsetAdjustingAfterKeyboardWillAppearAndChangeFrameNotifications() {
+    @Test("ScrollView inset adjusting after keyboard will appear and change frame notifications")
+    func scrollViewInsetAdjustingAfterKeyboardWillAppearAndChangeFrameNotifications() {
         // GIVEN
         let scrollView = UIScrollView()
         let initialInsets = UIEdgeInsets(top: 10, left: 11, bottom: 12, right: 13)
@@ -73,10 +90,11 @@ extension KeyboardManagerTests {
         postTestNotification(name: UIResponder.keyboardWillShowNotification)
         postTestNotification(name: UIResponder.keyboardWillChangeFrameNotification)
         // THEN
-        XCTAssertEqual(scrollView.contentInset.bottom, initialInsets.bottom + endFrame.height)
+        #expect(scrollView.contentInset.bottom == initialInsets.bottom + TestConfiguration.endFrame.height)
     }
 
-    func testResetBottomInsetAfterKeyboardDisappear() {
+    @Test("Reset bottom inset after keyboard disappear")
+    func resetBottomInsetAfterKeyboardDisappear() {
         // GIVEN
         let scrollView = UIScrollView()
         let initialInsets = UIEdgeInsets(top: 10, left: 11, bottom: 12, right: 13)
@@ -86,10 +104,11 @@ extension KeyboardManagerTests {
         postTestNotification(name: UIResponder.keyboardWillShowNotification)
         postTestNotification(name: UIResponder.keyboardWillHideNotification)
         // THEN
-        XCTAssertEqual(scrollView.contentInset, initialInsets)
+        #expect(scrollView.contentInset == initialInsets)
     }
 
-    func testResetBottomInsetAfterMultipleKeyboardDisappearNotifications() {
+    @Test("Reset bottom inset after multiple keyboard disappear notifications")
+    func resetBottomInsetAfterMultipleKeyboardDisappearNotifications() {
         // GIVEN
         let scrollView = UIScrollView()
         let initialInsets = UIEdgeInsets(top: 10, left: 11, bottom: 12, right: 13)
@@ -100,10 +119,11 @@ extension KeyboardManagerTests {
         postTestNotification(name: UIResponder.keyboardWillHideNotification)
         postTestNotification(name: UIResponder.keyboardWillHideNotification)
         // THEN
-        XCTAssertEqual(scrollView.contentInset, initialInsets)
+        #expect(scrollView.contentInset == initialInsets)
     }
 
-    func testScrollViewShouldNotChangeInsetsOnDidShowNotification() {
+    @Test("ScrollView should not change insets on didShow notification")
+    func scrollViewShouldNotChangeInsetsOnDidShowNotification() {
         // GIVEN
         let scrollView = UIScrollView()
         let initialInsets = UIEdgeInsets(top: 10, left: 11, bottom: 12, right: 13)
@@ -112,10 +132,11 @@ extension KeyboardManagerTests {
         keyboardManager.bindToKeyboardNotifications(scrollView: scrollView)
         postTestNotification(name: UIResponder.keyboardDidShowNotification)
         // THEN
-        XCTAssertEqual(scrollView.contentInset, initialInsets)
+        #expect(scrollView.contentInset == initialInsets)
     }
 
-    func testScrollViewShouldNotChangeInsetsOnDidChangeFrameNotification() {
+    @Test("ScrollView should not change insets on didChangeFrame notification")
+    func scrollViewShouldNotChangeInsetsOnDidChangeFrameNotification() {
         // GIVEN
         let scrollView = UIScrollView()
         let initialInsets = UIEdgeInsets(top: 10, left: 11, bottom: 12, right: 13)
@@ -124,10 +145,11 @@ extension KeyboardManagerTests {
         keyboardManager.bindToKeyboardNotifications(scrollView: scrollView)
         postTestNotification(name: UIResponder.keyboardDidChangeFrameNotification)
         // THEN
-        XCTAssertEqual(scrollView.contentInset, initialInsets)
+        #expect(scrollView.contentInset == initialInsets)
     }
 
-    func testScrollViewShouldNotChangeInsetsOnDidHideNotification() {
+    @Test("ScrollView should not change insets on didHide notification")
+    func scrollViewShouldNotChangeInsetsOnDidHideNotification() {
         // GIVEN
         let scrollView = UIScrollView()
         let initialInsets = UIEdgeInsets(top: 10, left: 11, bottom: 12, right: 13)
@@ -136,6 +158,6 @@ extension KeyboardManagerTests {
         keyboardManager.bindToKeyboardNotifications(scrollView: scrollView)
         postTestNotification(name: UIResponder.keyboardWillHideNotification)
         // THEN
-        XCTAssertEqual(scrollView.contentInset, initialInsets)
+        #expect(scrollView.contentInset == initialInsets)
     }
 }
